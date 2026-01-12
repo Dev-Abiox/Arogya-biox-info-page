@@ -7,6 +7,10 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
+  if (!process.env.RESEND_API_KEY) {
+    console.error('Missing RESEND_API_KEY');
+    return response.status(500).json({ error: 'Missing RESEND_API_KEY in Vercel Settings' });
+  }
   if (request.method !== 'POST') {
     return response.status(405).json({ error: 'Method not allowed' });
   }

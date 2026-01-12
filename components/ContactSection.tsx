@@ -23,8 +23,10 @@ const ContactSection: React.FC = () => {
         setStatus('success');
         alert('Thank you for contacting Arogya BioX. Our partnership team will respond within 24 hours.');
         setFormData({ name: '', email: '', message: '' });
-      } else {
-        throw new Error(data.error || 'Failed to send message');
+      }
+
+      if (!response.ok) {
+        throw new Error(typeof data.error === 'string' ? data.error : JSON.stringify(data.error) || 'Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
