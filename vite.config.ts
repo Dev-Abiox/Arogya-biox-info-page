@@ -8,6 +8,13 @@ export default defineConfig(({ mode }) => ({
   },
   server: {
     host: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   // Production optimization: remove console and debugger
   esbuild: {

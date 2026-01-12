@@ -2,12 +2,40 @@ import React, { useState } from 'react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for contacting Arogya BioX. Our partnership team will respond within 24 hours.');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus('loading');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        alert('Thank you for contacting Arogya BioX. Our partnership team will respond within 24 hours.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatus('error');
+      alert('Failed to send message. Please try again later or contact us directly via email.');
+    } finally {
+      // Reset status to idle after a delay if needed, or leave as is. 
+      // For now, we'll leave it to allow the user to see the result state logic if we were using UI feedback, 
+      // but since we are using alert, we clear loading.
+      if (status !== 'success') setStatus('idle');
+    }
   };
 
   const handleSocialClick = (e: React.MouseEvent) => {
@@ -83,9 +111,10 @@ const ContactSection: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 text-white rounded-xl md:rounded-2xl text-[10px] font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98]"
+              disabled={status === 'loading'}
+              className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-xl md:rounded-2xl text-[10px] font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98]"
             >
-              Send Message
+              {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
           </form>
 
