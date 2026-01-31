@@ -21,7 +21,13 @@ const Navbar: React.FC = () => {
       >
         {/* Logo Button - Balanced size for mobile visibility */}
         <button
-          onClick={() => scrollTo('hero')}
+          onClick={() => {
+            if (window.location.pathname.includes('demo.html')) {
+              window.location.href = '/';
+            } else {
+              scrollTo('hero');
+            }
+          }}
           className="w-9 h-9 sm:w-10 sm:h-10 md:w-[50px] md:h-[50px] rounded-full border border-white/10 flex items-center justify-center bg-white/5 cursor-pointer transition-colors duration-300 hover:border-white/40 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.5)] shrink-0 active:scale-90 group/logo"
           aria-label="Back to Home"
         >
@@ -57,9 +63,26 @@ const Navbar: React.FC = () => {
               key={link.id}
               onClick={(e) => {
                 e.stopPropagation();
+
+                // Handle Demo Page Navigation
+                if (link.id === 'demo') {
+                  window.location.href = '/demo.html';
+                  return;
+                }
+
+                // Handle Cross-Page Navigation (from Demo to Home)
+                if (window.location.pathname.includes('demo.html')) {
+                  window.location.href = `/#${link.id}`;
+                  return;
+                }
+
+                // Standard Smooth Scroll on Home
                 scrollTo(link.id);
               }}
-              className="hover:text-blue-300 transition-colors uppercase tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.25em] text-[7.5px] sm:text-[9.5px] md:text-[11px] font-bold text-white whitespace-nowrap shrink-0"
+              className={`
+                hover:text-blue-300 transition-colors uppercase tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.25em] text-[7.5px] sm:text-[9.5px] md:text-[11px] font-bold whitespace-nowrap shrink-0
+                ${(link as any).highlight ? 'text-blue-400' : 'text-white'}
+              `}
             >
               {link.label}
             </button>

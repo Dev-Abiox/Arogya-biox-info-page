@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from './Footer';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -49,7 +50,7 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <div className="relative z-20 min-h-screen py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
+    <div className="relative z-20 min-h-screen pt-20 pb-4 md:pt-32 md:pb-6 px-6 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 md:gap-20 items-start">
         <div className="space-y-12 md:space-y-16">
           <h2 className="text-[56px] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[1] md:leading-[0.9]">
@@ -137,29 +138,12 @@ const ContactSection: React.FC = () => {
             </button>
           </form>
 
-          <div className="mt-8 flex justify-between items-center opacity-60">
-            <div className="flex items-center gap-4">
-              <a
-                href="https://x.com/arogyabiox"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleSocialClick}
-                aria-label="Follow us on X"
-                className="hover:opacity-100 transition-opacity flex items-center justify-center w-4 h-4 text-white"
-              >
-                <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-              </a>
-            </div>
-            <span className="text-[9px] md:text-[10px] leading-none uppercase tracking-[0.2em] font-medium text-white/80">&copy; 2025 Arogya BioX</span>
-          </div>
+          {/* Social links moved to footer */}
+          <div className="mt-8"></div>
         </div>
       </div>
 
-      <div className="mt-16 md:mt-24 pt-8 md:pt-12 border-t border-white/10 text-center px-4 md:px-6">
-        <p className="text-[16px] md:text-[10px] text-white/40 uppercase tracking-[0.3em] md:tracking-[0.4em] leading-relaxed max-w-5xl mx-auto">
-          Clinomic Labs is a clinical decision support and screening tool intended to assist healthcare professionals. It does not replace laboratory diagnostic testing or professional medical judgment. All clinical decisions should be made by qualified healthcare providers.
-        </p>
-      </div>
+      <Footer />
     </div>
   );
 };
