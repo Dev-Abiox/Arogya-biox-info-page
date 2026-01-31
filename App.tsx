@@ -38,6 +38,21 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Handle hash scrolling on initial load
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1);
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'auto' });
+          // Clear the hash so that a refresh stays at the top/home
+          history.replaceState(null, '', window.location.pathname);
+        }, 100);
+      }
+    }
+  }, []);
+
   return (
     <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }}></div>
