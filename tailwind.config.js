@@ -14,7 +14,9 @@ export default {
         // but let's check if we need to extend anything specific from the provided css.
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'], // Keep as default/heading
+        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+        body: ['"Inter"', 'sans-serif'],
       },
     },
   },

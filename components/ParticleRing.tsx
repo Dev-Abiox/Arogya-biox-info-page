@@ -37,6 +37,8 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     z: 0
   });
 
+  const prevWidth = useRef<number>(0);
+
   const PALETTE = {
     BASE_BLUE: { r: 173, g: 216, b: 230 },
     RBC_RED: { r: 230, g: 30, b: 40 },
@@ -177,7 +179,9 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       });
     }
     particles.current = tempParticles;
-    spriteCanvasRef.current = createSprites();
+    if (!spriteCanvasRef.current) {
+      spriteCanvasRef.current = createSprites();
+    }
   }, [createSprites]);
 
   const draw = useCallback(() => {
@@ -191,7 +195,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
     const isDesktop = canvas.width >= 1024;
     const centerX = isDesktop ? canvas.width * 0.72 : canvas.width * 0.5;
-    const centerY = isDesktop ? canvas.height * 0.5 : canvas.height * 0.55;
+    const centerY = isDesktop ? canvas.height * 0.45 : canvas.height * 0.5;
 
     rotationRef.current.y += 0.0006;
     rotationRef.current.x += 0.0002;
@@ -277,7 +281,14 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     }
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    animationFrameId.current = requestAnimationFrame(draw);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    // Performance Optimization: Stop animation loop on mobile
+    if (canvas.width < 768) {
+      animationFrameId.current = undefined;
+    } else {
+      animationFrameId.current = requestAnimationFrame(draw);
+    }
   }, [PALETTE.DEEP, createSprites]);
 
   useEffect(() => {
@@ -285,10 +296,25 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       if (canvasRef.current) {
         const parent = canvasRef.current.parentElement;
         if (parent) {
-          canvasRef.current.width = parent.clientWidth;
+          const newWidth = parent.clientWidth;
+          // Ignore vertical-only resizes (e.g. mobile URL bar)
+          if (newWidth === prevWidth.current) return;
+
+          prevWidth.current = newWidth;
+          canvasRef.current.width = newWidth;
           canvasRef.current.height = parent.clientHeight;
+
+          // Reset particles
           particles.current = [];
           initParticles(canvasRef.current.width, canvasRef.current.height);
+
+          // Restart drawing capability
+          if (animationFrameId.current) {
+            cancelAnimationFrame(animationFrameId.current);
+            animationFrameId.current = undefined;
+          }
+          // Draw at least once (if mobile, it stops there; if desktop, it loops)
+          draw();
         }
       }
     };
@@ -299,6 +325,8 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
+
+    // Initial setup
     handleResize();
     draw();
 
