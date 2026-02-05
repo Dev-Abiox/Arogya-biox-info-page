@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,7 +45,7 @@
 
 :root {
   color-scheme: dark;
-  font-size: 80%;
+  /* font-size: 80%; REMOVED for standard scaling */
 }
 
 html {
@@ -62,8 +63,7 @@ body {
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-black text-white antialiased font-body;
   }
 }
 
@@ -133,6 +133,7 @@ body {
     opacity: 0;
     transform: translate3d(0, 40px, 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);

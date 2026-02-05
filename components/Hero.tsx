@@ -11,11 +11,11 @@ const Hero: React.FC<HeroProps> = ({ onToggleMode }) => {
   };
 
   return (
-    <div className="relative z-20 min-h-screen flex flex-col md:items-end lg:flex-row lg:items-center px-6 md:px-12 lg:px-24 pt-32 pb-20 lg:py-24">
-      <div className="w-full max-w-3xl md:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left md:text-right lg:text-left flex flex-col md:items-end lg:items-start h-full">
-        <div className="flex flex-col md:items-end lg:items-start group/hero-text">
+    <div className="relative z-20 min-h-screen flex flex-col lg:flex-row items-center px-6 md:px-12 lg:px-24 pt-4 md:pt-10 pb-12 md:pb-40 justify-start md:justify-center">
+      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left group/hero-text">
           <h1
-            className="text-[30px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-[1.1] md:leading-[1] lg:leading-[0.95] mb-8 md:mb-10 tracking-tight text-white cursor-default"
+            className="text-4xl md:text-7xl lg:text-8xl font-heading font-light leading-[1.1] md:leading-[1] mb-6 md:mb-10 tracking-tight text-white cursor-default"
           >
             <span className="inline-block transition-[color,filter] duration-700 group-hover/hero-text:text-blue-400 group-hover/hero-text:drop-shadow-[0_0_25px_rgba(96,165,250,0.4)] will-change-[filter] transform-gpu">
               Clinical Intelligence
@@ -25,31 +25,37 @@ const Hero: React.FC<HeroProps> = ({ onToggleMode }) => {
             </span>
           </h1>
 
-          <p className="text-white text-[16px] md:text-base lg:text-lg leading-relaxed mb-6 md:mb-8 max-w-xl font-light mx-auto md:mr-0 md:ml-auto lg:mx-0 opacity-80 transition-opacity duration-700 group-hover/hero-text:opacity-100">
-            Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data—enabling earlier risk identification without adding operational complexity.
+          <p className="text-white/80 hover:text-white transition-colors duration-500 font-body text-lg md:text-xl leading-relaxed mb-6 md:mb-10 max-w-2xl lg:max-w-none">
+            Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data enabling earlier risk identification without adding operational complexity.
+          </p>
+
+          {/* Mobile Spacer for Particle Ring */}
+          <div className="h-[300px] mb-10 md:hidden w-full"></div>
+
+          <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
+            <button
+              onClick={() => window.location.href = '/demo.html'}
+              className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-105 active:scale-95 text-center min-w-[200px] font-heading"
+            >
+              Request a Demo
+            </button>
+            <button
+              onClick={() => scrollTo('contact')}
+              className="px-8 py-4 border border-white/20 hover:bg-white/5 text-white/90 hover:text-white rounded-full text-sm font-bold tracking-widest uppercase transition-all text-center min-w-[200px] font-heading"
+            >
+              Contact Sales
+            </button>
+          </div>
+
+          <p className="mt-12 text-xs text-white/60 uppercase tracking-[0.3em] font-medium hidden md:block font-heading">
+            Built for laboratories. Designed for clinicians.
           </p>
         </div>
 
-        <div className="h-[50vh] md:h-[75vh] lg:hidden pointer-events-none" aria-hidden="true"></div>
-
-        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row items-stretch sm:items-center md:justify-end lg:justify-start gap-4 md:gap-6 w-full md:w-auto md:ml-auto md:mr-0 lg:ml-0 lg:mr-0">
-          <button
-            onClick={() => window.location.href = '/demo.html'}
-            className="px-8 py-5 md:px-10 md:py-5 bg-blue-400 hover:bg-blue-500 text-white rounded-full text-xs md:text-xs font-bold tracking-[0.2em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] hover:scale-105 active:scale-95 text-center min-w-[200px]"
-          >
-            Request a Demo
-          </button>
-          <button
-            onClick={() => scrollTo('contact')}
-            className="px-8 py-5 md:px-10 md:py-5 border border-white/20 hover:bg-white/5 text-white/90 hover:text-white rounded-full text-xs md:text-xs font-bold tracking-[0.2em] uppercase transition-all text-center min-w-[200px]"
-          >
-            Contact Sales
-          </button>
+        {/* Right side spacer if needed, or visual element can go here. For now keeping it balanced. */}
+        <div className="hidden lg:block w-full lg:w-1/2 h-[50vh]">
+          {/* Semantic spacer for the particle ring to be visible */}
         </div>
-
-        <p className="mt-12 text-[10px] text-white/80 uppercase tracking-[0.3em] font-medium hidden md:block">
-          Built for laboratories. Designed for clinicians.
-        </p>
       </div>
     </div>
   );

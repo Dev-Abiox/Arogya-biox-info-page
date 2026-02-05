@@ -50,58 +50,58 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <div className="relative z-20 min-h-screen pt-20 pb-4 md:pt-32 md:pb-6 px-6 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 md:gap-20 items-start">
-        <div className="space-y-12 md:space-y-16">
-          <h2 className="text-[56px] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[1] md:leading-[0.9]">
-            Get <br />
+    <div className="relative z-20 md:min-h-screen pt-12 md:pt-32 pb-8 px-4 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-6 md:gap-20 items-start">
+        <div className="space-y-4 md:space-y-16">
+          <h2 className="text-4xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[0.9] font-heading">
+            Get <br className="hidden md:block" />
             <span className="text-blue-300 font-medium">In Touch.</span>
           </h2>
 
-          <p className="text-white/75 text-[18px] md:text-xl font-light max-w-md leading-relaxed">
+          <p className="text-white/75 text-base md:text-xl font-light max-w-md leading-relaxed font-body">
             Let’s enable earlier detection—without changing how labs work.
           </p>
 
-          <div className="space-y-8 md:space-y-12">
+          <div className="space-y-4 md:space-y-12">
             <div className="group">
-              <span className="text-[12px] md:text-[10px] text-white/50 uppercase tracking-[0.3em] font-bold mb-3 md:mb-4 block">Product & Partnerships</span>
-              <a href="mailto:contact@arogyabiox.com" className="text-[22px] sm:text-2xl md:text-4xl font-light text-white group-hover:text-blue-300 transition-colors duration-300 break-all leading-tight">
+              <span className="text-[10px] md:text-xs text-white/50 uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 block font-heading">Product & Partnerships</span>
+              <a href="mailto:contact@arogyabiox.com" className="text-xl md:text-4xl font-light text-white group-hover:text-blue-300 transition-colors duration-300 break-all leading-tight font-heading">
                 contact@arogyabiox.com
               </a>
             </div>
           </div>
         </div>
 
-        <div className="glass-effect p-6 md:p-14 rounded-[32px] md:rounded-[40px] border border-white/20 w-full">
-          <span className="text-[10px] text-blue-400/80 uppercase tracking-[0.4em] font-bold mb-6 md:mb-8 block">Inquiry Form</span>
+        <div className="glass-effect p-6 md:p-12 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 w-full group">
+          <span className="text-xs text-blue-400/80 uppercase tracking-[0.4em] font-bold mb-4 md:mb-8 block font-heading">Inquiry Form</span>
 
-          <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
             <div className="space-y-2">
-              <label className="text-[9px] md:text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium ml-1">Full Name</label>
+              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
               <input
                 type="text"
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Name"
-                className="w-full bg-white/5 border border-white/20 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20"
+                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[9px] md:text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium ml-1">Email Address</label>
+              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="Email"
-                className="w-full bg-white/5 border border-white/20 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20"
+                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[9px] md:text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium ml-1">Contact Number</label>
+              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
               <input
                 type="tel"
                 required
@@ -113,26 +113,26 @@ const ContactSection: React.FC = () => {
                   setFormData({ ...formData, phone: value });
                 }}
                 placeholder="Phone Number (10 digits)"
-                className="w-full bg-white/5 border border-white/20 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20"
+                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[9px] md:text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium ml-1">Message</label>
+              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
               <textarea
                 required
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="How can we help?"
-                className="w-full bg-white/5 border border-white/20 rounded-xl md:rounded-2xl px-5 py-3 md:px-6 md:py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 resize-none"
+                className="w-full bg-white/5 border border-white/20 rounded-3xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 resize-none font-body"
               />
             </div>
 
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-xl md:rounded-2xl text-[10px] font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98]"
+              className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-full text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98] font-heading"
             >
               {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>

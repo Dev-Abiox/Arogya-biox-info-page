@@ -54,7 +54,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30">
+    <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }}></div>
 
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -64,87 +64,31 @@ const App: React.FC = () => {
 
       <Navbar />
 
-      <main className="relative">
-        <section id="hero" className="relative min-h-screen overflow-hidden flex items-center">
+      <main className="relative pb-0 md:pb-0">
+        <section id="hero" className="relative min-h-screen overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
           <ParticleRing mode={mode} />
           <Hero onToggleMode={toggleMode} />
         </section>
 
-        <section id="company" className="relative border-t border-white/10 reveal">
+        <section id="company" className="relative md:border-t md:border-white/10 reveal scroll-mt-20 md:scroll-mt-24">
           <CompanyBackground />
         </section>
 
-        <section id="solution" className="relative border-t border-white/10 reveal">
+        <section id="solution" className="relative md:border-t md:border-white/10 reveal scroll-mt-20 md:scroll-mt-24">
           <ProductSection />
         </section>
 
-        <section id="detailed-benefits" className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
-              <div className="glass-effect p-8 md:p-10 lg:p-14 rounded-[32px] md:rounded-[40px] border border-white/20 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group reveal-left">
-                <div>
-                  <span className="text-blue-300 text-[9px] md:text-[10px] font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Lab Intelligence</span>
-                  <h3 className="text-[30px] md:text-3xl lg:text-4xl font-light mb-6 md:mb-8 transition-colors group-hover:text-blue-100">How Clinomic Labs Helps <span className="font-medium text-white">Laboratories</span></h3>
-                  <p className="text-white text-[16px] md:text-base mb-8 md:mb-10 leading-relaxed font-light opacity-90 group-hover:opacity-100 transition-opacity">
-                    Turn Routine CBCs into a Value-Added Screening Service. Extract additional clinical insight from tests you already perform—without changing workflows, equipment, or sample collection.
-                  </p>
-                  <ul className="space-y-4 md:space-y-5 mb-8 md:mb-10">
-                    {[
-                      { t: "No additional cost per sample", d: "Works entirely on existing CBC data." },
-                      { t: "Software-only integration", d: "Seamlessly connects via HL7 or CSV." },
-                      { t: "Differentiated CBC reports", d: "Adds a clinically interpretable B12 risk flag." },
-                      { t: "Scales with lab volume", d: "Designed for high-throughput environments." }
-                    ].map((item, idx) => (
-                      <li key={idx} className="group/item">
-                        <div className="text-[16px] md:text-sm font-medium text-blue-200 mb-1 group-hover/item:text-blue-300 transition-colors">{item.t}</div>
-                        <div className="text-[16px] md:text-xs text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors">{item.d}</div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="pt-6 md:pt-8 border-t border-white/10">
-                  <p className="text-[9px] md:text-[10px] text-blue-400 font-bold uppercase tracking-widest italic">Move from test providers to preventive screening partners.</p>
-                </div>
-              </div>
 
-              <div className="glass-effect p-8 md:p-10 lg:p-14 rounded-[32px] md:rounded-[40px] border border-white/20 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group reveal-right">
-                <div>
-                  <span className="text-blue-300 text-[9px] md:text-[10px] font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Patient Care</span>
-                  <h3 className="text-[30px] md:text-3xl lg:text-4xl font-light mb-6 md:mb-8 transition-colors group-hover:text-blue-100">How Clinomic Labs Helps <span className="font-medium text-white">Patients</span></h3>
-                  <p className="text-white text-[16px] md:text-base mb-8 md:mb-10 leading-relaxed font-light opacity-90 group-hover:opacity-100 transition-opacity">
-                    Earlier Awareness Without Additional Tests. Many patients with Vitamin B12 deficiency remain undiagnosed until symptoms become severe.
-                  </p>
-                  <ul className="space-y-4 md:space-y-5 mb-8 md:mb-10">
-                    {[
-                      { t: "No extra blood draw", d: "Screening performed using existing CBC results." },
-                      { t: "Earlier identification", d: "Flag risk before irreversible complications develop." },
-                      { t: "Supports timely follow-up", d: "Encourages medical consultation when needed." },
-                      { t: "Clear, simple results", d: "Risk categories presented in non-alarming language." }
-                    ].map((item, idx) => (
-                      <li key={idx} className="group/item">
-                        <div className="text-[16px] md:text-sm font-medium text-blue-200 mb-1 group-hover/item:text-blue-300 transition-colors">{item.t}</div>
-                        <div className="text-[16px] md:text-xs text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors">{item.d}</div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="pt-6 md:pt-8 border-t border-white/10">
-                  <p className="text-[9px] md:text-[10px] text-blue-400 font-bold uppercase tracking-widest italic">Supports informed conversations—earlier and more effectively.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="value" className="relative border-t border-white/10 reveal">
+        <section id="value" className="relative md:border-t md:border-white/10 reveal scroll-mt-20 md:scroll-mt-24">
           <ValuePropSection />
         </section>
 
-        <section id="pricing" className="relative border-t border-white/10 reveal">
+        <section id="pricing" className="relative md:border-t md:border-white/10 reveal scroll-mt-20 md:scroll-mt-24">
           <PricingSection />
         </section>
 
-        <section id="contact" className="relative border-t border-white/10 reveal">
+        <section id="contact" className="relative md:border-t md:border-white/10 reveal scroll-mt-20 md:scroll-mt-24">
           <ContactSection />
         </section>
       </main>
@@ -155,3 +99,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+// Re-build trigger

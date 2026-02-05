@@ -121,7 +121,7 @@ const DemoApp: React.FC = () => {
 
 
                     {/* Right Side: Request Form */}
-                    <div className="glass-effect p-8 md:p-10 rounded-[32px] border border-white/20 relative overflow-hidden h-full flex flex-col justify-center animate-fade-in-up delay-100">
+                    <div className="glass-effect p-8 md:p-10 rounded-[40px] border border-white/20 relative overflow-hidden h-full flex flex-col justify-center animate-fade-in-up delay-100">
                         {/* Decorative blob inside form */}
                         <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
 
@@ -140,7 +140,7 @@ const DemoApp: React.FC = () => {
                                             type="text"
                                             value={formData.fullName}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="Dr. Start K."
                                         />
                                     </div>
@@ -152,7 +152,7 @@ const DemoApp: React.FC = () => {
                                             type="email"
                                             value={formData.email}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="name@lab.com"
                                         />
                                     </div>
@@ -167,7 +167,7 @@ const DemoApp: React.FC = () => {
                                             type="text"
                                             value={formData.labName}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="City Diagnostics"
                                         />
                                     </div>
@@ -180,7 +180,7 @@ const DemoApp: React.FC = () => {
                                             type="text"
                                             value={formData.address}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="123 Health Street"
                                         />
                                     </div>
@@ -195,7 +195,7 @@ const DemoApp: React.FC = () => {
                                             type="text"
                                             value={formData.city}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="Mumbai"
                                         />
                                     </div>
@@ -207,7 +207,7 @@ const DemoApp: React.FC = () => {
                                             type="tel"
                                             value={formData.contact}
                                             onChange={handleInputChange}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
+                                            className="w-full bg-black/40 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 transition-colors placeholder:text-white/20"
                                             placeholder="9999999999"
                                             maxLength={10}
                                             pattern="[0-9]*"
@@ -225,7 +225,7 @@ const DemoApp: React.FC = () => {
                                                 key={slot}
                                                 type="button"
                                                 onClick={() => setSelectedSlot(slot)}
-                                                className={`text-xs py-2 px-2 rounded-lg border transition-all duration-300 ${selectedSlot === slot
+                                                className={`text-xs py-2 px-2 rounded-full border transition-all duration-300 ${selectedSlot === slot
                                                     ? 'bg-blue-500 text-white border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]'
                                                     : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/30'
                                                     }`}
@@ -238,7 +238,7 @@ const DemoApp: React.FC = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 mt-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
+                                    className="w-full py-4 mt-4 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
                                 >
                                     Confirm Demo Request
                                 </button>
