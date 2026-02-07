@@ -165,8 +165,8 @@ const ProductSection: React.FC = () => {
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-4 group/item">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0 mt-1.5"></div>
-                    <span className="text-body-2 text-white/90 font-light font-body">
-                      <span className="text-white/100">{item.bold}</span> {item.rest}
+                    <span className="text-body-2 md:text-body-1 text-white/90 font-light font-body">
+                      {item.bold} {item.rest}
                     </span>
                   </li>
                 ))}
