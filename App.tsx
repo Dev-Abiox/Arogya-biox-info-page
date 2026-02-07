@@ -19,7 +19,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
+      rootMargin: "0px 0px 100px 0px"
     };
 
     const observer = new IntersectionObserver((entries) => {
