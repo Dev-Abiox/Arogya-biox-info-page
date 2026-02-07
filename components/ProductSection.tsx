@@ -154,7 +154,7 @@ const ProductSection: React.FC = () => {
                   <li key={idx} className="flex items-start gap-4 group/item">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0 mt-1.5"></div>
                     <span className="text-body-2 md:text-body-1 text-white/90 font-light font-body">
-                      <strong className="font-bold text-white/100">{item.bold}</strong> {item.rest}
+                      {item.bold} {item.rest}
                     </span>
                   </li>
                 ))}
