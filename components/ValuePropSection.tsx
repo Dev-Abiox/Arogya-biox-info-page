@@ -38,7 +38,7 @@ const ValuePropSection: React.FC = () => {
     <div className="relative z-20 py-8 md:py-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
-          <span className="text-blue-300 text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Value Proposition</span>
+          <span className="text-blue-300 text-label-2 md:text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Value Proposition</span>
           <h2 className="text-h2 md:text-h1 lg:text-h1 font-light font-heading">Impact Across <span className="font-medium italic text-blue-300">Ecosystems</span></h2>
         </div>
 
@@ -50,7 +50,7 @@ const ValuePropSection: React.FC = () => {
                 {v.benefits.map((benefit, j) => (
                   <li key={j} className="flex items-start gap-4 group/item">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 group-hover:bg-blue-400 group-hover/item:scale-125 transition-all shrink-0"></div>
-                    <span className="text-body-1 text-white/75 font-light group-hover:text-white/95 transition-colors leading-snug font-body">{benefit}</span>
+                    <span className="text-body-1 md:text-body-1 text-white/75 font-light group-hover:text-white/95 transition-colors leading-snug font-body">{benefit}</span>
                   </li>
                 ))}
               </ul>

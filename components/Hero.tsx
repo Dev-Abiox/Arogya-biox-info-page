@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ onToggleMode }) => {
             </span>
           </h1>
 
-          <p className="text-white/80 hover:text-white transition-colors duration-500 font-body text-body-2 md:text-body-1 leading-relaxed mb-6 md:mb-10 max-w-2xl">
+          <p className="text-white/80 hover:text-white transition-colors duration-500 font-body text-body-1 md:text-body-1 leading-relaxed mb-6 md:mb-10 max-w-2xl">
             Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data enabling earlier risk identification without adding operational complexity.
           </p>
 

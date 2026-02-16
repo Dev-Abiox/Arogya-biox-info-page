@@ -115,7 +115,7 @@ const ProductSection: React.FC = () => {
         <div className="mb-24 grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left Column */}
           <div className="text-left">
-            <span className="text-blue-400 text-small-label md:text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">CURRENT PRODUCT</span>
+            <span className="text-blue-400 text-label-2 md:text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">CURRENT PRODUCT</span>
             <img
               src="/clinomic-labs-logo.png"
               alt="Clinomic Labs"
@@ -128,7 +128,7 @@ const ProductSection: React.FC = () => {
               </p>
             </div>
 
-            <div className="space-y-8 text-white/80 text-body-2 md:text-body-1 font-light leading-relaxed max-w-xl font-body">
+            <div className="space-y-8 text-white/80 text-body-1 md:text-body-1 font-light leading-relaxed max-w-xl font-body">
               <p>
                 Clinomic Labs is a laboratory-integrated clinical intelligence platform that enables Vitamin B12 deficiency risk screening using routine CBC data.
               </p>
@@ -142,7 +142,7 @@ const ProductSection: React.FC = () => {
           <div className="mt-12 lg:mt-0">
             <div className="glass-effect p-12 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group">
               <h3 className="text-blue-300 text-small-label md:text-label-2 font-bold uppercase tracking-widest mb-10 font-heading">HOW IT INTERPRETS</h3>
-              <p className="text-white/90 text-body-2 md:text-body-1 font-light leading-relaxed mb-10 font-body">
+              <p className="text-white/90 text-body-1 md:text-body-1 font-light leading-relaxed mb-10 font-body">
                 Our engine doesn't just look for "high" or "low" numbers. It evaluates the <strong>morphological signature</strong> of blood cells across 21 standard parameters.
               </p>
               <ul className="space-y-6">
@@ -153,7 +153,7 @@ const ProductSection: React.FC = () => {
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-4 group/item">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0 mt-1.5"></div>
-                    <span className="text-body-2 md:text-body-1 text-white/90 font-light font-body">
+                    <span className="text-body-1 md:text-body-1 text-white/90 font-light font-body">
                       {item.bold} {item.rest}
                     </span>
                   </li>
@@ -197,7 +197,7 @@ const ProductSection: React.FC = () => {
                 {scanResult ? (
                   <div className="reveal revealed">
                     <div className={`text-2xl font-bold tracking-tighter ${scanResult.color} mb-2 font-heading`}>{scanResult.risk}</div>
-                    <p className="text-sm text-white/80 font-light leading-relaxed font-body">{scanResult.details}</p>
+                    <p className="text-body-1 md:text-sm text-white/80 font-light leading-relaxed font-body">{scanResult.details}</p>
                     <button onClick={() => {
                       setScanResult(null);
                       setPatientData(generateRandomData());
@@ -212,7 +212,7 @@ const ProductSection: React.FC = () => {
                     {isScanning ? `Analyzing Pattern... ${Math.round(scanProgress)}%` : "Start Clinical Scan"}
                   </button>
                 )}
-                <p className="text-xs text-white/60 italic text-center mt-8 font-body">
+                <p className="text-label-2 md:text-xs text-white/60 italic text-center mt-8 font-body">
                   *This simulation demonstrates the logic behind the Clinomic Labs risk stratification engine using all 21 hematological variables.
                 </p>
               </div>
@@ -226,12 +226,12 @@ const ProductSection: React.FC = () => {
           <div className="space-y-8 md:space-y-12 reveal-left">
             <div className="group">
               <h3 className="text-blue-300 text-xs font-bold uppercase tracking-widest mb-4 font-heading">The Clinical Gap</h3>
-              <p className="text-white font-light text-lg leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity font-body">
+              <p className="text-white font-light text-body-1 md:text-lg leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity font-body">
                 Vitamin B12 deficiency is highly prevalent and frequently underdiagnosed—especially in early stages where symptoms are subtle and anemia may be absent.
               </p>
             </div>
             <div className="group">
-              <p className="text-white font-light text-lg leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity font-body">
+              <p className="text-white font-light text-body-1 md:text-lg leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity font-body">
                 Although CBC tests are routinely performed, early hematological signals suggestive of B12 insufficiency are often missed or underutilized. Clinomic Labs addresses this gap by systematically analyzing CBC patterns that already exist in laboratory data.
               </p>
             </div>
@@ -252,7 +252,7 @@ const ProductSection: React.FC = () => {
                   <svg className="w-4 h-4 text-blue-400 shrink-0 group-hover/item:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm text-white font-medium group-hover/item:text-blue-200 transition-colors font-body">{item}</span>
+                  <span className="text-body-1 md:text-sm text-white font-medium group-hover/item:text-blue-200 transition-colors font-body">{item}</span>
                 </div>
               ))}
             </div>
@@ -294,7 +294,7 @@ const ProductSection: React.FC = () => {
                     </div>
                   )}
                   <h4 className="text-xs font-bold mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:min-h-[2.5rem] flex items-center px-2 leading-tight font-heading">{step.label}</h4>
-                  <p className="text-xs text-white/80 font-light leading-relaxed max-w-[200px] group-hover:text-white transition-colors font-body">{step.desc}</p>
+                  <p className="text-body-1 md:text-xs text-white/80 font-light leading-relaxed max-w-[200px] group-hover:text-white transition-colors font-body">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -303,7 +303,7 @@ const ProductSection: React.FC = () => {
 
         <div className="max-w-7xl mx-auto border-t border-white/10 pt-24 text-center">
           <div className="max-w-4xl mx-auto mb-16">
-            <span className="text-blue-300 text-small-label font-bold tracking-[0.4em] uppercase mb-8 block font-heading">Future Roadmap</span>
+            <span className="text-blue-300 text-label-2 md:text-small-label font-bold tracking-[0.4em] uppercase mb-8 block font-heading">Future Roadmap</span>
             <h2 className="text-h2 md:text-h1 mb-10 leading-[1.1] font-heading">
               <span className="font-bold text-white">Preventive Health</span> <br />
               <span className="text-h3 md:text-h2 font-light text-blue-400/80 uppercase tracking-widest block mt-4">(Upcoming)</span>
@@ -323,7 +323,7 @@ const ProductSection: React.FC = () => {
                 ].map((item, idx) => (
                   <div key={idx} className="glass-effect p-6 rounded-[40px] border border-white/20 hover:border-blue-400/40 hover:-translate-x-1 transition-all duration-500 group text-left">
                     <div className="text-label-1 font-bold text-blue-300 uppercase tracking-widest mb-1 group-hover:text-blue-400 transition-colors font-heading">{item.t}</div>
-                    <p className="text-body-2 text-white/80 font-light group-hover:text-white transition-colors font-body">{item.d}</p>
+                    <span className="text-body-1 md:text-body-1 text-white/75 font-light group-hover:text-white/95 transition-colors leading-snug font-body">{item.d}</span>
                   </div>
                 ))}
               </div>
@@ -334,22 +334,22 @@ const ProductSection: React.FC = () => {
                 <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] bg-blue-500/10 blur-[100px] rounded-full group-hover:bg-blue-400/20 transition-all duration-1000"></div>
 
                 <h3 className="text-h1 font-light mb-8 text-center group-hover:text-white transition-colors font-heading">Screening at the <span className="font-medium">Point of Routine</span></h3>
-                <p className="text-white/80 text-body-2 font-light text-center leading-relaxed mb-12 group-hover:text-white transition-colors font-body">
+                <p className="text-white/80 text-body-1 md:text-body-2 font-light text-center leading-relaxed mb-12 group-hover:text-white transition-colors font-body">
                   Our roadmap focuses on closing the screening gap globally by making preventive health insights a standard part of every annual lab visit.
                 </p>
 
                 <div className="space-y-4 max-w-sm mx-auto w-full">
-                  <div className="flex justify-between items-center py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
                     <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Phase</span>
-                    <span className="text-body-2 text-blue-300 font-medium font-body">Research & Development</span>
+                    <span className="text-body-1 md:text-body-2 text-blue-300 font-medium font-body">Research & Development</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
                     <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Primary Marker</span>
-                    <span className="text-body-2 text-white font-body">Ferritin & CBC Composite</span>
+                    <span className="text-body-1 md:text-body-2 text-white font-body">Ferritin & CBC Composite</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 group-hover:border-white/20 transition-colors">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 group-hover:border-white/20 transition-colors">
                     <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Integration</span>
-                    <span className="text-body-2 text-white font-body">Standard Multi-Analyzer</span>
+                    <span className="text-body-1 md:text-body-2 text-white font-body">Standard Multi-Analyzer</span>
                   </div>
                 </div>
 
@@ -381,7 +381,7 @@ const ProductSection: React.FC = () => {
                   ].map((item, idx) => (
                     <li key={idx} className="group/item">
                       <div className="text-label-1 font-medium text-blue-200 mb-1 group-hover/item:text-blue-300 transition-colors font-heading">{item.t}</div>
-                      <div className="text-body-2 text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors font-body">{item.d}</div>
+                      <div className="text-body-1 md:text-body-2 text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors font-body">{item.d}</div>
                     </li>
                   ))}
                 </ul>
@@ -410,7 +410,7 @@ const ProductSection: React.FC = () => {
                   ].map((item, idx) => (
                     <li key={idx} className="group/item">
                       <div className="text-label-1 font-medium text-blue-200 mb-1 group-hover/item:text-blue-300 transition-colors font-heading">{item.t}</div>
-                      <div className="text-body-2 text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors font-body">{item.d}</div>
+                      <div className="text-body-1 md:text-body-2 text-white/80 font-light leading-relaxed group-hover/item:text-white transition-colors font-body">{item.d}</div>
                     </li>
                   ))}
                 </ul>
