@@ -76,6 +76,14 @@ body {
     will-change: transform, background-color;
   }
 
+  /* Optimized blur for mobile GPUs */
+  @media (max-width: 767px) {
+    .glass-effect {
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
