@@ -10,7 +10,7 @@ const PricingSection: React.FC = () => {
     <div className="relative z-20 py-8 md:py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-20 md:mb-32">
-          <span className="text-blue-300 text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Commercial Model</span>
+          <span className="text-blue-300 text-label-2 md:text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Commercial Model</span>
           <h2 className="text-h2 lg:text-h1 font-light mb-8 font-heading">Flexible <span className="font-medium italic text-blue-300">BioSaaS</span> Model</h2>
           <p className="text-white/80 text-body-1 max-w-2xl mx-auto font-light leading-relaxed font-body">
             Designed to scale efficiently with laboratory throughput while maintaining predictable costs.
@@ -55,19 +55,19 @@ const PricingSection: React.FC = () => {
               <h4 className="text-label-1 font-bold uppercase tracking-widest text-blue-300 mb-4 flex items-center gap-3 group-hover:text-blue-400 transition-colors font-heading">
                 <span className="w-6 h-[1px] bg-blue-300 group-hover:w-10 transition-all duration-500"></span> Onboarding
               </h4>
-              <p className="text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">System enablement includes secure data mapping, LIS certification, and clinical report template design to match your lab standards.</p>
+              <p className="text-body-1 md:text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">System enablement includes secure data mapping, LIS certification, and clinical report template design to match your lab standards.</p>
             </div>
             <div className="group hover:-translate-x-1 transition-transform duration-500">
               <h4 className="text-label-1 font-bold uppercase tracking-widest text-blue-300 mb-4 flex items-center gap-3 group-hover:text-blue-400 transition-colors font-heading">
                 <span className="w-6 h-[1px] bg-blue-300 group-hover:w-10 transition-all duration-500"></span> Scalability
               </h4>
-              <p className="text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">Commercial models are tiered based on your laboratory's CBC throughput, ensuring unit economics align with your operational growth.</p>
+              <p className="text-body-1 md:text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">Commercial models are tiered based on your laboratory's CBC throughput, ensuring unit economics align with your operational growth.</p>
             </div>
             <div className="group hover:-translate-x-1 transition-transform duration-500">
               <h4 className="text-label-1 font-bold uppercase tracking-widest text-blue-300 mb-4 flex items-center gap-3 group-hover:text-blue-400 transition-colors font-heading">
                 <span className="w-6 h-[1px] bg-blue-300 group-hover:w-10 transition-all duration-500"></span> Continuous Value
               </h4>
-              <p className="text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">Subscription includes all algorithm updates, security patches, and regulatory alignment updates as Clinomic Labs evolves.</p>
+              <p className="text-body-1 md:text-body-2 text-white/80 leading-relaxed font-light group-hover:text-white transition-colors font-body">Subscription includes all algorithm updates, security patches, and regulatory alignment updates as Clinomic Labs evolves.</p>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ const PricingSection: React.FC = () => {
             <div className="max-w-xl">
               <span className="text-white/60 text-small-label font-bold uppercase tracking-widest mb-4 block font-heading">Trust & Governance</span>
               <h3 className="text-h2 font-light mb-6 group-hover:text-white transition-colors font-heading">Designed for <span className="font-medium text-white">Trust</span></h3>
-              <p className="text-white/80 text-body-2 font-light leading-relaxed mb-8 group-hover:text-white transition-colors font-body">
+              <p className="text-body-1 md:text-body-2 font-light leading-relaxed mb-8 group-hover:text-white transition-colors font-body">
                 Clinomic Labs is built as a clinical decision support system. We prioritize transparency and security in every integration.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -87,7 +87,7 @@ const PricingSection: React.FC = () => {
                   "Full clinical audit trails",
                   "Local clinical validation kits"
                 ].map((text, i) => (
-                  <div key={i} className="flex items-center gap-2 text-label-2 text-white group/item">
+                  <div key={i} className="flex items-center gap-2 text-body-1 md:text-label-2 text-white group/item">
                     <div className="w-1 h-1 rounded-full bg-blue-400 shrink-0 group-hover/item:scale-125 transition-transform"></div>
                     <span className="group-hover/item:text-blue-100 transition-colors font-body">{text}</span>
                   </div>
