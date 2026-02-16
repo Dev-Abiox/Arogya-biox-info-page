@@ -125,12 +125,14 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     return spriteCanvas;
   }, []);
 
+  const lastDrawTime = useRef<number>(0);
+
   const initParticles = useCallback((width: number, height: number) => {
     const isDesktop = width >= 1024;
     const isMobile = width < 768;
 
-    // Efficiently set density
-    const count = isMobile ? 250 : isDesktop ? 1800 : 1000;
+    // Lightweight density for mobile
+    const count = isMobile ? 120 : isDesktop ? 1800 : 1000;
 
     const tempParticles: RBCParticle[] = [];
     const sphereRadius = Math.min(width, height) * (isDesktop ? 0.42 : isMobile ? 0.32 : 0.38);
@@ -184,9 +186,21 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     }
   }, [createSprites]);
 
-  const draw = useCallback(() => {
+  const draw = useCallback((timestamp: number = 0) => {
     const canvas = canvasRef.current;
     if (!canvas || !spriteCanvasRef.current) return;
+
+    // FPS Throttling for mobile: Target ~30fps
+    const isMobile = canvas.width < 768;
+    if (isMobile) {
+      const elapsed = timestamp - lastDrawTime.current;
+      if (elapsed < 32) { // Skip frames to maintain ~30fps
+        animationFrameId.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTime.current = timestamp;
+    }
+
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
@@ -197,8 +211,8 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const centerX = isDesktop ? canvas.width * 0.72 : canvas.width * 0.5;
     const centerY = isDesktop ? canvas.height * 0.45 : canvas.height * 0.5;
 
-    rotationRef.current.y += 0.0006;
-    rotationRef.current.x += 0.0002;
+    rotationRef.current.y += isMobile ? 0.0004 : 0.0006;
+    rotationRef.current.x += isMobile ? 0.0001 : 0.0002;
 
     heartPhase.current += 0.012;
     const pulseScale = 1 + Math.pow(Math.sin(heartPhase.current), 4) * 0.015;
@@ -264,7 +278,6 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       const diskY = Math.max(0.2, Math.abs(Math.sin(p.rotation.y)));
       const rotZ = p.rotation.z;
 
-      // Single fast transform call
       const m11 = diskX * Math.cos(rotZ);
       const m12 = diskX * Math.sin(rotZ);
       const m21 = -diskY * Math.sin(rotZ);
@@ -281,14 +294,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     }
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-    // Performance Optimization: Stop animation loop on mobile
-    if (canvas.width < 768) {
-      animationFrameId.current = undefined;
-    } else {
-      animationFrameId.current = requestAnimationFrame(draw);
-    }
+    animationFrameId.current = requestAnimationFrame(draw);
   }, [PALETTE.DEEP, createSprites]);
 
   useEffect(() => {
@@ -297,23 +303,26 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
         const parent = canvasRef.current.parentElement;
         if (parent) {
           const newWidth = parent.clientWidth;
-          // Ignore vertical-only resizes (e.g. mobile URL bar)
           if (newWidth === prevWidth.current) return;
 
           prevWidth.current = newWidth;
-          canvasRef.current.width = newWidth;
-          canvasRef.current.height = parent.clientHeight;
 
-          // Reset particles
+          // Resolution Scaling for mobile
+          const isMobile = newWidth < 768;
+          const pixelRatio = isMobile ? Math.min(1.5, window.devicePixelRatio) : window.devicePixelRatio;
+
+          canvasRef.current.width = newWidth * pixelRatio;
+          canvasRef.current.height = parent.clientHeight * pixelRatio;
+          canvasRef.current.style.width = `${newWidth}px`;
+          canvasRef.current.style.height = `${parent.clientHeight}px`;
+
           particles.current = [];
-          initParticles(canvasRef.current.width, canvasRef.current.height);
+          initParticles(newWidth, parent.clientHeight);
 
-          // Restart drawing capability
           if (animationFrameId.current) {
             cancelAnimationFrame(animationFrameId.current);
             animationFrameId.current = undefined;
           }
-          // Draw at least once (if mobile, it stops there; if desktop, it loops)
           draw();
         }
       }
@@ -346,7 +355,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       <div className="absolute inset-0 z-10 w-full h-full flex items-center justify-center md:hidden pointer-events-none">
         <div
           className="relative w-[85%] max-w-[400px] aspect-square"
-          style={{ top: '8%' }} // Slightly lowered for better visual balance on mobile
+          style={{ top: '-5%' }} // Lowered slightly to balance between text and buttons
         >
           <img
             src="/mobile-ring.png"

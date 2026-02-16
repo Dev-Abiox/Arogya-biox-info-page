@@ -44,7 +44,7 @@ const PricingSection: React.FC = () => {
 
             <button
               onClick={() => scrollTo('contact')}
-              className="w-full py-5 bg-blue-400 text-black rounded-full text-cta-md font-bold uppercase tracking-[0.2em] transition-all hover:bg-blue-300 shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-95 font-heading"
+              className="w-full py-3 md:py-5 bg-blue-400 text-black rounded-full text-xs md:text-cta-md font-bold uppercase tracking-widest md:tracking-[0.2em] transition-all hover:bg-blue-300 shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-95 font-heading"
             >
               Enquire for Laboratory
             </button>
