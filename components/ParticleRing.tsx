@@ -224,8 +224,10 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const sinX = Math.sin(rotationRef.current.x);
 
     const rect = canvas.getBoundingClientRect();
-    const relX = mouseRef.current.x - rect.left;
-    const relY = mouseRef.current.y - rect.top;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const relX = (mouseRef.current.x - rect.left) * scaleX;
+    const relY = (mouseRef.current.y - rect.top) * scaleY;
 
     for (let i = 0; i < particles.current.length; i++) {
       const p = particles.current[i];
