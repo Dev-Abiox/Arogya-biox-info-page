@@ -1,63 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(/fonts/plus-jakarta-sans-300.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/plus-jakarta-sans-400.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(/fonts/plus-jakarta-sans-500.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(/fonts/plus-jakarta-sans-600.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/plus-jakarta-sans-700.ttf) format('truetype');
-}
-
 :root {
   color-scheme: dark;
-  /* font-size: 80%; REMOVED for standard scaling */
 }
 
 html {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -73,7 +29,6 @@ body {
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: background 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
-    will-change: transform, background-color;
   }
 
   /* Optimized blur for mobile GPUs */
@@ -94,29 +49,23 @@ body {
   }
 }
 
-/* Animations from original style */
+/* Reveal animations */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-  backface-visibility: hidden;
 }
 
 .reveal-left {
   opacity: 0;
   transform: translateX(-30px);
   transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-  backface-visibility: hidden;
 }
 
 .reveal-right {
   opacity: 0;
   transform: translateX(30px);
   transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-  backface-visibility: hidden;
 }
 
 .revealed {
@@ -141,7 +90,6 @@ body {
     opacity: 0;
     transform: translate3d(0, 40px, 0);
   }
-
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -152,4 +100,49 @@ body {
   animation-name: fadeInUp;
   animation-duration: 0.8s;
   animation-fill-mode: both;
+}
+
+/* Mobile menu animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.25s ease-out both;
+}
+
+/* Shared keyframes (moved from inline <style> tags) */
+@keyframes dash {
+  to { stroke-dashoffset: -16; }
+}
+
+.animate-dash {
+  stroke-dasharray: 4, 4;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.pulse-glow {
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.scan-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+  box-shadow: 0 0 15px #60a5fa;
+  width: 100%;
+  position: absolute;
+  z-index: 50;
 }

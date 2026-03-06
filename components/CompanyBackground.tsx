@@ -1,11 +1,6 @@
 import React from 'react';
 
 const CompanyBackground: React.FC = () => {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="relative z-20 py-12 md:py-32 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -17,6 +12,7 @@ const CompanyBackground: React.FC = () => {
               src="/arogya-logo-full.png"
               alt="Arogya BioX"
               className="h-[32px] md:h-[42px] w-auto mb-12 object-contain"
+              loading="lazy"
             />
 
             <h2 className="text-display-2 md:text-display-1 font-light mb-12 leading-[1.1] tracking-tight text-white font-heading">

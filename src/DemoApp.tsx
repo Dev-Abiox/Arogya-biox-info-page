@@ -16,9 +16,8 @@ const DemoApp: React.FC = () => {
     const [timeSlots, setTimeSlots] = useState<string[]>([]);
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
 
-    // Generate 30-min time slots from 09:00 to 17:00
-    // Custom 45-min time slots with a break
     useEffect(() => {
         const slots = [
             "09:00 AM - 09:45 AM",
@@ -39,8 +38,8 @@ const DemoApp: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        setFormError(null);
 
-        // Strict numeric validation for contact number
         if (name === 'contact') {
             const numericValue = value.replace(/[^0-9]/g, '');
             setFormData(prev => ({ ...prev, [name]: numericValue }));
@@ -52,12 +51,14 @@ const DemoApp: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setFormError(null);
+
         if (!selectedSlot) {
-            alert('Please select a time slot.');
+            setFormError('Please select a time slot.');
             return;
         }
         if (formData.contact.length !== 10) {
-            alert('Please enter a valid 10-digit phone number.');
+            setFormError('Please enter a valid 10-digit phone number.');
             return;
         }
 
@@ -71,15 +72,13 @@ const DemoApp: React.FC = () => {
                 body: JSON.stringify({ ...formData, selectedSlot }),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
                 setSubmitted(true);
             } else {
-                alert('Failed to submit request. Please try again.');
+                setFormError('Failed to submit request. Please try again.');
             }
         } catch (error) {
-            alert('An error occurred. Please try again.');
+            setFormError('An error occurred. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
@@ -89,8 +88,8 @@ const DemoApp: React.FC = () => {
         <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-sans pb-12 md:pb-24">
             <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 blur-[180px] rounded-full"></div>
-                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 blur-[220px] rounded-full"></div>
+                <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
+                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[80px] md:blur-[220px]"></div>
             </div>
 
             <nav className="fixed top-0 left-0 w-full px-6 md:px-12 py-6 z-50 pointer-events-none">
@@ -119,11 +118,8 @@ const DemoApp: React.FC = () => {
                         </div>
                     </div>
 
-
-
                     {/* Right Side: Request Form */}
                     <div className="glass-effect p-8 md:p-10 rounded-[40px] border border-white/20 relative overflow-hidden h-full flex flex-col justify-center animate-fade-in-up delay-100">
-                        {/* Decorative blob inside form */}
                         <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
 
                         {!submitted ? (
@@ -132,11 +128,18 @@ const DemoApp: React.FC = () => {
                                     <h2 className="text-2xl font-light mb-1">Request a <span className="font-bold">Live Demo</span></h2>
                                 </div>
 
+                                {formError && (
+                                    <div className="px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30 text-sm text-red-400 font-medium">
+                                        {formError}
+                                    </div>
+                                )}
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Full Name</label>
+                                        <label htmlFor="demo-fullName" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Full Name</label>
                                         <input
                                             required
+                                            id="demo-fullName"
                                             name="fullName"
                                             type="text"
                                             value={formData.fullName}
@@ -146,9 +149,10 @@ const DemoApp: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Email</label>
+                                        <label htmlFor="demo-email" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Email</label>
                                         <input
                                             required
+                                            id="demo-email"
                                             name="email"
                                             type="email"
                                             value={formData.email}
@@ -161,9 +165,10 @@ const DemoApp: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">HOSPITAL/Laboratory Name</label>
+                                        <label htmlFor="demo-labName" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">HOSPITAL/Laboratory Name</label>
                                         <input
                                             required
+                                            id="demo-labName"
                                             name="labName"
                                             type="text"
                                             value={formData.labName}
@@ -174,9 +179,10 @@ const DemoApp: React.FC = () => {
                                     </div>
 
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Address</label>
+                                        <label htmlFor="demo-address" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Address</label>
                                         <input
                                             required
+                                            id="demo-address"
                                             name="address"
                                             type="text"
                                             value={formData.address}
@@ -189,9 +195,10 @@ const DemoApp: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">City</label>
+                                        <label htmlFor="demo-city" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">City</label>
                                         <input
                                             required
+                                            id="demo-city"
                                             name="city"
                                             type="text"
                                             value={formData.city}
@@ -201,9 +208,10 @@ const DemoApp: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Contact Number</label>
+                                        <label htmlFor="demo-contact" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Contact Number</label>
                                         <input
                                             required
+                                            id="demo-contact"
                                             name="contact"
                                             type="tel"
                                             value={formData.contact}
@@ -220,12 +228,14 @@ const DemoApp: React.FC = () => {
                                 <div className="space-y-3 pt-4">
                                     <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
                                     <p className="text-sm text-white/60 mb-2 ml-1">Select a time and we'll send you an invite.</p>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2" role="radiogroup" aria-label="Time slot selection">
                                         {timeSlots.map((slot) => (
                                             <button
                                                 key={slot}
                                                 type="button"
-                                                onClick={() => setSelectedSlot(slot)}
+                                                role="radio"
+                                                aria-checked={selectedSlot === slot}
+                                                onClick={() => { setSelectedSlot(slot); setFormError(null); }}
                                                 className={`text-xs py-2 px-2 rounded-full border transition-all duration-300 ${selectedSlot === slot
                                                     ? 'bg-blue-500 text-white border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]'
                                                     : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/30'

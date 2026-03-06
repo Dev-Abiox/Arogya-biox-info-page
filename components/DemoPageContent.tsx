@@ -11,30 +11,12 @@ const steps = [
 const DemoPageContent: React.FC = () => {
     return (
         <div className="relative z-20 pb-12 md:pb-20 px-6 md:px-12 lg:px-24">
-            <style>{`
-        @keyframes dash {
-          to { stroke-dashoffset: -16; }
-        }
-        .animate-dash {
-          stroke-dasharray: 4, 4;
-          animation: dash 1s linear infinite;
-        }
-        .pulse-glow {
-          box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
-          animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-ring {
-          0%, 100% { opacity: 0.8; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.05); }
-        }
-      `}</style>
-
             <div className="max-w-[1600px] mx-auto w-full">
                 {/* Intro Section: Current Product + How it interprets */}
                 <div className="mb-12 md:mb-20 grid lg:grid-cols-2 gap-12 items-start animate-fade-in-up">
                     <div className="max-w-4xl">
                         <span className="text-blue-400 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Current Product</span>
-                        <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" />
+                        <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" loading="lazy" />
                         <p className="text-white text-[16px] md:text-lg lg:text-xl font-light leading-relaxed italic mb-6 md:mb-8 border-l border-blue-400/50 pl-4 md:pl-6">
                             "A Clinical Intelligence Platform by Arogya BioX"
                         </p>
