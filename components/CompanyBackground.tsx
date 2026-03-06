@@ -15,7 +15,7 @@ const CompanyBackground: React.FC = () => {
               loading="lazy"
             />
 
-            <h2 className="text-display-2 md:text-display-1 font-light mb-12 leading-[1.1] tracking-tight text-white font-heading">
+            <h2 className="text-h1 sm:text-display-2 lg:text-display-1 font-light mb-12 leading-[1.1] tracking-tight text-white font-heading">
               Transforming <br />
               <span className="font-medium italic text-white/90">Routine Tests</span> <br />
               into Screening Tools.
@@ -34,7 +34,7 @@ const CompanyBackground: React.FC = () => {
           {/* Right Column */}
           <div className="flex flex-col gap-12 mt-12 lg:mt-0">
             {/* Our Approach Card */}
-            <div className="glass-effect p-12 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group">
+            <div className="glass-effect p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-colors duration-500 group">
               <h3 className="text-blue-300 text-small-label md:text-label-2 font-bold uppercase tracking-widest mb-10 font-heading">OUR APPROACH</h3>
               <ul className="space-y-6">
                 {[
@@ -52,16 +52,20 @@ const CompanyBackground: React.FC = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-x-8 gap-y-2 px-4">
-              {/* Row 1: Titles */}
-              <div className="text-h2 md:text-h1 font-light text-white font-heading tracking-tight text-center">CDSS</div>
-              <div className="text-h2 md:text-h1 font-light text-blue-400 font-heading tracking-tight text-center">B12</div>
-              <div className="text-body-1 lg:text-h3 font-bold text-white font-heading tracking-tight leading-none self-center text-center">Preventive Health</div>
-
-              {/* Row 2: Status Labels */}
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PLATFORM</div>
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PRIMARY</div>
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">(UPCOMING)</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-4 sm:gap-y-2 px-4">
+              {/* Mobile: stacked items; sm+: 3-col grid */}
+              <div className="flex flex-col items-center sm:block">
+                <div className="text-h2 md:text-h1 font-light text-white font-heading tracking-tight text-center">CDSS</div>
+                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PLATFORM</div>
+              </div>
+              <div className="flex flex-col items-center sm:block">
+                <div className="text-h2 md:text-h1 font-light text-blue-400 font-heading tracking-tight text-center">B12</div>
+                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PRIMARY</div>
+              </div>
+              <div className="flex flex-col items-center sm:block">
+                <div className="text-body-1 lg:text-h3 font-bold text-white font-heading tracking-tight leading-none self-center text-center">Preventive Health</div>
+                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center mt-1">(UPCOMING)</div>
+              </div>
             </div>
 
             <p className="italic text-blue-300/60 text-label-2 md:text-label-2 font-medium text-center font-body mt-4">

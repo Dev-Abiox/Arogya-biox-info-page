@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const navLinks = [
   { id: 'company', label: 'About us' },
@@ -10,6 +10,18 @@ const navLinks = [
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const scrollTo = (id: string) => {
     const isDemoPage = window.location.pathname.includes('/demo');
@@ -40,8 +52,8 @@ const Navbar: React.FC = () => {
           className="flex items-center gap-2 group"
           aria-label="Back to Home"
         >
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 transition-all duration-300 ease-out group-hover:scale-90 group-hover:border-white group-hover:bg-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
-            <img src="/logo.png" alt="Arogya BioX" className="w-6 h-6 md:w-7 md:h-7 object-contain brightness-[100] group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)] transition-all" />
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 transition-[border-color,background-color,transform,box-shadow] duration-300 ease-out group-hover:scale-90 group-hover:border-white group-hover:bg-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+            <img src="/logo.png" alt="Arogya BioX" className="w-6 h-6 md:w-7 md:h-7 object-contain brightness-[100] group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)] transition-[filter]" />
           </div>
         </button>
 
@@ -62,7 +74,7 @@ const Navbar: React.FC = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-white"
+            className="w-11 h-11 flex items-center justify-center text-white/80 hover:text-white"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
           >
@@ -79,19 +91,25 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown with backdrop */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-black/95 border-b border-white/10 p-6 flex flex-col gap-6 animate-fade-in-down shadow-2xl">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollTo(link.id)}
-              className="text-white/80 hover:text-blue-400 text-left text-lg font-medium font-body py-2 border-b border-white/5"
-            >
-              {link.label}
-            </button>
-          ))}
-        </div>
+        <>
+          <div
+            className="fixed inset-0 top-20 bg-black/50 md:hidden z-40"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <div className="md:hidden absolute top-20 left-0 w-full bg-black/95 border-b border-white/10 p-6 flex flex-col gap-4 animate-fade-in-down shadow-2xl z-50">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className="text-white/80 hover:text-blue-400 text-left text-lg font-medium font-body py-3 border-b border-white/5"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+        </>
       )}
     </nav>
   );

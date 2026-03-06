@@ -15,12 +15,12 @@ const DemoPageContent: React.FC = () => {
                 {/* Intro Section: Current Product + How it interprets */}
                 <div className="mb-12 md:mb-20 grid lg:grid-cols-2 gap-12 items-start animate-fade-in-up">
                     <div className="max-w-4xl">
-                        <span className="text-blue-400 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Current Product</span>
+                        <span className="text-blue-400 text-xs font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Current Product</span>
                         <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" loading="lazy" />
-                        <p className="text-white text-[16px] md:text-lg lg:text-xl font-light leading-relaxed italic mb-6 md:mb-8 border-l border-blue-400/50 pl-4 md:pl-6">
+                        <p className="text-white text-base md:text-lg lg:text-xl font-light leading-relaxed italic mb-6 md:mb-8 border-l border-blue-400/50 pl-4 md:pl-6">
                             "A Clinical Intelligence Platform by Arogya BioX"
                         </p>
-                        <div className="space-y-4 md:space-y-6 text-white font-light text-[16px] md:text-lg max-w-3xl">
+                        <div className="space-y-4 md:space-y-6 text-white font-light text-base md:text-lg max-w-3xl">
                             <p>
                                 Clinomic Labs is a laboratory-integrated clinical intelligence platform that enables Vitamin B12 deficiency risk screening using routine CBC data.
                             </p>
@@ -30,23 +30,23 @@ const DemoPageContent: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="glass-effect p-8 rounded-[32px] border border-white/10 hover:border-blue-400/20 hover:-translate-y-1 transition-all duration-500 mt-8 lg:mt-16">
-                        <h4 className="text-blue-300 text-[12px] font-bold uppercase tracking-widest mb-4">How it interprets</h4>
-                        <p className="text-[16px] md:text-sm text-white/80 font-light leading-relaxed mb-6">
+                    <div className="glass-effect p-6 md:p-8 rounded-2xl md:rounded-[32px] border border-white/10 hover:border-blue-400/20 hover:-translate-y-1 transition-[border-color,transform] duration-500 mt-8 lg:mt-16">
+                        <h4 className="text-blue-300 text-xs font-bold uppercase tracking-widest mb-4">How it interprets</h4>
+                        <p className="text-sm md:text-base text-white/80 font-light leading-relaxed mb-6">
                             Our engine doesn't just look for "high" or "low" numbers. It evaluates the <strong>morphological signature</strong> of blood cells across 21 standard parameters.
                         </p>
                         <div className="space-y-3">
                             <div className="flex gap-3 items-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                                <span className="text-[14px] md:text-[11px] text-white/90">Macro-ovalocytic trends in MCV & RBC indices</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
+                                <span className="text-sm text-white/90">Macro-ovalocytic trends in MCV & RBC indices</span>
                             </div>
                             <div className="flex gap-3 items-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                                <span className="text-[14px] md:text-[11px] text-white/90">Subtle changes in anisocytosis (RDW-CV/SD)</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
+                                <span className="text-sm text-white/90">Subtle changes in anisocytosis (RDW-CV/SD)</span>
                             </div>
                             <div className="flex gap-3 items-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                                <span className="text-[14px] md:text-[11px] text-white/90">Secondary signatures in WBC/Platelet distributions</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
+                                <span className="text-sm text-white/90">Secondary signatures in WBC/Platelet distributions</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ const DemoPageContent: React.FC = () => {
 
                 {/* How Clinomic Labs Works */}
                 <div className="relative animate-fade-in-up">
-                    <h3 className="text-center text-white/60 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-12 md:mb-20">How Clinomic Labs Works</h3>
+                    <h3 className="text-center text-white/60 text-xs font-bold uppercase tracking-[0.4em] mb-12 md:mb-20">How Clinomic Labs Works</h3>
 
                     <div className="relative max-w-6xl mx-auto">
                         {/* Dashed Line */}
@@ -67,11 +67,11 @@ const DemoPageContent: React.FC = () => {
                             </svg>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-2 lg:gap-4 md:px-2 lg:px-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 sm:gap-8 md:gap-4 lg:gap-4 md:px-2 lg:px-4">
                             {steps.map((step, i) => (
                                 <div key={i} className={`relative z-10 flex flex-col items-center text-center group`}>
                                     <div className="relative mb-6 md:mb-8">
-                                        <div className="w-10 h-10 md:w-11 lg:w-12 md:h-11 lg:h-12 rounded-full glass-effect border border-white/20 flex items-center justify-center text-xs md:text-[11px] lg:text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-all z-20 relative !bg-black">
+                                        <div className="w-10 h-10 md:w-11 lg:w-12 md:h-11 lg:h-12 rounded-full glass-effect border border-white/20 flex items-center justify-center text-xs md:text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-[border-color,transform] z-20 relative !bg-black">
                                             {i + 1}
                                         </div>
                                         <div className="absolute inset-0 w-10 h-10 md:w-11 lg:w-12 md:h-11 lg:h-12 rounded-full border border-blue-400/30 pulse-glow z-10 group-hover:scale-125 transition-transform duration-500"></div>
@@ -92,8 +92,8 @@ const DemoPageContent: React.FC = () => {
                                             </svg>
                                         </div>
                                     )}
-                                    <h4 className="text-[13px] md:text-[9px] lg:text-xs font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:h-8 flex items-center px-1 lg:px-4 leading-tight">{step.label}</h4>
-                                    <p className="text-[18px] md:text-[9px] lg:text-[11px] text-white/80 font-light leading-relaxed max-w-[200px] md:max-w-[140px] lg:max-w-[160px] group-hover:text-white transition-colors">{step.desc}</p>
+                                    <h4 className="text-xs lg:text-sm font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:h-8 flex items-center px-1 lg:px-4 leading-tight">{step.label}</h4>
+                                    <p className="text-sm md:text-xs lg:text-sm text-white/80 font-light leading-relaxed max-w-[200px] md:max-w-[140px] lg:max-w-[160px] group-hover:text-white transition-colors">{step.desc}</p>
                                 </div>
                             ))}
                         </div>
