@@ -52,20 +52,15 @@ const CompanyBackground: React.FC = () => {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-4 sm:gap-y-2 px-4">
-              {/* Mobile: stacked items; sm+: 3-col grid */}
-              <div className="flex flex-col items-center sm:block">
-                <div className="text-h2 md:text-h1 font-light text-white font-heading tracking-tight text-center">CDSS</div>
-                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PLATFORM</div>
-              </div>
-              <div className="flex flex-col items-center sm:block">
-                <div className="text-h2 md:text-h1 font-light text-blue-400 font-heading tracking-tight text-center">B12</div>
-                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center">PRIMARY</div>
-              </div>
-              <div className="flex flex-col items-center sm:block">
-                <div className="text-body-1 lg:text-h3 font-bold text-white font-heading tracking-tight leading-none self-center text-center">Preventive Health</div>
-                <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center mt-1">(UPCOMING)</div>
-              </div>
+            <div className="grid grid-cols-3 px-4" style={{ gridTemplateRows: 'auto auto' }}>
+              {/* Row 1: Values */}
+              <div className="text-body-1 md:text-h3 font-bold text-white font-heading tracking-tight text-center self-end pb-1">CDSS</div>
+              <div className="text-body-1 md:text-h3 font-bold text-blue-400 font-heading tracking-tight text-center self-end pb-1">B12</div>
+              <div className="text-body-1 md:text-h3 font-bold text-white font-heading tracking-tight text-center self-end pb-1">Preventive Health</div>
+              {/* Row 2: Labels */}
+              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PLATFORM</div>
+              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PRIMARY</div>
+              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">(UPCOMING)</div>
             </div>
 
             <p className="italic text-blue-300/60 text-label-2 font-medium text-center font-body mt-4">

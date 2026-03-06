@@ -92,8 +92,8 @@ const DemoPageContent: React.FC = () => {
                                             </svg>
                                         </div>
                                     )}
-                                    <h4 className="text-label-2 lg:text-body-2 font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase font-heading md:h-8 flex items-center px-1 lg:px-4 leading-tight">{step.label}</h4>
-                                    <p className="text-body-2 text-white/80 font-light leading-relaxed font-body max-w-[200px] md:max-w-[140px] lg:max-w-[160px] group-hover:text-white transition-colors">{step.desc}</p>
+                                    <h4 className="text-label-2 lg:text-body-2 font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase font-heading md:min-h-[2.5rem] flex items-center justify-center px-1 lg:px-4 leading-tight">{step.label}</h4>
+                                    <p className="text-body-2 text-white/80 font-light leading-relaxed font-body max-w-[200px] md:max-w-[160px] lg:max-w-[180px] group-hover:text-white transition-colors">{step.desc}</p>
                                 </div>
                             ))}
                         </div>
