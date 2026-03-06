@@ -1,7 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import DemoPageContent from '../components/DemoPageContent';
 import Footer from '../components/Footer';
+import { fetchWithTimeout } from '../utils/fetchWithTimeout';
 import '../index.css';
+
+const TIME_SLOTS = [
+    "09:00 AM - 09:45 AM",
+    "09:45 AM - 10:30 AM",
+    "10:30 AM - 11:15 AM",
+    "11:15 AM - 12:00 PM",
+    "12:00 PM - 12:45 PM",
+    "12:45 PM - 01:30 PM",
+    "02:45 PM - 03:30 PM",
+    "03:30 PM - 04:15 PM",
+    "04:15 PM - 05:00 PM",
+    "05:00 PM - 05:45 PM",
+    "05:45 PM - 06:30 PM",
+    "06:30 PM - 07:15 PM"
+];
 
 const DemoApp: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -13,30 +29,11 @@ const DemoApp: React.FC = () => {
         contact: ''
     });
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-    const [timeSlots, setTimeSlots] = useState<string[]>([]);
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const slots = [
-            "09:00 AM - 09:45 AM",
-            "09:45 AM - 10:30 AM",
-            "10:30 AM - 11:15 AM",
-            "11:15 AM - 12:00 PM",
-            "12:00 PM - 12:45 PM",
-            "12:45 PM - 01:30 PM",
-            "02:45 PM - 03:30 PM",
-            "03:30 PM - 04:15 PM",
-            "04:15 PM - 05:00 PM",
-            "05:00 PM - 05:45 PM",
-            "05:45 PM - 06:30 PM",
-            "06:30 PM - 07:15 PM"
-        ];
-        setTimeSlots(slots);
-    }, []);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormError(null);
 
@@ -47,9 +44,9 @@ const DemoApp: React.FC = () => {
         }
 
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    }, []);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
         setFormError(null);
 
@@ -64,7 +61,7 @@ const DemoApp: React.FC = () => {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch('/api/request-demo', {
+            const response = await fetchWithTimeout('/api/request-demo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +79,7 @@ const DemoApp: React.FC = () => {
         } finally {
             setIsSubmitting(false);
         }
-    };
+    }, [formData, selectedSlot]);
 
     return (
         <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body pb-4 md:pb-6">
@@ -229,7 +226,7 @@ const DemoApp: React.FC = () => {
                                     <label className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
                                     <p className="text-body-2 text-white/60 mb-2 ml-1 font-body">Select a time and we'll send you an invite.</p>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2" role="radiogroup" aria-label="Time slot selection">
-                                        {timeSlots.map((slot) => (
+                                        {TIME_SLOTS.map((slot) => (
                                             <button
                                                 key={slot}
                                                 type="button"

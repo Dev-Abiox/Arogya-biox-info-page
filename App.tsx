@@ -77,7 +77,7 @@ const App: React.FC = () => {
           <Hero />
         </section>
 
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[200px]"><div className="w-8 h-8 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" /></div>}>
           <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <CompanyBackground />
           </section>

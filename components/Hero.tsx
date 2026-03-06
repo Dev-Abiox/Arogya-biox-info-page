@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { scrollTo } from '../utils/scroll';
 
 const Hero: React.FC = () => {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  const handleContactClick = useCallback(() => scrollTo('contact'), []);
+  const handleDemoClick = useCallback(() => { window.location.href = '/demo'; }, []);
 
   return (
     <div className="relative z-20 min-h-screen flex flex-col items-center px-6 md:px-12 lg:px-24 pt-4 md:pt-10 pb-20 md:pb-40 justify-start md:justify-center">
@@ -27,18 +26,18 @@ const Hero: React.FC = () => {
 
           {/* Mobile Particle Visualization */}
           <div className="md:hidden w-[85%] max-w-[400px] aspect-square my-4">
-            <img src="/mobile-ring.png" alt="Arogya BioX" className="w-full h-full object-contain opacity-70 brightness-[1.1]" />
+            <img src="/mobile-ring.png" alt="Arogya BioX particle visualization" width="400" height="400" className="w-full h-full object-contain opacity-70 brightness-[1.1]" />
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mt-6 md:mt-0">
             <button
-              onClick={() => window.location.href = '/demo'}
+              onClick={handleDemoClick}
               className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-colors shadow-lg hover:shadow-blue-500/50 active:scale-95 text-center font-heading"
             >
               Request a Demo
             </button>
             <button
-              onClick={() => scrollTo('contact')}
+              onClick={handleContactClick}
               className="px-8 py-4 border border-white/20 hover:bg-white/5 text-white/90 hover:text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-colors text-center font-heading"
             >
               Contact Sales
@@ -55,4 +54,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default React.memo(Hero);

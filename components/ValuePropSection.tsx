@@ -1,41 +1,41 @@
 import React from 'react';
 
-const ValuePropSection: React.FC = () => {
-  const values = [
-    {
-      target: "Diagnostic Laboratories",
-      benefits: [
-        "Software-only enhancement",
-        "No additional equipment or reagents",
-        "Differentiated CBC reports",
-        "Increased clinician engagement",
-        "Supports reflex and follow-up testing"
-      ]
-    },
-    {
-      target: "Clinicians",
-      benefits: [
-        "Earlier visibility into possible deficiency",
-        "Structured, interpretable risk insights",
-        "Supports confirmatory testing decisions",
-        "Improves preventive care conversations",
-        "Data-driven patient interaction"
-      ]
-    },
-    {
-      target: "Health Systems",
-      benefits: [
-        "Scalable preventive screening",
-        "Reduced late-stage complications",
-        "Population-level health insights",
-        "Optimized diagnostic pathways",
-        "Improved health economic outcomes"
-      ]
-    }
-  ];
+const values = [
+  {
+    target: "Diagnostic Laboratories",
+    benefits: [
+      "Software-only enhancement",
+      "No additional equipment or reagents",
+      "Differentiated CBC reports",
+      "Increased clinician engagement",
+      "Supports reflex and follow-up testing"
+    ]
+  },
+  {
+    target: "Clinicians",
+    benefits: [
+      "Earlier visibility into possible deficiency",
+      "Structured, interpretable risk insights",
+      "Supports confirmatory testing decisions",
+      "Improves preventive care conversations",
+      "Data-driven patient interaction"
+    ]
+  },
+  {
+    target: "Health Systems",
+    benefits: [
+      "Scalable preventive screening",
+      "Reduced late-stage complications",
+      "Population-level health insights",
+      "Optimized diagnostic pathways",
+      "Improved health economic outcomes"
+    ]
+  }
+];
 
+const ValuePropSection: React.FC = () => {
   return (
-    <div className="relative z-20 py-8 md:py-24 px-6 md:px-12 lg:px-24">
+    <section className="relative z-20 py-8 md:py-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <span className="text-blue-300 text-label-2 font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Value Proposition</span>
@@ -58,8 +58,8 @@ const ValuePropSection: React.FC = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ValuePropSection;
+export default React.memo(ValuePropSection);

@@ -1,12 +1,5 @@
 import React from 'react';
-
-const steps = [
-    { label: "CBC Performed", desc: "Routine CBC is processed as part of standard laboratory workflow." },
-    { label: "Data Integration", desc: "CBC parameters are securely ingested from LIS or analyzers (HL7 / CSV)." },
-    { label: "Clinical Pattern Evaluation", desc: "Validated red-cell indices and composite markers are analyzed." },
-    { label: "Risk Stratification", desc: "Samples are classified as Low, Moderate, or High B12 risk." },
-    { label: "Result Presentation", desc: "A clear risk flag and interpretive comment are appended to the CBC report." }
-];
+import { workflowSteps } from '../constants/workflow-steps';
 
 const DemoPageContent: React.FC = () => {
     return (
@@ -68,7 +61,7 @@ const DemoPageContent: React.FC = () => {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 sm:gap-8 md:gap-4 lg:gap-4 md:px-2 lg:px-4">
-                            {steps.map((step, i) => (
+                            {workflowSteps.map((step, i) => (
                                 <div key={i} className={`relative z-10 flex flex-col items-center text-center group`}>
                                     <div className="relative mb-6 md:mb-8">
                                         <div className="w-10 h-10 md:w-11 lg:w-12 md:h-11 lg:h-12 rounded-full glass-effect border border-white/20 flex items-center justify-center text-xs md:text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-[border-color,transform] z-20 relative !bg-black">
@@ -77,7 +70,7 @@ const DemoPageContent: React.FC = () => {
                                         <div className="absolute inset-0 w-10 h-10 md:w-11 lg:w-12 md:h-11 lg:h-12 rounded-full border border-blue-400/30 pulse-glow z-10 group-hover:scale-125 transition-transform duration-500"></div>
                                     </div>
                                     {/* Arrow for MD screens */}
-                                    {i < steps.length - 1 && (
+                                    {i < workflowSteps.length - 1 && (
                                         <div className="absolute top-[22px] md:top-[22px] lg:top-[24px] left-1/2 w-full hidden md:flex items-center justify-center -translate-y-1/2 pointer-events-none">
                                             <svg className="w-4 h-4 text-blue-400/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -85,7 +78,7 @@ const DemoPageContent: React.FC = () => {
                                         </div>
                                     )}
                                     {/* Vertical dashed line for mobile */}
-                                    {i < steps.length - 1 && (
+                                    {i < workflowSteps.length - 1 && (
                                         <div className="absolute top-[40px] bottom-[-48px] left-1/2 -translate-x-1/2 w-px md:hidden">
                                             <svg className="h-full w-2 overflow-visible" preserveAspectRatio="none">
                                                 <line x1="4" y1="0" x2="4" y2="100%" stroke="rgba(96, 165, 250, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
