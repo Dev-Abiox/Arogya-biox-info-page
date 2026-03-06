@@ -85,7 +85,7 @@ const DemoApp: React.FC = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body pb-12 md:pb-24">
+        <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body pb-4 md:pb-6">
             <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                 <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
