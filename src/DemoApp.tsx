@@ -85,7 +85,7 @@ const DemoApp: React.FC = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-sans pb-12 md:pb-24">
+        <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body pb-12 md:pb-24">
             <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                 <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
@@ -108,11 +108,11 @@ const DemoApp: React.FC = () => {
                     {/* Left Side: Info Section */}
                     <div className="h-full flex flex-col justify-center items-center text-center">
                         <div>
-                            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-8 text-white leading-none tracking-tight">
+                            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-8 text-white leading-none tracking-tight font-heading">
                                 <span className="block animate-fade-in-up" style={{ animationDelay: '100ms' }}>Clinical Intelligence</span>
                                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-fade-in-up pb-2" style={{ animationDelay: '300ms' }}>at Population Scale</span>
                             </h1>
-                            <p className="text-white/80 text-lg font-light leading-relaxed max-w-lg mb-8 mx-auto">
+                            <p className="text-white/80 text-body-1 md:text-h3 font-light leading-relaxed max-w-lg mb-8 mx-auto font-body">
                                 Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data—enabling earlier risk identification without adding operational complexity.
                             </p>
                         </div>
@@ -125,11 +125,11 @@ const DemoApp: React.FC = () => {
                         {!submitted ? (
                             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                                 <div>
-                                    <h2 className="text-2xl font-light mb-1">Request a <span className="font-bold">Live Demo</span></h2>
+                                    <h2 className="text-h2 font-light mb-1 font-heading">Request a <span className="font-bold">Live Demo</span></h2>
                                 </div>
 
                                 {formError && (
-                                    <div className="px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30 text-sm text-red-400 font-medium">
+                                    <div className="px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30 text-body-2 text-red-400 font-medium">
                                         {formError}
                                     </div>
                                 )}
@@ -227,7 +227,7 @@ const DemoApp: React.FC = () => {
 
                                 <div className="space-y-3 pt-4">
                                     <label className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
-                                    <p className="text-sm text-white/60 mb-2 ml-1">Select a time and we'll send you an invite.</p>
+                                    <p className="text-body-2 text-white/60 mb-2 ml-1 font-body">Select a time and we'll send you an invite.</p>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2" role="radiogroup" aria-label="Time slot selection">
                                         {timeSlots.map((slot) => (
                                             <button
@@ -262,8 +262,8 @@ const DemoApp: React.FC = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
                                 </div>
-                                <h3 className="text-2xl font-bold text-white mb-2">Request Received!</h3>
-                                <p className="text-white/60 text-sm max-w-xs leading-relaxed mb-8">
+                                <h3 className="text-h2 font-bold text-white mb-2 font-heading">Request Received!</h3>
+                                <p className="text-white/60 text-body-2 max-w-xs leading-relaxed mb-8 font-body">
                                     We have logged your request for <span className="text-blue-300 font-medium">{selectedSlot}</span>. Our team will contact you at {formData.email} shortly.
                                 </p>
                                 <button

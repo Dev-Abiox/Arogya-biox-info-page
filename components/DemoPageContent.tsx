@@ -15,12 +15,12 @@ const DemoPageContent: React.FC = () => {
                 {/* Intro Section: Current Product + How it interprets */}
                 <div className="mb-12 md:mb-20 grid lg:grid-cols-2 gap-12 items-start animate-fade-in-up">
                     <div className="max-w-4xl">
-                        <span className="text-blue-400 text-xs font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block">Current Product</span>
+                        <span className="text-blue-400 text-label-2 font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block font-heading">Current Product</span>
                         <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" loading="lazy" />
-                        <p className="text-white text-base md:text-lg lg:text-xl font-light leading-relaxed italic mb-6 md:mb-8 border-l border-blue-400/50 pl-4 md:pl-6">
+                        <p className="text-white text-body-1 md:text-h3 font-light leading-relaxed italic mb-6 md:mb-8 font-body border-l border-blue-400/50 pl-4 md:pl-6">
                             "A Clinical Intelligence Platform by Arogya BioX"
                         </p>
-                        <div className="space-y-4 md:space-y-6 text-white font-light text-base md:text-lg max-w-3xl">
+                        <div className="space-y-4 md:space-y-6 text-white font-light text-body-1 md:text-h3 max-w-3xl font-body">
                             <p>
                                 Clinomic Labs is a laboratory-integrated clinical intelligence platform that enables Vitamin B12 deficiency risk screening using routine CBC data.
                             </p>
@@ -31,22 +31,22 @@ const DemoPageContent: React.FC = () => {
                     </div>
 
                     <div className="glass-effect p-6 md:p-8 rounded-2xl md:rounded-[32px] border border-white/10 hover:border-blue-400/20 hover:-translate-y-1 transition-[border-color,transform] duration-500 mt-8 lg:mt-16">
-                        <h4 className="text-blue-300 text-xs font-bold uppercase tracking-widest mb-4">How it interprets</h4>
-                        <p className="text-sm md:text-base text-white/80 font-light leading-relaxed mb-6">
+                        <h4 className="text-blue-300 text-label-2 font-bold uppercase tracking-widest mb-4 font-heading">How it interprets</h4>
+                        <p className="text-body-2 md:text-body-1 text-white/80 font-light leading-relaxed mb-6 font-body">
                             Our engine doesn't just look for "high" or "low" numbers. It evaluates the <strong>morphological signature</strong> of blood cells across 21 standard parameters.
                         </p>
                         <div className="space-y-3">
                             <div className="flex gap-3 items-center">
                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
-                                <span className="text-sm text-white/90">Macro-ovalocytic trends in MCV & RBC indices</span>
+                                <span className="text-body-2 text-white/90 font-body">Macro-ovalocytic trends in MCV & RBC indices</span>
                             </div>
                             <div className="flex gap-3 items-center">
                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
-                                <span className="text-sm text-white/90">Subtle changes in anisocytosis (RDW-CV/SD)</span>
+                                <span className="text-body-2 text-white/90 font-body">Subtle changes in anisocytosis (RDW-CV/SD)</span>
                             </div>
                             <div className="flex gap-3 items-center">
                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></div>
-                                <span className="text-sm text-white/90">Secondary signatures in WBC/Platelet distributions</span>
+                                <span className="text-body-2 text-white/90 font-body">Secondary signatures in WBC/Platelet distributions</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ const DemoPageContent: React.FC = () => {
 
                 {/* How Clinomic Labs Works */}
                 <div className="relative animate-fade-in-up">
-                    <h3 className="text-center text-white/60 text-xs font-bold uppercase tracking-[0.4em] mb-12 md:mb-20">How Clinomic Labs Works</h3>
+                    <h3 className="text-center text-white/60 text-label-2 font-bold uppercase tracking-[0.4em] mb-12 font-heading md:mb-20">How Clinomic Labs Works</h3>
 
                     <div className="relative max-w-6xl mx-auto">
                         {/* Dashed Line */}
@@ -92,8 +92,8 @@ const DemoPageContent: React.FC = () => {
                                             </svg>
                                         </div>
                                     )}
-                                    <h4 className="text-xs lg:text-sm font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:h-8 flex items-center px-1 lg:px-4 leading-tight">{step.label}</h4>
-                                    <p className="text-sm md:text-xs lg:text-sm text-white/80 font-light leading-relaxed max-w-[200px] md:max-w-[140px] lg:max-w-[160px] group-hover:text-white transition-colors">{step.desc}</p>
+                                    <h4 className="text-label-2 lg:text-body-2 font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase font-heading md:h-8 flex items-center px-1 lg:px-4 leading-tight">{step.label}</h4>
+                                    <p className="text-body-2 text-white/80 font-light leading-relaxed font-body max-w-[200px] md:max-w-[140px] lg:max-w-[160px] group-hover:text-white transition-colors">{step.desc}</p>
                                 </div>
                             ))}
                         </div>
