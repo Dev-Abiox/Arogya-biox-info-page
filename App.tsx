@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ParticleRing from './components/ParticleRing';
 import Hero from './components/Hero';
@@ -10,11 +10,8 @@ import ContactSection from './components/ContactSection';
 import { AppMode } from './types';
 
 const App: React.FC = () => {
-  const [mode, setMode] = useState<AppMode>(AppMode.NORMAL);
+  const [mode] = useState<AppMode>(AppMode.NORMAL);
 
-  const toggleMode = useCallback(() => {
-    setMode(prev => prev === AppMode.NORMAL ? AppMode.ACTIVE : AppMode.NORMAL);
-  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -55,7 +52,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body">
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }}></div>
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
 
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 blur-[180px] rounded-full"></div>
@@ -67,7 +64,7 @@ const App: React.FC = () => {
       <main className="relative pb-0 md:pb-0">
         <section id="hero" className="relative min-h-screen overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
           <ParticleRing mode={mode} />
-          <Hero onToggleMode={toggleMode} />
+          <Hero />
         </section>
 
         <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">

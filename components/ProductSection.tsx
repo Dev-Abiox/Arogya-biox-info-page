@@ -76,9 +76,9 @@ const ProductSection: React.FC = () => {
             setScanResult(results[Math.floor(Math.random() * results.length)]);
             return 100;
           }
-          return prev + 2;
+          return prev + 4;
         });
-      }, 30);
+      }, 60);
       return () => clearInterval(interval);
     }
   }, [isScanning]);
