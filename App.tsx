@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import ParticleRing from './components/ParticleRing';
 import Hero from './components/Hero';
-import CompanyBackground from './components/CompanyBackground';
-import ProductSection from './components/ProductSection';
-import ValuePropSection from './components/ValuePropSection';
-import PricingSection from './components/PricingSection';
-import ContactSection from './components/ContactSection';
 import { AppMode } from './types';
+
+const CompanyBackground = lazy(() => import('./components/CompanyBackground'));
+const ProductSection = lazy(() => import('./components/ProductSection'));
+const ValuePropSection = lazy(() => import('./components/ValuePropSection'));
+const PricingSection = lazy(() => import('./components/PricingSection'));
+const ContactSection = lazy(() => import('./components/ContactSection'));
 
 const App: React.FC = () => {
   const [mode] = useState<AppMode>(AppMode.NORMAL);
-
 
   useEffect(() => {
     const observerOptions = {
@@ -23,16 +23,27 @@ const App: React.FC = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          // Performance optimization: Stop observing once revealed
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-    revealElements.forEach(el => observer.observe(el));
+    const observeElements = () => {
+      const revealElements = document.querySelectorAll('.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)');
+      revealElements.forEach(el => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
+    // Observe initially and re-observe after lazy components load
+    observeElements();
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
   // Handle hash scrolling on initial load
@@ -43,7 +54,6 @@ const App: React.FC = () => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'auto' });
-          // Clear the hash so that a refresh stays at the top/home
           history.replaceState(null, '', window.location.pathname);
         }, 100);
       }
@@ -55,8 +65,8 @@ const App: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
 
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 blur-[180px] rounded-full"></div>
-        <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 blur-[220px] rounded-full"></div>
+        <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[80px] md:blur-[220px]"></div>
       </div>
 
       <Navbar />
@@ -67,33 +77,32 @@ const App: React.FC = () => {
           <Hero />
         </section>
 
-        <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
-          <CompanyBackground />
-        </section>
+        <Suspense fallback={null}>
+          <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+            <CompanyBackground />
+          </section>
 
-        <section id="solution" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
-          <ProductSection />
-        </section>
+          <section id="solution" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+            <ProductSection />
+          </section>
 
+          <section id="value" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+            <ValuePropSection />
+          </section>
 
+          <section id="pricing" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+            <PricingSection />
+          </section>
 
-        <section id="value" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
-          <ValuePropSection />
-        </section>
-
-        <section id="pricing" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
-          <PricingSection />
-        </section>
-
-        <section id="contact" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
-          <ContactSection />
-        </section>
+          <section id="contact" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+            <ContactSection />
+          </section>
+        </Suspense>
       </main>
 
-      <div className="fixed top-[-50px] left-[-50px] w-96 h-96 bg-blue-500/5 blur-[160px] rounded-full pointer-events-none z-20"></div>
+      <div className="fixed top-[-50px] left-[-50px] w-96 h-96 bg-blue-500/5 rounded-full pointer-events-none z-20 blur-[80px] md:blur-[160px]"></div>
     </div>
   );
 };
 
 export default App;
-// Re-build trigger

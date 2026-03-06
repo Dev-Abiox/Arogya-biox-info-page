@@ -23,6 +23,93 @@ type RBCParticle = Particle & {
   spinSpeed: { x: number, y: number, z: number };
 };
 
+const PALETTE = {
+  BASE_BLUE: { r: 173, g: 216, b: 230 },
+  RBC_RED: { r: 230, g: 30, b: 40 },
+  WBC_WHITE: { r: 245, g: 245, b: 255 },
+  DEEP: '#000000'
+} as const;
+
+const SPRITE_SIZE = 128;
+const SPRITE_VARIETIES = 20;
+
+function createSprites(): HTMLCanvasElement | null {
+  const spriteCanvas = document.createElement('canvas');
+  spriteCanvas.width = SPRITE_SIZE * SPRITE_VARIETIES;
+  spriteCanvas.height = SPRITE_SIZE;
+  const sCtx = spriteCanvas.getContext('2d');
+  if (!sCtx) return null;
+
+  for (let i = 0; i < SPRITE_VARIETIES; i++) {
+    const isWBC = i >= 10;
+    const centerX = i * SPRITE_SIZE + SPRITE_SIZE / 2;
+    const centerY = SPRITE_SIZE / 2;
+    const radius = SPRITE_SIZE * 0.45;
+
+    sCtx.save();
+    sCtx.translate(centerX, centerY);
+
+    if (!isWBC) {
+      const r = PALETTE.RBC_RED.r;
+      const g = PALETTE.RBC_RED.g;
+      const b = PALETTE.RBC_RED.b;
+
+      const grad = sCtx.createRadialGradient(-radius * 0.2, -radius * 0.2, 0, 0, 0, radius);
+      grad.addColorStop(0, `rgb(${Math.min(255, r + 20)}, ${Math.min(255, g + 20)}, ${Math.min(255, b + 20)})`);
+      grad.addColorStop(0.6, `rgb(${r}, ${g}, ${b})`);
+      grad.addColorStop(1, `rgb(${Math.max(0, r - 100)}, 0, 0)`);
+
+      sCtx.fillStyle = grad;
+      sCtx.beginPath();
+      sCtx.arc(0, 0, radius, 0, Math.PI * 2);
+      sCtx.fill();
+
+      const centerGrad = sCtx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.65);
+      centerGrad.addColorStop(0, 'rgba(0,0,0,0.6)');
+      centerGrad.addColorStop(0.5, 'rgba(0,0,0,0.2)');
+      centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      sCtx.fillStyle = centerGrad;
+      sCtx.beginPath();
+      sCtx.arc(0, 0, radius * 0.65, 0, Math.PI * 2);
+      sCtx.fill();
+    } else {
+      const grad = sCtx.createRadialGradient(-radius * 0.3, -radius * 0.3, 0, 0, 0, radius);
+      grad.addColorStop(0, 'white');
+      grad.addColorStop(0.7, `rgb(220, 220, 230)`);
+      grad.addColorStop(1, `rgb(160, 160, 180)`);
+
+      sCtx.fillStyle = grad;
+      sCtx.beginPath();
+      sCtx.arc(0, 0, radius, 0, Math.PI * 2);
+      sCtx.fill();
+
+      const centerGrad = sCtx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.65);
+      centerGrad.addColorStop(0, 'rgba(100,100,120,0.4)');
+      centerGrad.addColorStop(0.6, 'rgba(150,150,170,0.1)');
+      centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      sCtx.fillStyle = centerGrad;
+      sCtx.beginPath();
+      sCtx.arc(0, 0, radius * 0.65, 0, Math.PI * 2);
+      sCtx.fill();
+
+      sCtx.globalAlpha = 0.3;
+      for (let dot = 0; dot < 12; dot++) {
+        sCtx.fillStyle = 'rgba(180, 180, 220, 0.6)';
+        const dotSize = radius * (0.04 + Math.random() * 0.08);
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * radius * 0.8;
+        sCtx.beginPath();
+        sCtx.arc(Math.cos(angle) * dist, Math.sin(angle) * dist, dotSize, 0, Math.PI * 2);
+        sCtx.fill();
+      }
+      sCtx.globalAlpha = 1.0;
+    }
+
+    sCtx.restore();
+  }
+  return spriteCanvas;
+}
+
 const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const spriteCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -30,6 +117,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   const particles = useRef<RBCParticle[]>([]);
   const animationFrameId = useRef<number | undefined>(undefined);
   const heartPhase = useRef(0);
+  const sortCounter = useRef(0);
 
   const rotationRef = useRef({
     x: 0,
@@ -39,100 +127,12 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
   const prevWidth = useRef<number>(0);
   const cachedRect = useRef<DOMRect | null>(null);
-
-  const PALETTE = {
-    BASE_BLUE: { r: 173, g: 216, b: 230 },
-    RBC_RED: { r: 230, g: 30, b: 40 },
-    WBC_WHITE: { r: 245, g: 245, b: 255 },
-    DEEP: '#000000'
-  };
-
-  const createSprites = useCallback(() => {
-    const spriteCanvas = document.createElement('canvas');
-    const size = 128;
-    const varieties = 20;
-    spriteCanvas.width = size * varieties;
-    spriteCanvas.height = size;
-    const sCtx = spriteCanvas.getContext('2d');
-    if (!sCtx) return null;
-
-    for (let i = 0; i < varieties; i++) {
-      const isWBC = i >= 10;
-      const centerX = i * size + size / 2;
-      const centerY = size / 2;
-      const radius = size * 0.45;
-
-      sCtx.save();
-      sCtx.translate(centerX, centerY);
-
-      if (!isWBC) {
-        const r = PALETTE.RBC_RED.r;
-        const g = PALETTE.RBC_RED.g;
-        const b = PALETTE.RBC_RED.b;
-
-        const grad = sCtx.createRadialGradient(-radius * 0.2, -radius * 0.2, 0, 0, 0, radius);
-        grad.addColorStop(0, `rgb(${Math.min(255, r + 20)}, ${Math.min(255, g + 20)}, ${Math.min(255, b + 20)})`);
-        grad.addColorStop(0.6, `rgb(${r}, ${g}, ${b})`);
-        grad.addColorStop(1, `rgb(${Math.max(0, r - 100)}, 0, 0)`);
-
-        sCtx.fillStyle = grad;
-        sCtx.beginPath();
-        sCtx.arc(0, 0, radius, 0, Math.PI * 2);
-        sCtx.fill();
-
-        const centerGrad = sCtx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.65);
-        centerGrad.addColorStop(0, 'rgba(0,0,0,0.6)');
-        centerGrad.addColorStop(0.5, 'rgba(0,0,0,0.2)');
-        centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
-        sCtx.fillStyle = centerGrad;
-        sCtx.beginPath();
-        sCtx.arc(0, 0, radius * 0.65, 0, Math.PI * 2);
-        sCtx.fill();
-      } else {
-        const grad = sCtx.createRadialGradient(-radius * 0.3, -radius * 0.3, 0, 0, 0, radius);
-        grad.addColorStop(0, 'white');
-        grad.addColorStop(0.7, `rgb(220, 220, 230)`);
-        grad.addColorStop(1, `rgb(160, 160, 180)`);
-
-        sCtx.fillStyle = grad;
-        sCtx.beginPath();
-        sCtx.arc(0, 0, radius, 0, Math.PI * 2);
-        sCtx.fill();
-
-        const centerGrad = sCtx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.65);
-        centerGrad.addColorStop(0, 'rgba(100,100,120,0.4)');
-        centerGrad.addColorStop(0.6, 'rgba(150,150,170,0.1)');
-        centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
-        sCtx.fillStyle = centerGrad;
-        sCtx.beginPath();
-        sCtx.arc(0, 0, radius * 0.65, 0, Math.PI * 2);
-        sCtx.fill();
-
-        sCtx.globalAlpha = 0.3;
-        for (let dot = 0; dot < 12; dot++) {
-          sCtx.fillStyle = 'rgba(180, 180, 220, 0.6)';
-          const dotSize = radius * (0.04 + Math.random() * 0.08);
-          const angle = Math.random() * Math.PI * 2;
-          const dist = Math.random() * radius * 0.8;
-          sCtx.beginPath();
-          sCtx.arc(Math.cos(angle) * dist, Math.sin(angle) * dist, dotSize, 0, Math.PI * 2);
-          sCtx.fill();
-        }
-        sCtx.globalAlpha = 1.0;
-      }
-
-      sCtx.restore();
-    }
-    return spriteCanvas;
-  }, []);
-
   const lastDrawTime = useRef<number>(0);
 
   const initParticles = useCallback((width: number, height: number) => {
     const isDesktop = width >= 1024;
     const isMobile = width < 768;
 
-    // Lightweight density for mobile
     const count = isMobile ? 120 : isDesktop ? 1800 : 1000;
 
     const tempParticles: RBCParticle[] = [];
@@ -185,17 +185,23 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     if (!spriteCanvasRef.current) {
       spriteCanvasRef.current = createSprites();
     }
-  }, [createSprites]);
+  }, []);
 
   const draw = useCallback((timestamp: number = 0) => {
     const canvas = canvasRef.current;
     if (!canvas || !spriteCanvasRef.current) return;
 
+    // Skip drawing if canvas is not visible (hidden on mobile via CSS)
+    if (canvas.offsetWidth === 0 || canvas.offsetHeight === 0) {
+      animationFrameId.current = requestAnimationFrame(draw);
+      return;
+    }
+
     // FPS Throttling for mobile: Target ~30fps
     const isMobile = canvas.width < 768;
     if (isMobile) {
       const elapsed = timestamp - lastDrawTime.current;
-      if (elapsed < 32) { // Skip frames to maintain ~30fps
+      if (elapsed < 32) {
         animationFrameId.current = requestAnimationFrame(draw);
         return;
       }
@@ -267,9 +273,13 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       }
     }
 
-    particles.current.sort((a, b) => b.projectedZ - a.projectedZ);
+    // Sort every 3 frames instead of every frame to reduce CPU cost
+    sortCounter.current++;
+    if (sortCounter.current >= 3) {
+      particles.current.sort((a, b) => b.projectedZ - a.projectedZ);
+      sortCounter.current = 0;
+    }
 
-    const spriteSize = 128;
     for (let i = 0; i < particles.current.length; i++) {
       const p = particles.current[i];
       const finalSize = (p.baseSize + p.expansion) * p.projectedScale;
@@ -291,14 +301,14 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
       ctx.drawImage(
         spriteCanvasRef.current,
-        spriteIdx * spriteSize, 0, spriteSize, spriteSize,
+        spriteIdx * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE,
         -finalSize, -finalSize, finalSize * 2, finalSize * 2
       );
     }
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     animationFrameId.current = requestAnimationFrame(draw);
-  }, [PALETTE.DEEP, createSprites]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -310,7 +320,6 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
           prevWidth.current = newWidth;
 
-          // Resolution Scaling for mobile
           const isMobile = newWidth < 768;
           const pixelRatio = isMobile ? Math.min(1.5, window.devicePixelRatio) : window.devicePixelRatio;
 
@@ -339,7 +348,6 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Initial setup
     handleResize();
     draw();
 
@@ -359,7 +367,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       <div className="absolute inset-0 z-10 w-full h-full flex items-center justify-center md:hidden pointer-events-none">
         <div
           className="relative w-[85%] max-w-[400px] aspect-square"
-          style={{ top: '2%' }} // Adjusted slightly up to find the perfect balance
+          style={{ top: '2%' }}
         >
           <img
             src="/mobile-ring.png"

@@ -1,5 +1,13 @@
 import React from 'react';
 
+const navLinks = [
+  { id: 'company', label: 'About us' },
+  { id: 'solution', label: 'Clinomic Labs' },
+  { id: 'value', label: 'Value' },
+  { id: 'pricing', label: 'Commercial Model' },
+  { id: 'contact', label: 'Contact' }
+];
+
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -13,11 +21,11 @@ const Navbar: React.FC = () => {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMobileMenuOpen(false); // Close menu on click
+    setIsMobileMenuOpen(false);
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-black/30 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 w-full bg-black/70 md:bg-black/30 md:backdrop-blur-sm">
       <div className="w-full px-6 h-20 flex items-center justify-between relative">
         {/* Logo */}
         <button
@@ -39,13 +47,7 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2 rounded-full px-8 py-2 bg-black/50 backdrop-blur-md border border-white/5 whitespace-nowrap">
-          {[
-            { id: 'company', label: 'About us' },
-            { id: 'solution', label: 'Clinomic Labs' },
-            { id: 'value', label: 'Value' },
-            { id: 'pricing', label: 'Commercial Model' },
-            { id: 'contact', label: 'Contact' }
-          ].map((link) => (
+          {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
@@ -79,14 +81,8 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-black/95 border-b border-white/10 backdrop-blur-xl p-6 flex flex-col gap-6 animate-fade-in-down shadow-2xl">
-          {[
-            { id: 'company', label: 'About us' },
-            { id: 'solution', label: 'Clinomic Labs' },
-            { id: 'value', label: 'Value' },
-            { id: 'pricing', label: 'Commercial Model' },
-            { id: 'contact', label: 'Contact' }
-          ].map((link) => (
+        <div className="md:hidden absolute top-20 left-0 w-full bg-black/95 border-b border-white/10 p-6 flex flex-col gap-6 animate-fade-in-down shadow-2xl">
+          {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}

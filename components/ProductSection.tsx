@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const steps = [
   { label: "CBC Performed", desc: "Routine CBC is processed as part of standard laboratory workflow." },
@@ -8,52 +8,54 @@ const steps = [
   { label: "Result Presentation", desc: "A clear risk flag and interpretive comment are appended to the CBC report." }
 ];
 
+const basePatientData = [
+  { l: "WBC", v: 6.42, u: "10\u2079/L", p: 2 },
+  { l: "Lymph#", v: 1.85, u: "10\u2079/L", p: 2 },
+  { l: "Mid#", v: 0.52, u: "10\u2079/L", p: 2 },
+  { l: "Gran#", v: 4.05, u: "10\u2079/L", p: 2 },
+  { l: "Lymph%", v: 28.8, u: "%", p: 1 },
+  { l: "Mid%", v: 8.1, u: "%", p: 1 },
+  { l: "Gran%", v: 63.1, u: "%", p: 1 },
+  { l: "RBC", v: 3.82, u: "10\u00B9\u00B2/L", p: 2 },
+  { l: "HGB", v: 11.2, u: "g/dL", p: 1 },
+  { l: "HCT", v: 34.5, u: "%", p: 1 },
+  { l: "MCV", v: 102.4, u: "fL", p: 1 },
+  { l: "MCH", v: 34.1, u: "pg", p: 1 },
+  { l: "MCHC", v: 32.4, u: "g/dL", p: 1 },
+  { l: "RDW-CV", v: 15.8, u: "%", p: 1 },
+  { l: "RDW-SD", v: 52.1, u: "fL", p: 1 },
+  { l: "PLT", v: 142, u: "10\u2079/L", p: 0 },
+  { l: "MPV", v: 10.8, u: "fL", p: 1 },
+  { l: "PDW", v: 12.4, u: "", p: 1 },
+  { l: "PCT", v: 0.15, u: "%", p: 2 },
+  { l: "P-LCC", v: 42, u: "10\u2079/L", p: 0 },
+  { l: "P-LCR", v: 28.5, u: "%", p: 1 }
+];
+
+const scanResults = [
+  { risk: "HIGH RISK", color: "text-red-500", details: "Patterns strongly suggestive of B12 insufficiency. Clinical correlation recommended." },
+  { risk: "MODERATE RISK", color: "text-yellow-500", details: "Early hematological signals detected. Consider follow-up B12/MMA testing." },
+  { risk: "LOW RISK", color: "text-blue-400", details: "No significant clinical patterns of B12 insufficiency identified." }
+];
+
 const ProductSection: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
   const [scanResult, setScanResult] = useState<null | { risk: string, color: string, details: string }>(null);
 
-  // Base data configuration with numeric values for randomization (Refreshed)
-  const basePatientData = [
-    { l: "WBC", v: 6.42, u: "10⁹/L", p: 2 },
-    { l: "Lymph#", v: 1.85, u: "10⁹/L", p: 2 },
-    { l: "Mid#", v: 0.52, u: "10⁹/L", p: 2 },
-    { l: "Gran#", v: 4.05, u: "10⁹/L", p: 2 },
-    { l: "Lymph%", v: 28.8, u: "%", p: 1 },
-    { l: "Mid%", v: 8.1, u: "%", p: 1 },
-    { l: "Gran%", v: 63.1, u: "%", p: 1 },
-    { l: "RBC", v: 3.82, u: "10¹²/L", p: 2 },
-    { l: "HGB", v: 11.2, u: "g/dL", p: 1 },
-    { l: "HCT", v: 34.5, u: "%", p: 1 },
-    { l: "MCV", v: 102.4, u: "fL", p: 1 },
-    { l: "MCH", v: 34.1, u: "pg", p: 1 },
-    { l: "MCHC", v: 32.4, u: "g/dL", p: 1 },
-    { l: "RDW-CV", v: 15.8, u: "%", p: 1 },
-    { l: "RDW-SD", v: 52.1, u: "fL", p: 1 },
-    { l: "PLT", v: 142, u: "10⁹/L", p: 0 },
-    { l: "MPV", v: 10.8, u: "fL", p: 1 },
-    { l: "PDW", v: 12.4, u: "", p: 1 },
-    { l: "PCT", v: 0.15, u: "%", p: 2 },
-    { l: "P-LCC", v: 42, u: "10⁹/L", p: 0 },
-    { l: "P-LCR", v: 28.5, u: "%", p: 1 }
-  ];
-
-  const [patientData, setPatientData] = useState<{ l: string, v: string, u: string }[]>([]);
-
-  // Function to generate random data based on base values
-  const generateRandomData = () => {
+  const generateRandomData = useCallback(() => {
     return basePatientData.map(item => {
-      // Random variation between -10% and +10%
       const variation = 1 + (Math.random() * 0.2 - 0.1);
       const newValue = (item.v * variation).toFixed(item.p);
       return { l: item.l, v: newValue, u: item.u };
     });
-  };
+  }, []);
 
-  // Initialize data on mount
+  const [patientData, setPatientData] = useState<{ l: string, v: string, u: string }[]>([]);
+
   useEffect(() => {
     setPatientData(generateRandomData());
-  }, []);
+  }, [generateRandomData]);
 
   const startSimulation = () => {
     setIsScanning(true);
@@ -68,12 +70,7 @@ const ProductSection: React.FC = () => {
           if (prev >= 100) {
             clearInterval(interval);
             setIsScanning(false);
-            const results = [
-              { risk: "HIGH RISK", color: "text-red-500", details: "Patterns strongly suggestive of B12 insufficiency. Clinical correlation recommended." },
-              { risk: "MODERATE RISK", color: "text-yellow-500", details: "Early hematological signals detected. Consider follow-up B12/MMA testing." },
-              { risk: "LOW RISK", color: "text-blue-400", details: "No significant clinical patterns of B12 insufficiency identified." }
-            ];
-            setScanResult(results[Math.floor(Math.random() * results.length)]);
+            setScanResult(scanResults[Math.floor(Math.random() * scanResults.length)]);
             return 100;
           }
           return prev + 4;
@@ -85,32 +82,6 @@ const ProductSection: React.FC = () => {
 
   return (
     <div className="relative z-20 min-h-screen py-8 md:py-24 px-6 md:px-12 lg:px-24">
-      <style>{`
-        @keyframes dash {
-          to { stroke-dashoffset: -16; }
-        }
-        .animate-dash {
-          stroke-dasharray: 4, 4;
-          animation: dash 1s linear infinite;
-        }
-        .pulse-glow {
-          box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
-          animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-ring {
-          0%, 100% { opacity: 0.8; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.05); }
-        }
-        .scan-line {
-          height: 2px;
-          background: linear-gradient(90deg, transparent, #60a5fa, transparent);
-          box-shadow: 0 0 15px #60a5fa;
-          width: 100%;
-          position: absolute;
-          z-index: 50;
-        }
-      `}</style>
-
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left Column */}
@@ -120,6 +91,7 @@ const ProductSection: React.FC = () => {
               src="/clinomic-labs-logo.png"
               alt="Clinomic Labs"
               className="h-[32px] md:h-[42px] w-auto mb-10 object-contain"
+              loading="lazy"
             />
 
             <div className="border-l-2 border-blue-400/50 pl-6 mb-10">
@@ -217,8 +189,6 @@ const ProductSection: React.FC = () => {
                 </p>
               </div>
             </div>
-
-
           </div>
         </div>
 

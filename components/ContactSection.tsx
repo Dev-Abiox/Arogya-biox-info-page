@@ -34,14 +34,6 @@ const ContactSection: React.FC = () => {
     }
   };
 
-  const handleSocialClick = (e: React.MouseEvent) => {
-    // If it's a placeholder link, prevent the default scroll-to-top behavior
-    const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-    if (href === '#' || href === '') {
-      e.preventDefault();
-    }
-  };
-
   return (
     <div className="relative z-20 md:min-h-screen pt-12 md:pt-32 pb-8 px-4 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-6 md:gap-20 items-start">
@@ -52,7 +44,7 @@ const ContactSection: React.FC = () => {
           </h2>
 
           <p className="text-white/75 text-base md:text-xl font-light max-w-md leading-relaxed font-body">
-            Let’s enable earlier detection—without changing how labs work.
+            Let's enable earlier detection—without changing how labs work.
           </p>
 
           <div className="space-y-4 md:space-y-12">
@@ -71,8 +63,9 @@ const ContactSection: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
             <fieldset disabled={status === 'loading'} className="space-y-4 md:space-y-8">
               <div className="space-y-2">
-                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
+                <label htmlFor="contact-name" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
                 <input
+                  id="contact-name"
                   type="text"
                   required
                   value={formData.name}
@@ -83,8 +76,9 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
+                <label htmlFor="contact-email" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   value={formData.email}
@@ -95,8 +89,9 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
+                <label htmlFor="contact-phone" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
                 <input
+                  id="contact-phone"
                   type="tel"
                   required
                   pattern="[0-9]{10}"
@@ -112,8 +107,9 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
+                <label htmlFor="contact-message" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
                 <textarea
+                  id="contact-message"
                   required
                   rows={4}
                   value={formData.message}
@@ -139,9 +135,6 @@ const ContactSection: React.FC = () => {
               <p className="text-center text-sm text-red-400 font-medium">Failed to send message. Please try again or contact us directly via email.</p>
             )}
           </form>
-
-          {/* Social links moved to footer */}
-          <div className="mt-8"></div>
         </div>
       </div>
 
