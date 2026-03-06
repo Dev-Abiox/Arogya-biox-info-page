@@ -38,7 +38,7 @@ const ContactSection: React.FC = () => {
     <div className="relative z-20 md:min-h-screen pt-12 md:pt-32 pb-8 px-4 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-6 md:gap-20 items-start">
         <div className="space-y-4 md:space-y-16">
-          <h2 className="text-4xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[0.9] font-heading">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light tracking-tighter leading-[0.9] font-heading">
             Get <br className="hidden md:block" />
             <span className="text-blue-300 font-medium">In Touch.</span>
           </h2>
@@ -49,15 +49,15 @@ const ContactSection: React.FC = () => {
 
           <div className="space-y-4 md:space-y-12">
             <div className="group">
-              <span className="text-[10px] md:text-xs text-white/50 uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 block font-heading">Product & Partnerships</span>
-              <a href="mailto:contact@arogyabiox.com" className="text-xl md:text-4xl font-light text-white group-hover:text-blue-300 transition-colors duration-300 break-all leading-tight font-heading">
+              <span className="text-xs text-white/50 uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 block font-heading">Product & Partnerships</span>
+              <a href="mailto:contact@arogyabiox.com" className="text-xl md:text-4xl font-light text-white group-hover:text-blue-300 transition-colors duration-300 break-words leading-tight font-heading">
                 contact@arogyabiox.com
               </a>
             </div>
           </div>
         </div>
 
-        <div className="glass-effect p-6 md:p-12 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 w-full group">
+        <div className="glass-effect p-5 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-colors duration-500 w-full group">
           <span className="text-xs text-blue-400/80 uppercase tracking-[0.4em] font-bold mb-4 md:mb-8 block font-heading">Inquiry Form</span>
 
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
@@ -122,7 +122,7 @@ const ContactSection: React.FC = () => {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-full text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98] font-heading"
+                className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-full text-xs font-bold tracking-[0.3em] uppercase transition-colors shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98] font-heading"
               >
                 {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>

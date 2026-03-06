@@ -78,29 +78,29 @@ const App: React.FC = () => {
         </section>
 
         <Suspense fallback={null}>
-          <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+          <section id="company" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <CompanyBackground />
           </section>
 
-          <section id="solution" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+          <section id="solution" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <ProductSection />
           </section>
 
-          <section id="value" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+          <section id="value" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <ValuePropSection />
           </section>
 
-          <section id="pricing" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+          <section id="pricing" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <PricingSection />
           </section>
 
-          <section id="contact" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24">
+          <section id="contact" className="relative md:border-t md:border-white/10 scroll-mt-20 md:scroll-mt-24 min-h-[200px]">
             <ContactSection />
           </section>
         </Suspense>
       </main>
 
-      <div className="fixed top-[-50px] left-[-50px] w-96 h-96 bg-blue-500/5 rounded-full pointer-events-none z-20 blur-[80px] md:blur-[160px]"></div>
+      <div className="fixed top-[-50px] left-[-50px] w-96 h-96 bg-blue-500/5 rounded-full pointer-events-none z-20 blur-[80px] md:blur-[160px] hidden md:block"></div>
     </div>
   );
 };

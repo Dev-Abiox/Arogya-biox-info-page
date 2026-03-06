@@ -98,7 +98,7 @@ const DemoApp: React.FC = () => {
                     className="pointer-events-auto w-[50px] h-[50px] rounded-full border border-white/10 flex items-center justify-center bg-white/5 cursor-pointer transition-colors duration-300 hover:border-white/40 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.5)] active:scale-95 group/logo"
                     aria-label="Back to Home"
                 >
-                    <img src="/logo.png" alt="Arogya BioX" className="w-full h-full object-contain transition-all duration-300 group-hover/logo:brightness-[100] group-hover/logo:drop-shadow-[0_0_15px_rgba(255,255,255,1)] group-hover/logo:scale-110" />
+                    <img src="/logo.png" alt="Arogya BioX" className="w-full h-full object-contain transition-[filter,transform] duration-300 group-hover/logo:brightness-[100] group-hover/logo:drop-shadow-[0_0_15px_rgba(255,255,255,1)] group-hover/logo:scale-110" />
                 </button>
             </nav>
 
@@ -106,9 +106,9 @@ const DemoApp: React.FC = () => {
                 <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
 
                     {/* Left Side: Info Section */}
-                    <div className="h-full flex flex-col justify-center items-center text-center pr-8 md:pr-0">
+                    <div className="h-full flex flex-col justify-center items-center text-center">
                         <div>
-                            <h1 className="text-[40px] md:text-8xl font-black mb-8 text-white leading-none tracking-tight">
+                            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-8 text-white leading-none tracking-tight">
                                 <span className="block animate-fade-in-up" style={{ animationDelay: '100ms' }}>Clinical Intelligence</span>
                                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-fade-in-up pb-2" style={{ animationDelay: '300ms' }}>at Population Scale</span>
                             </h1>
@@ -119,7 +119,7 @@ const DemoApp: React.FC = () => {
                     </div>
 
                     {/* Right Side: Request Form */}
-                    <div className="glass-effect p-8 md:p-10 rounded-[40px] border border-white/20 relative overflow-hidden h-full flex flex-col justify-center animate-fade-in-up delay-100">
+                    <div className="glass-effect p-5 md:p-8 lg:p-10 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/20 relative overflow-hidden h-full flex flex-col justify-center animate-fade-in-up delay-100">
                         <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
 
                         {!submitted ? (
@@ -136,7 +136,7 @@ const DemoApp: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-fullName" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Full Name</label>
+                                        <label htmlFor="demo-fullName" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">Full Name</label>
                                         <input
                                             required
                                             id="demo-fullName"
@@ -149,7 +149,7 @@ const DemoApp: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-email" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Email</label>
+                                        <label htmlFor="demo-email" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">Email</label>
                                         <input
                                             required
                                             id="demo-email"
@@ -165,7 +165,7 @@ const DemoApp: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-labName" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">HOSPITAL/Laboratory Name</label>
+                                        <label htmlFor="demo-labName" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">HOSPITAL/Laboratory Name</label>
                                         <input
                                             required
                                             id="demo-labName"
@@ -179,7 +179,7 @@ const DemoApp: React.FC = () => {
                                     </div>
 
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-address" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Address</label>
+                                        <label htmlFor="demo-address" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">Address</label>
                                         <input
                                             required
                                             id="demo-address"
@@ -195,7 +195,7 @@ const DemoApp: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-city" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">City</label>
+                                        <label htmlFor="demo-city" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">City</label>
                                         <input
                                             required
                                             id="demo-city"
@@ -208,7 +208,7 @@ const DemoApp: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label htmlFor="demo-contact" className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1">Contact Number</label>
+                                        <label htmlFor="demo-contact" className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1">Contact Number</label>
                                         <input
                                             required
                                             id="demo-contact"
@@ -226,7 +226,7 @@ const DemoApp: React.FC = () => {
                                 </div>
 
                                 <div className="space-y-3 pt-4">
-                                    <label className="text-[10px] uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
+                                    <label className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
                                     <p className="text-sm text-white/60 mb-2 ml-1">Select a time and we'll send you an invite.</p>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2" role="radiogroup" aria-label="Time slot selection">
                                         {timeSlots.map((slot) => (
@@ -236,7 +236,7 @@ const DemoApp: React.FC = () => {
                                                 role="radio"
                                                 aria-checked={selectedSlot === slot}
                                                 onClick={() => { setSelectedSlot(slot); setFormError(null); }}
-                                                className={`text-xs py-2 px-2 rounded-full border transition-all duration-300 ${selectedSlot === slot
+                                                className={`text-xs py-3 px-3 rounded-full border transition-colors duration-300 ${selectedSlot === slot
                                                     ? 'bg-blue-500 text-white border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]'
                                                     : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/30'
                                                     }`}
@@ -250,7 +250,7 @@ const DemoApp: React.FC = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full py-4 mt-4 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full py-4 mt-4 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-[box-shadow,transform,opacity] duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Confirm Demo Request'}
                                 </button>

@@ -112,7 +112,7 @@ const ProductSection: React.FC = () => {
 
           {/* Right Column */}
           <div className="mt-12 lg:mt-0">
-            <div className="glass-effect p-12 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group">
+            <div className="glass-effect p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] transition-colors duration-500 group">
               <h3 className="text-blue-300 text-small-label md:text-label-2 font-bold uppercase tracking-widest mb-10 font-heading">HOW IT INTERPRETS</h3>
               <p className="text-white/90 text-body-1 md:text-body-1 font-light leading-relaxed mb-10 font-body">
                 Our engine doesn't just look for "high" or "low" numbers. It evaluates the <strong>morphological signature</strong> of blood cells across 21 standard parameters.
@@ -138,7 +138,7 @@ const ProductSection: React.FC = () => {
         {/* INTERACTIVE SIMULATOR */}
         <div className="mb-32 reveal stagger-1">
           <div className="w-full">
-            <div className="glass-effect p-8 md:p-12 rounded-[40px] border border-white/20 relative overflow-hidden group hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500">
+            <div className="glass-effect p-5 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/20 relative overflow-hidden group hover:border-blue-400/30 hover:bg-white/[0.04] transition-colors duration-500">
               <div className="flex justify-between items-center mb-10">
                 <div className="text-xs uppercase tracking-widest font-bold text-white/60 font-heading">Sample Patient #8492</div>
                 <div className="flex gap-2">
@@ -179,7 +179,7 @@ const ProductSection: React.FC = () => {
                   <button
                     disabled={isScanning}
                     onClick={startSimulation}
-                    className={`w-full py-5 rounded-full border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-widest transition-all font-heading ${isScanning ? 'opacity-50' : 'hover:bg-blue-400/10 hover:border-blue-400 active:scale-95'}`}
+                    className={`w-full py-5 rounded-full border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-widest transition-[border-color,background-color,transform,opacity] font-heading ${isScanning ? 'opacity-50' : 'hover:bg-blue-400/10 hover:border-blue-400 active:scale-95'}`}
                   >
                     {isScanning ? `Analyzing Pattern... ${Math.round(scanProgress)}%` : "Start Clinical Scan"}
                   </button>
@@ -207,7 +207,7 @@ const ProductSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="glass-effect p-8 md:p-10 rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] hover:-translate-y-1 transition-all duration-500 reveal-right stagger-1">
+          <div className="glass-effect p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 hover:border-blue-400/30 hover:bg-white/[0.04] hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500 reveal-right stagger-1">
             <h3 className="text-white/80 text-xs font-bold uppercase tracking-widest mb-8 text-center font-heading">System Characteristics</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
@@ -240,11 +240,11 @@ const ProductSection: React.FC = () => {
               </svg>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-4 lg:gap-8 px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 sm:gap-8 md:gap-4 lg:gap-8 px-4">
               {steps.map((step, i) => (
                 <div key={i} className={`relative z-10 flex flex-col items-center text-center group reveal stagger-${(i % 3) + 1}`}>
                   <div className="relative mb-8">
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full glass-effect border border-white/20 flex items-center justify-center text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-all z-20 relative !bg-black font-heading">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full glass-effect border border-white/20 flex items-center justify-center text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-[border-color,transform] z-20 relative !bg-black font-heading">
                       {i + 1}
                     </div>
                     <div className="absolute inset-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-blue-400/30 pulse-glow z-10 group-hover:scale-125 transition-transform duration-500"></div>
@@ -264,7 +264,7 @@ const ProductSection: React.FC = () => {
                     </div>
                   )}
                   <h4 className="text-xs font-bold mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:min-h-[2.5rem] flex items-center px-2 leading-tight font-heading">{step.label}</h4>
-                  <p className="text-body-1 md:text-xs text-white/80 font-light leading-relaxed max-w-[200px] group-hover:text-white transition-colors font-body">{step.desc}</p>
+                  <p className="text-sm md:text-xs text-white/80 font-light leading-relaxed max-w-[200px] group-hover:text-white transition-colors font-body">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -291,7 +291,7 @@ const ProductSection: React.FC = () => {
                   { t: "Metabolic & Chronic Risk", d: "Screening for indicators of metabolic syndrome and long-term wellness gaps." },
                   { t: "Hormonal Health Signals", d: "Extracting subtle clinical markers from routine hematology and chemistry labs." }
                 ].map((item, idx) => (
-                  <div key={idx} className="glass-effect p-6 rounded-[40px] border border-white/20 hover:border-blue-400/40 hover:-translate-x-1 transition-all duration-500 group text-left">
+                  <div key={idx} className="glass-effect p-5 md:p-6 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/20 hover:border-blue-400/40 hover:-translate-x-1 transition-[border-color,background-color,transform] duration-500 group text-left">
                     <div className="text-label-1 font-bold text-blue-300 uppercase tracking-widest mb-1 group-hover:text-blue-400 transition-colors font-heading">{item.t}</div>
                     <span className="text-body-1 md:text-body-1 text-white/75 font-light group-hover:text-white/95 transition-colors leading-snug font-body">{item.d}</span>
                   </div>
@@ -300,8 +300,8 @@ const ProductSection: React.FC = () => {
             </div>
 
             <div className="relative reveal-right stagger-1 h-full">
-              <div className="glass-effect h-full min-h-[480px] rounded-[40px] border border-white/10 p-12 flex flex-col justify-center relative overflow-hidden group hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-700">
-                <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] bg-blue-500/10 blur-[100px] rounded-full group-hover:bg-blue-400/20 transition-all duration-1000"></div>
+              <div className="glass-effect h-full min-h-[380px] md:min-h-[480px] rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 p-6 md:p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden group hover:border-blue-400/30 hover:bg-white/[0.04] transition-[border-color,background-color,transform] duration-700">
+                <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] bg-blue-500/10 blur-[100px] rounded-full group-hover:bg-blue-400/20 transition-[background-color] duration-1000"></div>
 
                 <h3 className="text-h1 font-light mb-8 text-center group-hover:text-white transition-colors font-heading">Screening at the <span className="font-medium">Point of Routine</span></h3>
                 <p className="text-white/80 text-body-1 md:text-body-2 font-light text-center leading-relaxed mb-12 group-hover:text-white transition-colors font-body">
@@ -324,7 +324,7 @@ const ProductSection: React.FC = () => {
                 </div>
 
                 <div className="mt-12 text-center">
-                  <span className="inline-block px-6 py-2 rounded-full border border-blue-400/50 text-[10px] font-bold text-blue-300 uppercase tracking-[0.3em] group-hover:border-blue-400 group-hover:bg-blue-400/5 transition-all font-heading">Coming Q4 2026</span>
+                  <span className="inline-block px-6 py-2 rounded-full border border-blue-400/50 text-xs font-bold text-blue-300 uppercase tracking-[0.3em] group-hover:border-blue-400 group-hover:bg-blue-400/5 transition-[border-color,background-color] font-heading">Coming Q4 2026</span>
                 </div>
               </div>
             </div>
@@ -333,7 +333,7 @@ const ProductSection: React.FC = () => {
         <div className="max-w-7xl mx-auto border-t border-white/10 pt-24 mt-32">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {/* Box 1 */}
-            <div className="glass-effect p-8 md:p-12 rounded-[40px] border border-white/10 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group reveal-left">
+            <div className="glass-effect p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-[border-color,background-color,transform] duration-500 group reveal-left">
               <div>
                 <span className="text-blue-300 text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Lab Intelligence</span>
                 <h3 className="text-h1 font-light mb-8 transition-colors group-hover:text-blue-100 font-heading">
@@ -362,7 +362,7 @@ const ProductSection: React.FC = () => {
             </div>
 
             {/* Box 2 */}
-            <div className="glass-effect p-8 md:p-12 rounded-[40px] border border-white/10 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-all duration-500 group reveal-right">
+            <div className="glass-effect p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 flex flex-col justify-between hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.04] transition-[border-color,background-color,transform] duration-500 group reveal-right">
               <div>
                 <span className="text-blue-300 text-small-label font-bold tracking-[0.4em] uppercase mb-6 block font-heading">Patient Care</span>
                 <h3 className="text-h1 font-light mb-8 transition-colors group-hover:text-blue-100 font-heading">

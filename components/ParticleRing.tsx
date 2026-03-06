@@ -359,24 +359,10 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   }, [initParticles, draw]);
 
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-10 w-full h-full hidden md:block"
-      />
-      <div className="absolute inset-0 z-10 w-full h-full flex items-center justify-center md:hidden pointer-events-none">
-        <div
-          className="relative w-[85%] max-w-[400px] aspect-square"
-          style={{ top: '2%' }}
-        >
-          <img
-            src="/mobile-ring.png"
-            alt="Arogya BioX"
-            className="w-full h-full object-contain opacity-70 brightness-[1.1]"
-          />
-        </div>
-      </div>
-    </>
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-10 w-full h-full hidden md:block"
+    />
   );
 };
 

@@ -25,19 +25,21 @@ const Hero: React.FC = () => {
             Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data enabling earlier risk identification without adding operational complexity.
           </p>
 
-          {/* Mobile Spacer for Particle Ring - Reduced to shift buttons up */}
-          <div className="h-[260px] mb-8 md:hidden w-full"></div>
+          {/* Mobile Particle Visualization */}
+          <div className="md:hidden w-[85%] max-w-[400px] aspect-square my-4">
+            <img src="/mobile-ring.png" alt="Arogya BioX" className="w-full h-full object-contain opacity-70 brightness-[1.1]" />
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto mt-20 md:mt-0">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mt-6 md:mt-0">
             <button
               onClick={() => window.location.href = '/demo'}
-              className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-105 active:scale-95 text-center min-w-[200px] font-heading"
+              className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-colors shadow-lg hover:shadow-blue-500/50 active:scale-95 text-center font-heading"
             >
               Request a Demo
             </button>
             <button
               onClick={() => scrollTo('contact')}
-              className="px-8 py-4 border border-white/20 hover:bg-white/5 text-white/90 hover:text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-all text-center min-w-[200px] font-heading"
+              className="px-8 py-4 border border-white/20 hover:bg-white/5 text-white/90 hover:text-white rounded-full text-cta-md font-bold tracking-widest uppercase transition-colors text-center font-heading"
             >
               Contact Sales
             </button>
