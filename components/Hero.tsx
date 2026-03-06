@@ -1,10 +1,6 @@
 import React from 'react';
 
-interface HeroProps {
-  onToggleMode: () => void;
-}
-
-const Hero: React.FC<HeroProps> = ({ onToggleMode }) => {
+const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });

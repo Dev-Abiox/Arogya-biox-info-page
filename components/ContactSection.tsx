@@ -20,24 +20,17 @@ const ContactSection: React.FC = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        setStatus('success');
-        alert('Thank you for contacting Arogya BioX. Our partnership team will respond within 24 hours.');
-        setFormData({ name: '', email: '', phone: '', message: '' });
-      }
-
       if (!response.ok) {
         throw new Error(typeof data.error === 'string' ? data.error : JSON.stringify(data.error) || 'Failed to send message');
       }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error('Error sending message:', error);
       setStatus('error');
-      alert('Failed to send message. Please try again later or contact us directly via email.');
-    } finally {
-      // Reset status to idle after a delay if needed, or leave as is. 
-      // For now, we'll leave it to allow the user to see the result state logic if we were using UI feedback, 
-      // but since we are using alert, we clear loading.
-      if (status !== 'success') setStatus('idle');
+      setTimeout(() => setStatus('idle'), 5000);
     }
   };
 
@@ -76,66 +69,75 @@ const ContactSection: React.FC = () => {
           <span className="text-xs text-blue-400/80 uppercase tracking-[0.4em] font-bold mb-4 md:mb-8 block font-heading">Inquiry Form</span>
 
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
-            <div className="space-y-2">
-              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Name"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
-              />
-            </div>
+            <fieldset disabled={status === 'loading'} className="space-y-4 md:space-y-8">
+              <div className="space-y-2">
+                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Name"
+                  className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
+                />
+              </div>
 
-            <div className="space-y-2">
-              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Email"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
-              />
-            </div>
+              <div className="space-y-2">
+                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="Email"
+                  className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
+                />
+              </div>
 
-            <div className="space-y-2">
-              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
-              <input
-                type="tel"
-                required
-                pattern="[0-9]{10}"
-                title="Please enter a valid 10-digit phone number"
-                value={formData.phone}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                  setFormData({ ...formData, phone: value });
-                }}
-                placeholder="Phone Number (10 digits)"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body"
-              />
-            </div>
+              <div className="space-y-2">
+                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
+                <input
+                  type="tel"
+                  required
+                  pattern="[0-9]{10}"
+                  title="Please enter a valid 10-digit phone number"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    setFormData({ ...formData, phone: value });
+                  }}
+                  placeholder="Phone Number (10 digits)"
+                  className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
+                />
+              </div>
 
-            <div className="space-y-2">
-              <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
-              <textarea
-                required
-                rows={4}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="How can we help?"
-                className="w-full bg-white/5 border border-white/20 rounded-3xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 resize-none font-body"
-              />
-            </div>
+              <div className="space-y-2">
+                <label className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
+                <textarea
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="How can we help?"
+                  className="w-full bg-white/5 border border-white/20 rounded-3xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 resize-none font-body disabled:opacity-50"
+                />
+              </div>
 
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-full text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98] font-heading"
-            >
-              {status === 'loading' ? 'Sending...' : 'Send Message'}
-            </button>
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full py-4 md:py-5 bg-blue-400 hover:bg-blue-500 disabled:bg-blue-400/50 disabled:cursor-not-allowed text-white rounded-full text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase transition-all shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-[0.98] font-heading"
+              >
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
+              </button>
+            </fieldset>
+
+            {status === 'success' && (
+              <p className="text-center text-sm text-green-400 font-medium">Thank you! Our partnership team will respond within 24 hours.</p>
+            )}
+            {status === 'error' && (
+              <p className="text-center text-sm text-red-400 font-medium">Failed to send message. Please try again or contact us directly via email.</p>
+            )}
           </form>
 
           {/* Social links moved to footer */}

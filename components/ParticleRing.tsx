@@ -38,6 +38,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   });
 
   const prevWidth = useRef<number>(0);
+  const cachedRect = useRef<DOMRect | null>(null);
 
   const PALETTE = {
     BASE_BLUE: { r: 173, g: 216, b: 230 },
@@ -223,7 +224,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const cosX = Math.cos(rotationRef.current.x);
     const sinX = Math.sin(rotationRef.current.x);
 
-    const rect = canvas.getBoundingClientRect();
+    const rect = cachedRect.current || canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     const relX = (mouseRef.current.x - rect.left) * scaleX;
@@ -317,6 +318,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
           canvasRef.current.height = parent.clientHeight * pixelRatio;
           canvasRef.current.style.width = `${newWidth}px`;
           canvasRef.current.style.height = `${parent.clientHeight}px`;
+          cachedRect.current = canvasRef.current.getBoundingClientRect();
 
           particles.current = [];
           initParticles(newWidth, parent.clientHeight);

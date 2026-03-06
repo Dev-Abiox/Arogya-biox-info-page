@@ -15,6 +15,7 @@ const DemoApp: React.FC = () => {
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
     const [timeSlots, setTimeSlots] = useState<string[]>([]);
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Generate 30-min time slots from 09:00 to 17:00
     // Custom 45-min time slots with a break
@@ -60,6 +61,7 @@ const DemoApp: React.FC = () => {
             return;
         }
 
+        setIsSubmitting(true);
         try {
             const response = await fetch('/api/request-demo', {
                 method: 'POST',
@@ -72,21 +74,20 @@ const DemoApp: React.FC = () => {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Demo Request Submitted:', data);
                 setSubmitted(true);
             } else {
-                console.error('Failed to submit demo request:', data.error);
                 alert('Failed to submit request. Please try again.');
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
             alert('An error occurred. Please try again.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-sans pb-12 md:pb-24">
-            <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }}></div>
+            <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                 <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 blur-[180px] rounded-full"></div>
                 <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 blur-[220px] rounded-full"></div>
@@ -238,9 +239,10 @@ const DemoApp: React.FC = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full py-4 mt-4 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300"
+                                    disabled={isSubmitting}
+                                    className="w-full py-4 mt-4 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold uppercase tracking-widest text-xs hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Confirm Demo Request
+                                    {isSubmitting ? 'Submitting...' : 'Confirm Demo Request'}
                                 </button>
                             </form>
                         ) : (
