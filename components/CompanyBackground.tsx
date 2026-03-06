@@ -7,7 +7,7 @@ const CompanyBackground: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left Column */}
           <div className="text-left">
-            <span className="text-blue-400 text-label-2 md:text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">ABOUT US</span>
+            <span className="text-blue-400 text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">ABOUT US</span>
             <img
               src="/arogya-logo-full.png"
               alt="Arogya BioX"
@@ -21,7 +21,7 @@ const CompanyBackground: React.FC = () => {
               into Screening Tools.
             </h2>
 
-            <div className="space-y-8 text-white/80 text-body-1 lg:text-h3 font-light leading-relaxed max-w-xl font-body">
+            <div className="space-y-8 text-white/80 text-body-1 md:text-h3 font-light leading-relaxed max-w-xl font-body">
               <p>
                 We specialize in converting widely performed laboratory investigations into scalable screening tools.
               </p>
@@ -45,7 +45,7 @@ const CompanyBackground: React.FC = () => {
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center gap-4 group/item">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0"></div>
-                    <span className="text-body-1 md:text-body-1 text-white/90 font-light font-body">{item}</span>
+                    <span className="text-body-1 text-white/90 font-light font-body">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -68,7 +68,7 @@ const CompanyBackground: React.FC = () => {
               </div>
             </div>
 
-            <p className="italic text-blue-300/60 text-label-2 md:text-label-2 font-medium text-center font-body mt-4">
+            <p className="italic text-blue-300/60 text-label-2 font-medium text-center font-body mt-4">
               "We design every product as a clinical decision support system, not a diagnostic replacement."
             </p>
           </div>
