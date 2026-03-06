@@ -345,8 +345,15 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       mouseRef.current = { x: e.clientX, y: e.clientY, active: true };
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, active: true };
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     handleResize();
     draw();
@@ -354,6 +361,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
     };
   }, [initParticles, draw]);

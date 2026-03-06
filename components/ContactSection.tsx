@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Footer from './Footer';
+import { fetchWithTimeout } from '../utils/fetchWithTimeout';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetchWithTimeout('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ const ContactSection: React.FC = () => {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
-  };
+  }, [formData]);
 
   return (
     <div className="relative z-20 md:min-h-screen pt-12 md:pt-32 pb-8 px-4 md:px-12 lg:px-24 bg-gradient-to-t from-blue-900/5 to-transparent flex flex-col justify-center">

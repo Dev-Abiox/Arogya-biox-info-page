@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 const navLinks = [
   { id: 'company', label: 'About us' },
@@ -11,7 +11,6 @@ const navLinks = [
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  // Body scroll lock when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -23,7 +22,7 @@ const Navbar: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = useCallback((id: string) => {
     const isDemoPage = window.location.pathname.includes('/demo');
     if (isDemoPage) {
       window.location.href = `/#${id}`;
@@ -34,7 +33,7 @@ const Navbar: React.FC = () => {
       el.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-black/70 md:bg-black/30 md:backdrop-blur-sm">
@@ -115,4 +114,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

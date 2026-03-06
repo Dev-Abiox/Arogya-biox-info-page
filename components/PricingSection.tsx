@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { scrollTo } from '../utils/scroll';
 
 const PricingSection: React.FC = () => {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  const handleContactClick = useCallback(() => scrollTo('contact'), []);
 
   return (
     <div className="relative z-20 py-8 md:py-24 px-6 md:px-12 lg:px-24 flex flex-col justify-center">
@@ -43,7 +41,7 @@ const PricingSection: React.FC = () => {
             </ul>
 
             <button
-              onClick={() => scrollTo('contact')}
+              onClick={handleContactClick}
               className="w-full py-3 md:py-5 bg-blue-400 text-black rounded-full text-xs md:text-cta-md font-bold uppercase tracking-widest md:tracking-[0.2em] transition-colors hover:bg-blue-300 shadow-[0_10px_30px_rgba(96,165,250,0.2)] active:scale-95 font-heading"
             >
               Enquire for Laboratory
@@ -110,4 +108,4 @@ const PricingSection: React.FC = () => {
   );
 };
 
-export default PricingSection;
+export default React.memo(PricingSection);

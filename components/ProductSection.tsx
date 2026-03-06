@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
-const steps = [
-  { label: "CBC Performed", desc: "Routine CBC is processed as part of standard laboratory workflow." },
-  { label: "Data Integration", desc: "CBC parameters are securely ingested from LIS or analyzers (HL7 / CSV)." },
-  { label: "Clinical Pattern Evaluation", desc: "Validated red-cell indices and composite markers are analyzed." },
-  { label: "Risk Stratification", desc: "Samples are classified as Low, Moderate, or High B12 risk." },
-  { label: "Result Presentation", desc: "A clear risk flag and interpretive comment are appended to the CBC report." }
-];
+import { workflowSteps } from '../constants/workflow-steps';
 
 const basePatientData = [
   { l: "WBC", v: 6.42, u: "10\u2079/L", p: 2 },
@@ -90,6 +83,8 @@ const ProductSection: React.FC = () => {
             <img
               src="/clinomic-labs-logo.png"
               alt="Clinomic Labs"
+              width="168"
+              height="42"
               className="h-[32px] md:h-[42px] w-auto mb-10 object-contain"
               loading="lazy"
             />
@@ -153,15 +148,17 @@ const ProductSection: React.FC = () => {
                   <div className="scan-line" style={{ top: `${scanProgress}%` }}></div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3 h-[320px] overflow-y-auto pr-2 md:h-auto md:overflow-visible md:pr-0">
-                  {patientData.map((row, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-2.5 border-b border-white/5 group-hover:border-white/10 transition-colors">
-                      <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider font-heading">{row.l}</span>
-                      <span className="text-xs font-mono text-white flex gap-2">
-                        {row.v} <span className="text-[10px] text-white/30">{row.u}</span>
-                      </span>
-                    </div>
-                  ))}
+                <div className="h-[320px] overflow-y-auto pr-2 md:h-auto md:overflow-visible md:pr-0" role="table" aria-label="Patient CBC Parameters">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3">
+                    {patientData.map((row, idx) => (
+                      <div key={idx} role="row" className="flex justify-between items-center py-2.5 border-b border-white/5 group-hover:border-white/10 transition-colors">
+                        <span role="cell" className="text-xs text-white/80 group-hover:text-white transition-colors uppercase tracking-wider font-heading">{row.l}</span>
+                        <span role="cell" className="text-xs font-mono text-white flex gap-2">
+                          {row.v} <span className="text-[10px] text-white/50">{row.u}</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -230,7 +227,7 @@ const ProductSection: React.FC = () => {
         </div>
 
         <div className="relative mb-32 reveal">
-          <h3 className="text-center text-white/60 text-small-label font-bold uppercase tracking-[0.4em] mb-16 font-heading">How Clinomic Labs Works</h3>
+          <h2 className="text-center text-white/60 text-small-label font-bold uppercase tracking-[0.4em] mb-16 font-heading">How Clinomic Labs Works</h2>
 
           <div className="relative max-w-6xl mx-auto">
             <div className="absolute top-[24px] lg:top-[28px] left-[10%] right-[10%] h-px hidden md:block pointer-events-none">
@@ -241,7 +238,7 @@ const ProductSection: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 sm:gap-8 md:gap-4 lg:gap-8 px-4">
-              {steps.map((step, i) => (
+              {workflowSteps.map((step, i) => (
                 <div key={i} className={`relative z-10 flex flex-col items-center text-center group reveal stagger-${(i % 3) + 1}`}>
                   <div className="relative mb-8">
                     <div className="w-12 h-12 md:w-14 md:h-14 rounded-full glass-effect border border-white/20 flex items-center justify-center text-sm font-bold group-hover:border-blue-400 group-hover:scale-110 transition-[border-color,transform] z-20 relative !bg-black font-heading">
@@ -249,14 +246,14 @@ const ProductSection: React.FC = () => {
                     </div>
                     <div className="absolute inset-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-blue-400/30 pulse-glow z-10 group-hover:scale-125 transition-transform duration-500"></div>
                   </div>
-                  {i < steps.length - 1 && (
+                  {i < workflowSteps.length - 1 && (
                     <div className="absolute top-[24px] lg:top-[28px] left-1/2 w-full hidden md:flex items-center justify-center -translate-y-1/2 pointer-events-none">
                       <svg className="w-4 h-4 text-blue-400/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
                   )}
-                  {i < steps.length - 1 && (
+                  {i < workflowSteps.length - 1 && (
                     <div className="absolute top-[48px] bottom-[-48px] left-1/2 -translate-x-1/2 w-px md:hidden">
                       <svg className="h-full w-2 overflow-visible" preserveAspectRatio="none">
                         <line x1="4" y1="0" x2="4" y2="100%" stroke="rgba(96, 165, 250, 0.2)" strokeWidth="1" strokeDasharray="4 4" />

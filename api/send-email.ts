@@ -1,20 +1,9 @@
 import { Resend } from 'resend';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { checkRateLimit } from './_rate-limit';
+import { escapeHtml, validateEmail, validateFieldLengths } from './_validate';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-function escapeHtml(str: string): string {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 
 export default async function handler(
   request: VercelRequest,
@@ -28,11 +17,28 @@ export default async function handler(
     return response.status(405).json({ error: 'Method not allowed' });
   }
 
+  const { allowed, retryAfterMs } = checkRateLimit(request);
+  if (!allowed) {
+    response.setHeader('Retry-After', String(Math.ceil(retryAfterMs / 1000)));
+    return response.status(429).json({ error: 'Too many requests. Please try again later.' });
+  }
+
   const { name, email, phone, message } = request.body;
 
   if (!name || !email || !phone || !message) {
     return response.status(400).json({ error: 'Missing required fields' });
   }
+
+  const lengthError = validateFieldLengths(request.body, [
+    { field: 'name', maxLength: 200 },
+    { field: 'email', maxLength: 254 },
+    { field: 'phone', maxLength: 15 },
+    { field: 'message', maxLength: 5000 },
+  ]);
+  if (lengthError) {
+    return response.status(400).json({ error: lengthError });
+  }
+
   if (!validateEmail(email)) {
     return response.status(400).json({ error: 'Invalid email format' });
   }
