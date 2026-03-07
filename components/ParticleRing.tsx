@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, memo } from 'react';
 import { Particle, AppMode } from '../types';
 
 interface ParticleRingProps {
@@ -110,6 +110,18 @@ function createSprites(): HTMLCanvasElement | null {
   return spriteCanvas;
 }
 
+const prefersReducedMotion = typeof window !== 'undefined'
+  && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function getParticleCount(width: number): number {
+  if (width < 768) return 120;
+  if (width < 1024) return 500;
+  const cores = navigator.hardwareConcurrency || 4;
+  if (cores <= 2) return 600;
+  if (cores <= 4) return 1200;
+  return 1800;
+}
+
 const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const spriteCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -133,7 +145,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const isDesktop = width >= 1024;
     const isMobile = width < 768;
 
-    const count = isMobile ? 120 : isDesktop ? 1800 : 1000;
+    const count = getParticleCount(width);
 
     const tempParticles: RBCParticle[] = [];
     const sphereRadius = Math.min(width, height) * (isDesktop ? 0.42 : isMobile ? 0.32 : 0.38);
@@ -197,16 +209,15 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       return;
     }
 
-    // FPS Throttling for mobile: Target ~30fps
+    // FPS Throttling: ~30fps on mobile, ~45fps on tablets
     const isMobile = canvas.width < 768;
-    if (isMobile) {
-      const elapsed = timestamp - lastDrawTime.current;
-      if (elapsed < 32) {
-        animationFrameId.current = requestAnimationFrame(draw);
-        return;
-      }
-      lastDrawTime.current = timestamp;
+    const elapsed = timestamp - lastDrawTime.current;
+    const targetInterval = isMobile ? 32 : (canvas.width < 1024 ? 22 : 0);
+    if (targetInterval > 0 && elapsed < targetInterval) {
+      animationFrameId.current = requestAnimationFrame(draw);
+      return;
     }
+    lastDrawTime.current = timestamp;
 
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
@@ -230,7 +241,10 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const cosX = Math.cos(rotationRef.current.x);
     const sinX = Math.sin(rotationRef.current.x);
 
-    const rect = cachedRect.current || canvas.getBoundingClientRect();
+    if (!cachedRect.current) {
+      cachedRect.current = canvas.getBoundingClientRect();
+    }
+    const rect = cachedRect.current;
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     const relX = (mouseRef.current.x - rect.left) * scaleX;
@@ -273,9 +287,9 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       }
     }
 
-    // Sort every 3 frames instead of every frame to reduce CPU cost
+    // Sort every 6 frames instead of every frame to reduce CPU cost
     sortCounter.current++;
-    if (sortCounter.current >= 3) {
+    if (sortCounter.current >= 6) {
       particles.current.sort((a, b) => b.projectedZ - a.projectedZ);
       sortCounter.current = 0;
     }
@@ -351,6 +365,9 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       }
     };
 
+    // Skip animation entirely for users who prefer reduced motion
+    if (prefersReducedMotion) return;
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
@@ -374,4 +391,4 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   );
 };
 
-export default ParticleRing;
+export default memo(ParticleRing);

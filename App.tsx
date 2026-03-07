@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import { AppMode } from './types';
@@ -12,8 +12,9 @@ const ContactSection = lazy(() => import('./components/ContactSection'));
 
 const CARBON_FIBRE_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAAV0lEQVR4AWPg5uaexcDI8B9Ec3JyFhDCpKpnACmGYWI0kKqe9j4AAi0gBtPEaCBZPYggF1NsAYXBR9gCShPAwPuAkgRA30imJR4tKkaLitGiYrSoIAIDAKy7LKCTTHSAAAAAAElFTkSuQmCC';
 
+const MODE = AppMode.NORMAL;
+
 const App: React.FC = () => {
-  const [mode] = useState<AppMode>(AppMode.NORMAL);
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -41,12 +42,15 @@ const App: React.FC = () => {
 
     // Observe initially and re-observe after lazy components load
     observeElements();
+    let debounceTimer: ReturnType<typeof setTimeout>;
     const mutationObserver = new MutationObserver(() => {
-      observeElements();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(observeElements, 100);
     });
     mutationObserver.observe(container, { childList: true, subtree: true });
 
     return () => {
+      clearTimeout(debounceTimer);
       observer.disconnect();
       mutationObserver.disconnect();
     };
@@ -70,17 +74,17 @@ const App: React.FC = () => {
     <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body" style={{ overflowX: 'clip' }}>
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("${CARBON_FIBRE_URI}")` }}></div>
 
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
-        <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[80px] md:blur-[220px]"></div>
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
+        <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[180px]"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[220px]"></div>
       </div>
 
       <Navbar />
 
       <main ref={mainRef} className="relative pb-0 md:pb-0">
-        <section id="hero" className="relative min-h-screen overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
+        <section id="hero" className="relative min-h-dvh overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
           <Suspense fallback={<div className="absolute inset-0 z-10 hidden md:block bg-gradient-to-br from-black via-blue-950/20 to-black" />}>
-            <ParticleRing mode={mode} />
+            <ParticleRing mode={MODE} />
           </Suspense>
           <Hero />
         </section>

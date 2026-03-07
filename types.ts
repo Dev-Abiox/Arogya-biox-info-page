@@ -18,6 +18,5 @@ export interface Particle {
 }
 
 export enum AppMode {
-  NORMAL = 'NORMAL',
-  ACTIVE = 'ACTIVE'
+  NORMAL = 'NORMAL'
 }

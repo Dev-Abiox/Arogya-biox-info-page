@@ -86,9 +86,9 @@ const DemoApp: React.FC = () => {
     return (
         <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body pb-4 md:pb-6">
             <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("${CARBON_FIBRE_URI}")` }}></div>
-            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
-                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[80px] md:blur-[220px]"></div>
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
+                <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[180px]"></div>
+                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/5 rounded-full blur-[220px]"></div>
             </div>
 
             <nav className="fixed top-0 left-0 w-full px-6 md:px-12 py-6 z-50 pointer-events-none">
