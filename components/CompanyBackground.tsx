@@ -8,14 +8,17 @@ const CompanyBackground: React.FC = () => {
           {/* Left Column */}
           <div className="text-left">
             <span className="text-blue-400 text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">ABOUT US</span>
-            <img
-              src="/arogya-logo-full.png"
-              alt="Arogya BioX"
-              width="168"
-              height="42"
-              className="h-[32px] md:h-[42px] w-auto mb-12 object-contain"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/arogya-logo-full.webp" type="image/webp" />
+              <img
+                src="/arogya-logo-full.png"
+                alt="Arogya BioX"
+                width="168"
+                height="42"
+                className="h-[32px] md:h-[42px] w-auto mb-12 object-contain"
+                loading="lazy"
+              />
+            </picture>
 
             <h2 className="text-h1 sm:text-display-2 lg:text-display-1 font-light mb-12 leading-[1.1] tracking-tight text-white font-heading">
               Transforming <br />
