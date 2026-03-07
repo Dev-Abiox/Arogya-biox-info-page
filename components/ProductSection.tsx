@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { workflowSteps } from '../constants/workflow-steps';
 
 const basePatientData = [
@@ -56,21 +56,31 @@ const ProductSection: React.FC = () => {
     setScanResult(null);
   };
 
+  const scanRafRef = useRef<number | undefined>(undefined);
+  const scanStartRef = useRef<number>(0);
+  const SCAN_DURATION = 1500; // ms total scan time
+
   useEffect(() => {
-    if (isScanning) {
-      const interval = setInterval(() => {
-        setScanProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            setIsScanning(false);
-            setScanResult(scanResults[Math.floor(Math.random() * scanResults.length)]);
-            return 100;
-          }
-          return prev + 4;
-        });
-      }, 60);
-      return () => clearInterval(interval);
-    }
+    if (!isScanning) return;
+    scanStartRef.current = performance.now();
+
+    const animate = (now: number) => {
+      const elapsed = now - scanStartRef.current;
+      const progress = Math.min((elapsed / SCAN_DURATION) * 100, 100);
+      setScanProgress(progress);
+
+      if (progress >= 100) {
+        setIsScanning(false);
+        setScanResult(scanResults[Math.floor(Math.random() * scanResults.length)]);
+        return;
+      }
+      scanRafRef.current = requestAnimationFrame(animate);
+    };
+
+    scanRafRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (scanRafRef.current) cancelAnimationFrame(scanRafRef.current);
+    };
   }, [isScanning]);
 
   return (

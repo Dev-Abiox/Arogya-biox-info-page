@@ -1,10 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import Footer from './Footer';
 import { fetchWithTimeout } from '../utils/fetchWithTimeout';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleFieldChange = useCallback((field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  }, []);
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +74,7 @@ const ContactSection: React.FC = () => {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => handleFieldChange('name', e.target.value)}
                   placeholder="Name"
                   className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
                 />
@@ -83,7 +87,7 @@ const ContactSection: React.FC = () => {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) => handleFieldChange('email', e.target.value)}
                   placeholder="Email"
                   className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
                 />
@@ -98,10 +102,7 @@ const ContactSection: React.FC = () => {
                   pattern="[0-9]{10}"
                   title="Please enter a valid 10-digit phone number"
                   value={formData.phone}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                    setFormData({ ...formData, phone: value });
-                  }}
+                  onChange={(e) => handleFieldChange('phone', e.target.value.replace(/\D/g, '').slice(0, 10))}
                   placeholder="Phone Number (10 digits)"
                   className="w-full bg-white/5 border border-white/20 rounded-full px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 font-body disabled:opacity-50"
                 />
@@ -114,7 +115,7 @@ const ContactSection: React.FC = () => {
                   required
                   rows={4}
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) => handleFieldChange('message', e.target.value)}
                   placeholder="How can we help?"
                   className="w-full bg-white/5 border border-white/20 rounded-3xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-400/50 transition-all placeholder:text-white/20 resize-none font-body disabled:opacity-50"
                 />
@@ -144,4 +145,4 @@ const ContactSection: React.FC = () => {
   );
 };
 
-export default ContactSection;
+export default memo(ContactSection);

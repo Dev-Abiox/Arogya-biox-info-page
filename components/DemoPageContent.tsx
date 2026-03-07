@@ -103,4 +103,4 @@ const DemoPageContent: React.FC = () => {
     );
 };
 
-export default DemoPageContent;
+export default React.memo(DemoPageContent);
