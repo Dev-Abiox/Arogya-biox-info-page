@@ -1,19 +1,25 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
-import ParticleRing from './components/ParticleRing';
 import Hero from './components/Hero';
 import { AppMode } from './types';
 
+const ParticleRing = lazy(() => import('./components/ParticleRing'));
 const CompanyBackground = lazy(() => import('./components/CompanyBackground'));
 const ProductSection = lazy(() => import('./components/ProductSection'));
 const ValuePropSection = lazy(() => import('./components/ValuePropSection'));
 const PricingSection = lazy(() => import('./components/PricingSection'));
 const ContactSection = lazy(() => import('./components/ContactSection'));
 
+const CARBON_FIBRE_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAYAAADafVyIAAAAV0lEQVR4AWPg5uaexcDI8B9Ec3JyFhDCpKpnACmGYWI0kKqe9j4AAi0gBtPEaCBZPYggF1NsAYXBR9gCShPAwPuAkgRA30imJR4tKkaLitGiYrSoIAIDAKy7LKCTTHSAAAAAAElFTkSuQmCC';
+
 const App: React.FC = () => {
   const [mode] = useState<AppMode>(AppMode.NORMAL);
+  const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const container = mainRef.current;
+    if (!container) return;
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px"
@@ -29,7 +35,7 @@ const App: React.FC = () => {
     }, observerOptions);
 
     const observeElements = () => {
-      const revealElements = document.querySelectorAll('.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)');
+      const revealElements = container.querySelectorAll('.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)');
       revealElements.forEach(el => observer.observe(el));
     };
 
@@ -38,7 +44,7 @@ const App: React.FC = () => {
     const mutationObserver = new MutationObserver(() => {
       observeElements();
     });
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    mutationObserver.observe(container, { childList: true, subtree: true });
 
     return () => {
       observer.disconnect();
@@ -62,7 +68,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body" style={{ overflowX: 'clip' }}>
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("/carbon-fibre.png")` }}></div>
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("${CARBON_FIBRE_URI}")` }}></div>
 
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[-15%] right-[-10%] w-[70%] h-[70%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[180px]"></div>
@@ -71,9 +77,11 @@ const App: React.FC = () => {
 
       <Navbar />
 
-      <main className="relative pb-0 md:pb-0">
+      <main ref={mainRef} className="relative pb-0 md:pb-0">
         <section id="hero" className="relative min-h-screen overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
-          <ParticleRing mode={mode} />
+          <Suspense fallback={<div className="absolute inset-0 z-10 hidden md:block bg-gradient-to-br from-black via-blue-950/20 to-black" />}>
+            <ParticleRing mode={mode} />
+          </Suspense>
           <Hero />
         </section>
 

@@ -31,8 +31,13 @@ export default defineConfig(({ mode }) => ({
         terms: 'terms-conditions.html',
       },
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
+            return 'react-vendor';
+          }
+          if (id.includes('node_modules/scheduler')) {
+            return 'react-vendor';
+          }
         },
       },
     },

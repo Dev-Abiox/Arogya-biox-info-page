@@ -9,7 +9,10 @@ const DemoPageContent: React.FC = () => {
                 <div className="mb-12 md:mb-20 grid lg:grid-cols-2 gap-12 items-start animate-fade-in-up">
                     <div className="max-w-4xl">
                         <span className="text-blue-400 text-label-2 font-bold tracking-[0.4em] uppercase mb-4 md:mb-6 block font-heading">Current Product</span>
-                        <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" loading="lazy" />
+                        <picture>
+                            <source srcSet="/clinomic-labs-logo.webp" type="image/webp" />
+                            <img src="/clinomic-labs-logo.png" alt="Clinomic Labs" className="w-[200px] md:w-[350px] mb-6 md:mb-8 object-contain" loading="lazy" />
+                        </picture>
                         <p className="text-white text-body-1 md:text-h3 font-light leading-relaxed italic mb-6 md:mb-8 font-body border-l border-blue-400/50 pl-4 md:pl-6">
                             "A Clinical Intelligence Platform by Arogya BioX"
                         </p>

@@ -80,14 +80,17 @@ const ProductSection: React.FC = () => {
           {/* Left Column */}
           <div className="text-left">
             <span className="text-blue-400 text-label-2 font-bold tracking-[0.4em] uppercase mb-8 block font-heading">CURRENT PRODUCT</span>
-            <img
-              src="/clinomic-labs-logo.png"
-              alt="Clinomic Labs"
-              width="168"
-              height="42"
-              className="h-[32px] md:h-[42px] w-auto mb-10 object-contain"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/clinomic-labs-logo.webp" type="image/webp" />
+              <img
+                src="/clinomic-labs-logo.png"
+                alt="Clinomic Labs"
+                width="168"
+                height="42"
+                className="h-[32px] md:h-[42px] w-auto mb-10 object-contain"
+                loading="lazy"
+              />
+            </picture>
 
             <div className="border-l-2 border-blue-400/50 pl-6 mb-10">
               <p className="text-white text-body-1 md:text-h3 font-light leading-relaxed italic font-body">
@@ -393,4 +396,4 @@ const ProductSection: React.FC = () => {
   );
 };
 
-export default ProductSection;
+export default React.memo(ProductSection);
