@@ -74,7 +74,16 @@ const DemoApp: React.FC = () => {
             if (response.ok) {
                 setSubmitted(true);
             } else {
-                setFormError('Failed to submit request. Please try again.');
+                let errorMessage = 'Failed to submit request. Please try again.';
+                try {
+                    const data = await response.json();
+                    if (data.error) {
+                        errorMessage = typeof data.error === 'string' ? data.error : errorMessage;
+                    }
+                } catch {
+                    // Server returned non-JSON response
+                }
+                setFormError(errorMessage);
             }
         } catch (error) {
             setFormError('An error occurred. Please try again.');

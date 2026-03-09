@@ -23,11 +23,20 @@ const ContactSection: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(typeof data.error === 'string' ? data.error : JSON.stringify(data.error) || 'Failed to send message');
+        let errorMessage = 'Failed to send message';
+        try {
+          const data = await response.json();
+          if (data.error) {
+            errorMessage = typeof data.error === 'string' ? data.error : JSON.stringify(data.error);
+          }
+        } catch {
+          // Server returned non-JSON response
+        }
+        throw new Error(errorMessage);
       }
+
+      await response.json();
 
       setStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
