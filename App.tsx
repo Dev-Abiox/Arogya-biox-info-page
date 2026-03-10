@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import ParticleRenderer from './components/ParticleRenderer';
 import { AppMode } from './types';
-
-const ParticleRing = lazy(() => import('./components/ParticleRing'));
 const CompanyBackground = lazy(() => import('./components/CompanyBackground'));
 const ProductSection = lazy(() => import('./components/ProductSection'));
 const ValuePropSection = lazy(() => import('./components/ValuePropSection'));
@@ -83,9 +82,7 @@ const App: React.FC = () => {
 
       <main ref={mainRef} className="relative pb-0 md:pb-0">
         <section id="hero" className="relative min-h-dvh overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
-          <Suspense fallback={<div className="absolute inset-0 z-10 bg-gradient-to-br from-black via-blue-950/20 to-black" />}>
-            <ParticleRing mode={MODE} />
-          </Suspense>
+          <ParticleRenderer mode={MODE} />
           <Hero />
         </section>
 
