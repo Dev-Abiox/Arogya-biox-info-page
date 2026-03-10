@@ -24,13 +24,8 @@ const Hero: React.FC = () => {
             Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data enabling earlier risk identification without adding operational complexity.
           </p>
 
-          {/* Mobile Particle Visualization */}
-          <div className="md:hidden w-[85%] max-w-[400px] aspect-square my-4">
-            <picture>
-              <source srcSet="/mobile-ring.webp" type="image/webp" />
-              <img src="/mobile-ring.png" alt="Arogya BioX particle visualization" width="400" height="400" loading="lazy" fetchPriority="low" className="w-full h-full object-contain opacity-70 brightness-[1.1]" />
-            </picture>
-          </div>
+          {/* Spacer for mobile: particle animation renders behind via canvas */}
+          <div className="md:hidden w-full h-[280px] sm:h-[320px]" aria-hidden="true" />
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mt-6 md:mt-0">
             <button
