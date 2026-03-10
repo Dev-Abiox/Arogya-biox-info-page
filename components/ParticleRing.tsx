@@ -130,6 +130,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   const animationFrameId = useRef<number | undefined>(undefined);
   const heartPhase = useRef(0);
   const sortCounter = useRef(0);
+  const isVisible = useRef(true);
 
   const rotationRef = useRef({
     x: 0,
@@ -203,7 +204,13 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
     const canvas = canvasRef.current;
     if (!canvas || !spriteCanvasRef.current) return;
 
-    // Skip drawing if canvas is not visible (hidden on mobile via CSS)
+    // Pause animation when scrolled out of viewport
+    if (!isVisible.current) {
+      animationFrameId.current = requestAnimationFrame(draw);
+      return;
+    }
+
+    // Skip drawing if canvas has zero dimensions
     if (canvas.offsetWidth === 0 || canvas.offsetHeight === 0) {
       animationFrameId.current = requestAnimationFrame(draw);
       return;
@@ -227,7 +234,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
 
     const isDesktop = canvas.width >= 1024;
     const centerX = isDesktop ? canvas.width * 0.72 : canvas.width * 0.5;
-    const centerY = isDesktop ? canvas.height * 0.45 : canvas.height * 0.5;
+    const centerY = isDesktop ? canvas.height * 0.45 : canvas.height * 0.42;
 
     rotationRef.current.y += isMobile ? 0.0004 : 0.0006;
     rotationRef.current.x += isMobile ? 0.0001 : 0.0002;
@@ -272,13 +279,18 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       p.projectedZ = z2;
       p.projectedScale = scale;
 
-      const dx = relX - p.projectedX;
-      const dy = relY - p.projectedY;
-      if (Math.abs(dx) < 120 && Math.abs(dy) < 120) {
-        const distSq = dx * dx + dy * dy;
-        if (distSq < 14400) {
-          const force = (120 - Math.sqrt(distSq)) / 120;
-          p.expansion += (force * 22 - p.expansion) * 0.15;
+      // Skip expensive per-particle interaction on mobile unless actively touching
+      if (!isMobile || mouseRef.current.active) {
+        const dx = relX - p.projectedX;
+        const dy = relY - p.projectedY;
+        if (Math.abs(dx) < 120 && Math.abs(dy) < 120) {
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 14400) {
+            const force = (120 - Math.sqrt(distSq)) / 120;
+            p.expansion += (force * 22 - p.expansion) * 0.15;
+          } else {
+            p.expansion *= 0.9;
+          }
         } else {
           p.expansion *= 0.9;
         }
@@ -287,9 +299,10 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       }
     }
 
-    // Sort every 6 frames instead of every frame to reduce CPU cost
+    // Sort less often on mobile (every 12 frames) vs desktop (every 6)
     sortCounter.current++;
-    if (sortCounter.current >= 6) {
+    const sortInterval = isMobile ? 12 : 6;
+    if (sortCounter.current >= sortInterval) {
       particles.current.sort((a, b) => b.projectedZ - a.projectedZ);
       sortCounter.current = 0;
     }
@@ -365,20 +378,34 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
       }
     };
 
+    const handleTouchEnd = () => {
+      mouseRef.current.active = false;
+    };
+
     // Skip animation entirely for users who prefer reduced motion
     if (prefersReducedMotion) return;
+
+    // Pause animation when canvas is not in viewport (saves CPU/battery on scroll)
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { isVisible.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    if (canvasRef.current) visibilityObserver.observe(canvasRef.current);
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
 
     handleResize();
     draw();
 
     return () => {
+      visibilityObserver.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
     };
   }, [initParticles, draw]);
@@ -386,7 +413,7 @@ const ParticleRing: React.FC<ParticleRingProps> = ({ mode }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-10 w-full h-full hidden md:block"
+      className="absolute inset-0 z-10 w-full h-full"
     />
   );
 };

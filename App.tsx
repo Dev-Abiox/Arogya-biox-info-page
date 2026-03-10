@@ -83,7 +83,7 @@ const App: React.FC = () => {
 
       <main ref={mainRef} className="relative pb-0 md:pb-0">
         <section id="hero" className="relative min-h-dvh overflow-hidden flex items-center scroll-mt-20 md:scroll-mt-24">
-          <Suspense fallback={<div className="absolute inset-0 z-10 hidden md:block bg-gradient-to-br from-black via-blue-950/20 to-black" />}>
+          <Suspense fallback={<div className="absolute inset-0 z-10 bg-gradient-to-br from-black via-blue-950/20 to-black" />}>
             <ParticleRing mode={MODE} />
           </Suspense>
           <Hero />
