@@ -5,12 +5,12 @@ const PARTICLE_COUNT = 150;
 const RBC_RATIO = 0.95;
 const SPHERE_RADIUS = 1.5;
 
-// Match desktop palette: RBC_RED { r: 230, g: 30, b: 40 }
+// Mobile-only palette: #F04A4A, #E3262A, #D91F26, #B31217 | WBC: #F2F2F2, #D9D9D9
 const RBC_PALETTES = [
-  { highlight: [230, 30, 40], mid: [200, 20, 30], edge: [130, 0, 0] },
-  { highlight: [220, 25, 35], mid: [190, 15, 25], edge: [120, 0, 0] },
-  { highlight: [240, 35, 45], mid: [210, 25, 35], edge: [140, 0, 0] },
-  { highlight: [225, 28, 38], mid: [195, 18, 28], edge: [125, 0, 0] },
+  { highlight: [240, 74, 74], mid: [227, 38, 42], edge: [179, 18, 23] },   // #F04A4A → #E3262A → #B31217
+  { highlight: [235, 60, 60], mid: [217, 31, 38], edge: [170, 14, 18] },   // warm variant → #D91F26
+  { highlight: [245, 82, 82], mid: [230, 42, 46], edge: [185, 22, 28] },   // brighter highlight
+  { highlight: [238, 68, 68], mid: [222, 35, 40], edge: [175, 16, 20] },   // balanced variant
 ] as const;
 
 function createCellTexture(isWBC: boolean, variant: number = 0): THREE.CanvasTexture {
@@ -36,10 +36,10 @@ function createCellTexture(isWBC: boolean, variant: number = 0): THREE.CanvasTex
     ctx.arc(center, center, radius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Biconcave center
-    const centerGrad = ctx.createRadialGradient(center, center, 0, center, center, radius * 0.65);
-    centerGrad.addColorStop(0, 'rgba(0,0,0,0.6)');
-    centerGrad.addColorStop(0.5, 'rgba(0,0,0,0.2)');
+    // Biconcave center — lighter to keep mobile reds vivid
+    const centerGrad = ctx.createRadialGradient(center, center, 0, center, center, radius * 0.6);
+    centerGrad.addColorStop(0, 'rgba(0,0,0,0.38)');
+    centerGrad.addColorStop(0.5, 'rgba(0,0,0,0.12)');
     centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = centerGrad;
     ctx.beginPath();
@@ -50,17 +50,17 @@ function createCellTexture(isWBC: boolean, variant: number = 0): THREE.CanvasTex
       center - radius * 0.3, center - radius * 0.3, 0,
       center, center, radius
     );
-    grad.addColorStop(0, 'rgb(245, 245, 255)');
-    grad.addColorStop(0.7, 'rgb(220, 220, 230)');
-    grad.addColorStop(1, 'rgb(160, 160, 180)');
+    grad.addColorStop(0, 'rgb(242, 242, 242)');       // #F2F2F2
+    grad.addColorStop(0.7, 'rgb(217, 217, 217)');     // #D9D9D9
+    grad.addColorStop(1, 'rgb(180, 180, 185)');
     ctx.fillStyle = grad;
     ctx.beginPath();
     ctx.arc(center, center, radius, 0, Math.PI * 2);
     ctx.fill();
 
     const centerGrad = ctx.createRadialGradient(center, center, 0, center, center, radius * 0.65);
-    centerGrad.addColorStop(0, 'rgba(100,100,120,0.4)');
-    centerGrad.addColorStop(0.6, 'rgba(150,150,170,0.1)');
+    centerGrad.addColorStop(0, 'rgba(130,130,140,0.25)');
+    centerGrad.addColorStop(0.6, 'rgba(170,170,180,0.08)');
     centerGrad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = centerGrad;
     ctx.beginPath();
