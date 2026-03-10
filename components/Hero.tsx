@@ -1,5 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, lazy, Suspense } from 'react';
 import { scrollTo } from '../utils/scroll';
+
+const MobileParticleThree = lazy(() => import('./MobileParticleThree'));
 
 const Hero: React.FC = () => {
   const handleContactClick = useCallback(() => scrollTo('contact'), []);
@@ -24,8 +26,12 @@ const Hero: React.FC = () => {
             Arogya BioX builds software-driven screening and clinical intelligence platforms that extract actionable insights from routine diagnostic data enabling earlier risk identification without adding operational complexity.
           </p>
 
-          {/* Spacer for mobile: particle animation renders behind via canvas */}
-          <div className="md:hidden w-full h-[280px] sm:h-[320px]" aria-hidden="true" />
+          {/* Mobile particle animation — rendered inline in the flow so it never overlaps buttons */}
+          <div className="md:hidden w-full h-[300px] sm:h-[340px] relative overflow-hidden my-6">
+            <Suspense fallback={null}>
+              <MobileParticleThree />
+            </Suspense>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mt-6 md:mt-0">
             <button
