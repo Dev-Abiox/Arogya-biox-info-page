@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, memo } from 'react';
 import * as THREE from 'three';
 
-const PARTICLE_COUNT = 150;
-const RBC_RATIO = 0.95;
+const PARTICLE_COUNT = 280;
+const RBC_RATIO = 0.82;
 const SPHERE_RADIUS = 1.5;
 
-// Mobile-only palette: #F04A4A, #E3262A, #D91F26, #B31217 | WBC: #F2F2F2, #D9D9D9
+// Mobile-only palette — darker, true blood-red tones | WBC: #F2F2F2, #D9D9D9
 const RBC_PALETTES = [
-  { highlight: [240, 74, 74], mid: [227, 38, 42], edge: [179, 18, 23] },   // #F04A4A → #E3262A → #B31217
-  { highlight: [235, 60, 60], mid: [217, 31, 38], edge: [170, 14, 18] },   // warm variant → #D91F26
-  { highlight: [245, 82, 82], mid: [230, 42, 46], edge: [185, 22, 28] },   // brighter highlight
-  { highlight: [238, 68, 68], mid: [222, 35, 40], edge: [175, 16, 20] },   // balanced variant
+  { highlight: [180, 30, 30], mid: [140, 18, 20], edge: [90, 8, 10] },     // deep blood red
+  { highlight: [170, 25, 25], mid: [130, 14, 16], edge: [85, 6, 8] },      // dark crimson
+  { highlight: [190, 35, 35], mid: [150, 22, 24], edge: [95, 10, 12] },    // rich arterial
+  { highlight: [175, 28, 28], mid: [135, 16, 18], edge: [88, 7, 9] },      // venous red
 ] as const;
 
 function createCellTexture(isWBC: boolean, variant: number = 0): THREE.CanvasTexture {
@@ -123,16 +123,31 @@ const MobileParticleThree: React.FC = () => {
       blending: THREE.NormalBlending,
     });
 
-    // Fibonacci sphere distribution — matches desktop algorithm
+    // Dense packed sphere distribution — resembles blood cell cluster from reference
+    // Two layers: outer shell (majority) + inner fill for solid packed look
+    const outerCount = Math.floor(PARTICLE_COUNT * 0.75);
+    const innerCount = PARTICLE_COUNT - outerCount;
+
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const isWBC = Math.random() > RBC_RATIO;
       const baseMat = isWBC ? wbcMaterial : rbcMaterials[i % rbcMaterials.length];
       const material = baseMat.clone();
       const sprite = new THREE.Sprite(material);
 
-      const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
-      const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
-      const r = (0.85 + Math.random() * 0.15) * SPHERE_RADIUS;
+      let r: number, phi: number, theta: number;
+
+      if (i < outerCount) {
+        // Outer shell — tight surface packing
+        phi = Math.acos(-1 + (2 * i) / outerCount);
+        theta = Math.sqrt(outerCount * Math.PI) * phi;
+        r = (0.92 + Math.random() * 0.08) * SPHERE_RADIUS;
+      } else {
+        // Inner fill — slightly recessed for depth/gaps
+        const j = i - outerCount;
+        phi = Math.acos(-1 + (2 * j) / innerCount);
+        theta = Math.sqrt(innerCount * Math.PI) * phi + 0.5;
+        r = (0.72 + Math.random() * 0.2) * SPHERE_RADIUS;
+      }
 
       sprite.position.set(
         r * Math.sin(phi) * Math.cos(theta),
@@ -140,7 +155,10 @@ const MobileParticleThree: React.FC = () => {
         r * Math.cos(phi)
       );
 
-      const baseSize = isWBC ? 0.32 + Math.random() * 0.12 : 0.24 + Math.random() * 0.12;
+      // Larger sizes for tight overlap — WBCs slightly bigger like in the reference
+      const baseSize = isWBC
+        ? 0.42 + Math.random() * 0.14
+        : 0.34 + Math.random() * 0.14;
       sprite.scale.set(baseSize, baseSize, 1);
 
       particleGroup.add(sprite);
@@ -167,14 +185,14 @@ const MobileParticleThree: React.FC = () => {
       const pulse = 1 + Math.pow(Math.sin(elapsed * 0.72), 4) * 0.015;
       particleGroup.scale.setScalar(pulse);
 
-      // Depth-based opacity
+      // Strong depth-based opacity — front cells fully opaque, back cells dim
       const children = particleGroup.children;
       for (let i = 0; i < children.length; i++) {
         const sprite = children[i] as THREE.Sprite;
         _worldPos.copy(sprite.position);
         particleGroup.localToWorld(_worldPos);
         _worldPos.project(camera);
-        const depthOpacity = THREE.MathUtils.clamp(0.3 + (1 - _worldPos.z) * 0.5, 0.15, 1.0);
+        const depthOpacity = THREE.MathUtils.clamp(0.45 + (1 - _worldPos.z) * 0.6, 0.12, 1.0);
         (sprite.material as THREE.SpriteMaterial).opacity = depthOpacity;
       }
 
