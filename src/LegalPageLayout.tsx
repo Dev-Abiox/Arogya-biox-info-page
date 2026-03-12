@@ -47,7 +47,7 @@ const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
 
         <footer className="mt-12 pt-8 border-t border-gray-100 text-center">
           <p className="text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} Arogya BioX. All rights reserved.
+            Satani Research Centre @ {new Date().getFullYear()} Arogya BioX - All rights reserved
           </p>
         </footer>
       </main>
