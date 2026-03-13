@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="mt-8 md:mt-12 pt-4 md:pt-6 border-t border-white/10 flex flex-col items-center justify-center gap-4 px-6 md:px-12 lg:px-24 pb-0">
             {/* Text and Links (Center) */}
-            <div className="flex flex-wrap md:flex-nowrap justify-center items-center gap-x-4 gap-y-2 text-xs uppercase tracking-widest font-medium text-white/50 font-heading md:whitespace-nowrap text-center">
+            <div className="flex flex-wrap md:flex-nowrap justify-center items-center gap-x-4 gap-y-2 text-xs uppercase tracking-widest font-medium text-white/75 font-heading md:whitespace-nowrap text-center">
                 <span>Satani Research Centre @ {new Date().getFullYear()} Arogya BioX - All rights reserved</span>
 
                 {[
@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
                     { name: 'DPDP Act', href: '/dpdp-act' }
                 ].map((link) => (
                     <React.Fragment key={link.name}>
-                        <span className="hidden md:inline text-white/20">|</span>
+                        <span className="hidden md:inline text-white/50">|</span>
                         <a href={link.href} className="hover:text-blue-300 transition-colors uppercase py-1">
                             {link.name}
                         </a>

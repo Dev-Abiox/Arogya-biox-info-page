@@ -63,7 +63,7 @@ const ContactSection: React.FC = () => {
 
           <div className="space-y-4 md:space-y-12">
             <div className="group">
-              <span className="text-xs text-white/50 uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 block font-heading">Product & Partnerships</span>
+              <span className="text-xs text-white/75 uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 block font-heading">Product & Partnerships</span>
               <a href="mailto:contact@arogyabiox.com" className="text-xl md:text-4xl font-light text-white group-hover:text-blue-300 transition-colors duration-300 break-words leading-tight font-heading">
                 contact@arogyabiox.com
               </a>
@@ -77,7 +77,7 @@ const ContactSection: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
             <fieldset disabled={status === 'loading'} className="space-y-4 md:space-y-8">
               <div className="space-y-2">
-                <label htmlFor="contact-name" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
+                <label htmlFor="contact-name" className="text-xs text-white/75 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Full Name</label>
                 <input
                   id="contact-name"
                   type="text"
@@ -90,7 +90,7 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-email" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
+                <label htmlFor="contact-email" className="text-xs text-white/75 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Email Address</label>
                 <input
                   id="contact-email"
                   type="email"
@@ -103,7 +103,7 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-phone" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
+                <label htmlFor="contact-phone" className="text-xs text-white/75 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Contact Number</label>
                 <input
                   id="contact-phone"
                   type="tel"
@@ -118,7 +118,7 @@ const ContactSection: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-message" className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
+                <label htmlFor="contact-message" className="text-xs text-white/75 uppercase tracking-[0.2em] font-medium ml-1 font-heading">Message</label>
                 <textarea
                   id="contact-message"
                   required

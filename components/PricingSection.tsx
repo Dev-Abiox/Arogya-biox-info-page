@@ -21,7 +21,7 @@ const PricingSection: React.FC = () => {
               Laboratory Integrated
             </div>
 
-            <div className="text-label-1 font-bold tracking-widest uppercase text-white/60 mb-3 mt-8 md:mt-0 font-heading">Platform Access</div>
+            <div className="text-label-1 font-bold tracking-widest uppercase text-white/75 mb-3 mt-8 md:mt-0 font-heading">Platform Access</div>
             <h3 className="text-h2 font-light text-white mb-10 group-hover:text-blue-100 transition-colors font-heading">Integration Tier</h3>
 
             <ul className="space-y-6 mb-12">
@@ -73,7 +73,7 @@ const PricingSection: React.FC = () => {
         <div className="glass-effect p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/10 hover:bg-white/[0.04] hover:border-white/20 hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500 group">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-12">
             <div className="max-w-xl">
-              <span className="text-white/60 text-small-label font-bold uppercase tracking-widest mb-4 block font-heading">Trust & Governance</span>
+              <span className="text-white/75 text-small-label font-bold uppercase tracking-widest mb-4 block font-heading">Trust & Governance</span>
               <h3 className="text-h2 font-light mb-6 group-hover:text-white transition-colors font-heading">Designed for <span className="font-medium text-white">Trust</span></h3>
               <p className="text-body-2 md:text-body-1 font-light leading-relaxed mb-8 group-hover:text-white transition-colors font-body">
                 Clinomic Labs is built as a clinical decision support system. We prioritize transparency and security in every integration.

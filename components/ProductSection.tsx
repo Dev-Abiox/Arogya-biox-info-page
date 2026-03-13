@@ -153,7 +153,7 @@ const ProductSection: React.FC = () => {
           <div className="w-full">
             <div className="glass-effect p-5 md:p-8 lg:p-12 rounded-2xl md:rounded-[32px] lg:rounded-[40px] border border-white/20 relative overflow-hidden group hover:border-blue-400/30 hover:bg-white/[0.04] transition-colors duration-500">
               <div className="flex justify-between items-center mb-10">
-                <div className="text-xs uppercase tracking-widest font-bold text-white/60 font-heading">Sample Patient #8492</div>
+                <div className="text-xs uppercase tracking-widest font-bold text-white/75 font-heading">Sample Patient #8492</div>
                 <div className="flex gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
@@ -167,7 +167,7 @@ const ProductSection: React.FC = () => {
                 )}
 
                 <div className="md:h-auto md:overflow-visible md:pr-0" role="table" aria-label="Patient CBC Parameters">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3" role="rowgroup">
                     {patientData.map((row, idx) => (
                       <div
                         key={idx}
@@ -178,7 +178,7 @@ const ProductSection: React.FC = () => {
                       >
                         <span role="cell" className="text-xs text-white/80 group-hover:text-white transition-colors uppercase tracking-wider font-heading">{row.l}</span>
                         <span role="cell" className="text-xs font-mono text-white flex gap-2">
-                          {row.v} <span className="text-[10px] text-white/50">{row.u}</span>
+                          {row.v} <span className="text-[10px] text-white/75">{row.u}</span>
                         </span>
                       </div>
                     ))}
@@ -186,7 +186,7 @@ const ProductSection: React.FC = () => {
                   {!mobileExpanded && patientData.length > MOBILE_PREVIEW_COUNT && (
                     <button
                       onClick={() => setMobileExpanded(true)}
-                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-blue-300/70 hover:text-blue-300 transition-colors font-heading md:hidden"
+                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-blue-300 hover:text-blue-200 transition-colors font-heading md:hidden"
                       aria-label="Show all parameters"
                     >
                       <span>Show All {patientData.length} Parameters</span>
@@ -198,7 +198,7 @@ const ProductSection: React.FC = () => {
                   {mobileExpanded && patientData.length > MOBILE_PREVIEW_COUNT && (
                     <button
                       onClick={() => setMobileExpanded(false)}
-                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-white/40 hover:text-white/60 transition-colors font-heading md:hidden"
+                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-white/75 hover:text-white transition-colors font-heading md:hidden"
                       aria-label="Show fewer parameters"
                     >
                       <span>Show Less</span>
@@ -219,7 +219,7 @@ const ProductSection: React.FC = () => {
                       setScanResult(null);
                       setPatientData(generateRandomData());
                       setMobileExpanded(false);
-                    }} className="mt-6 text-xs uppercase tracking-widest font-bold text-white/40 hover:text-white transition-colors underline font-heading">Reset Scanner</button>
+                    }} className="mt-6 text-xs uppercase tracking-widest font-bold text-white/75 hover:text-white transition-colors underline font-heading">Reset Scanner</button>
                   </div>
                 ) : (
                   <button
@@ -230,7 +230,7 @@ const ProductSection: React.FC = () => {
                     {isScanning ? `Analyzing Pattern... ${Math.round(scanProgress)}%` : "Start Clinical Scan"}
                   </button>
                 )}
-                <p className="text-label-2 text-white/60 italic text-center mt-8 font-body">
+                <p className="text-label-2 text-white/75 italic text-center mt-8 font-body">
                   *This simulation demonstrates the logic behind the Clinomic Labs risk stratification engine using all 21 hematological variables.
                 </p>
               </div>
@@ -276,7 +276,7 @@ const ProductSection: React.FC = () => {
         </div>
 
         <div className="relative mb-32 reveal">
-          <h2 className="text-center text-white/60 text-small-label font-bold uppercase tracking-[0.4em] mb-16 font-heading">How Clinomic Labs Works</h2>
+          <h2 className="text-center text-white/75 text-small-label font-bold uppercase tracking-[0.4em] mb-16 font-heading">How Clinomic Labs Works</h2>
 
           <div className="relative max-w-6xl mx-auto">
             <div className="absolute top-[24px] lg:top-[28px] left-[10%] right-[10%] h-px hidden md:block pointer-events-none">
@@ -297,7 +297,7 @@ const ProductSection: React.FC = () => {
                   </div>
                   {i < workflowSteps.length - 1 && (
                     <div className="absolute top-[24px] lg:top-[28px] left-1/2 w-full hidden md:flex items-center justify-center -translate-y-1/2 pointer-events-none">
-                      <svg className="w-4 h-4 text-blue-400/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-blue-400/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -309,7 +309,7 @@ const ProductSection: React.FC = () => {
                       </svg>
                     </div>
                   )}
-                  <h4 className="text-xs font-bold mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:min-h-[2.5rem] flex items-center px-2 leading-tight font-heading">{step.label}</h4>
+                  <h3 className="text-xs font-bold mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase md:min-h-[2.5rem] flex items-center px-2 leading-tight font-heading">{step.label}</h3>
                   <p className="text-body-2 text-white/80 font-light leading-relaxed max-w-[200px] group-hover:text-white transition-colors font-body">{step.desc}</p>
                 </div>
               ))}
@@ -356,15 +356,15 @@ const ProductSection: React.FC = () => {
 
                 <div className="space-y-4 max-w-sm mx-auto w-full">
                   <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
-                    <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Phase</span>
+                    <span className="text-small-label uppercase tracking-widest font-bold text-white/80 font-heading">Phase</span>
                     <span className="text-body-2 md:text-body-1 text-blue-300 font-medium font-body">Research & Development</span>
                   </div>
                   <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 border-b border-white/10 group-hover:border-white/20 transition-colors">
-                    <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Primary Marker</span>
+                    <span className="text-small-label uppercase tracking-widest font-bold text-white/80 font-heading">Primary Marker</span>
                     <span className="text-body-2 md:text-body-1 text-white font-body">Ferritin & CBC Composite</span>
                   </div>
                   <div className="flex flex-col md:flex-row md:justify-between md:items-center items-start gap-1 py-3 group-hover:border-white/20 transition-colors">
-                    <span className="text-small-label uppercase tracking-widest font-bold text-white/70 font-heading">Integration</span>
+                    <span className="text-small-label uppercase tracking-widest font-bold text-white/80 font-heading">Integration</span>
                     <span className="text-body-2 md:text-body-1 text-white font-body">Standard Multi-Analyzer</span>
                   </div>
                 </div>
