@@ -50,10 +50,15 @@ const ProductSection: React.FC = () => {
     setPatientData(generateRandomData());
   }, [generateRandomData]);
 
+  const [mobileExpanded, setMobileExpanded] = useState(false);
+  const MOBILE_PREVIEW_COUNT = 8;
+
   const startSimulation = () => {
     setIsScanning(true);
     setScanProgress(0);
     setScanResult(null);
+    // Auto-expand on mobile when scan starts so all parameters are visible
+    setMobileExpanded(true);
   };
 
   const scanRafRef = useRef<number | undefined>(undefined);
@@ -161,10 +166,16 @@ const ProductSection: React.FC = () => {
                   <div className="scan-line" style={{ top: `${scanProgress}%` }}></div>
                 )}
 
-                <div className="h-[320px] overflow-y-auto pr-2 md:h-auto md:overflow-visible md:pr-0" role="table" aria-label="Patient CBC Parameters">
+                <div className="md:h-auto md:overflow-visible md:pr-0" role="table" aria-label="Patient CBC Parameters">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3">
                     {patientData.map((row, idx) => (
-                      <div key={idx} role="row" className="flex justify-between items-center py-2.5 border-b border-white/5 group-hover:border-white/10 transition-colors">
+                      <div
+                        key={idx}
+                        role="row"
+                        className={`flex justify-between items-center py-2.5 border-b border-white/5 group-hover:border-white/10 transition-colors ${
+                          !mobileExpanded && idx >= MOBILE_PREVIEW_COUNT ? 'hidden md:flex' : ''
+                        }`}
+                      >
                         <span role="cell" className="text-xs text-white/80 group-hover:text-white transition-colors uppercase tracking-wider font-heading">{row.l}</span>
                         <span role="cell" className="text-xs font-mono text-white flex gap-2">
                           {row.v} <span className="text-[10px] text-white/50">{row.u}</span>
@@ -172,6 +183,30 @@ const ProductSection: React.FC = () => {
                       </div>
                     ))}
                   </div>
+                  {!mobileExpanded && patientData.length > MOBILE_PREVIEW_COUNT && (
+                    <button
+                      onClick={() => setMobileExpanded(true)}
+                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-blue-300/70 hover:text-blue-300 transition-colors font-heading md:hidden"
+                      aria-label="Show all parameters"
+                    >
+                      <span>Show All {patientData.length} Parameters</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  )}
+                  {mobileExpanded && patientData.length > MOBILE_PREVIEW_COUNT && (
+                    <button
+                      onClick={() => setMobileExpanded(false)}
+                      className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-xs uppercase tracking-widest font-bold text-white/40 hover:text-white/60 transition-colors font-heading md:hidden"
+                      aria-label="Show fewer parameters"
+                    >
+                      <span>Show Less</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -183,6 +218,7 @@ const ProductSection: React.FC = () => {
                     <button onClick={() => {
                       setScanResult(null);
                       setPatientData(generateRandomData());
+                      setMobileExpanded(false);
                     }} className="mt-6 text-xs uppercase tracking-widest font-bold text-white/40 hover:text-white transition-colors underline font-heading">Reset Scanner</button>
                   </div>
                 ) : (
