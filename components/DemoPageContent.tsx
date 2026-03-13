@@ -27,7 +27,7 @@ const DemoPageContent: React.FC = () => {
                     </div>
 
                     <div className="glass-effect p-6 md:p-8 rounded-2xl md:rounded-[32px] border border-white/10 hover:border-blue-400/20 hover:-translate-y-1 transition-[border-color,transform] duration-500 mt-8 lg:mt-16">
-                        <h4 className="text-blue-300 text-label-2 font-bold uppercase tracking-widest mb-4 font-heading">How it interprets</h4>
+                        <h3 className="text-blue-300 text-label-2 font-bold uppercase tracking-widest mb-4 font-heading">How it interprets</h3>
                         <p className="text-body-2 md:text-body-1 text-white/80 font-light leading-relaxed mb-6 font-body">
                             Our engine doesn't just look for "high" or "low" numbers. It evaluates the <strong>morphological signature</strong> of blood cells across 21 standard parameters.
                         </p>
@@ -52,7 +52,7 @@ const DemoPageContent: React.FC = () => {
 
                 {/* How Clinomic Labs Works */}
                 <div className="relative animate-fade-in-up">
-                    <h3 className="text-center text-white/60 text-label-2 font-bold uppercase tracking-[0.4em] mb-12 font-heading md:mb-20">How Clinomic Labs Works</h3>
+                    <h2 className="text-center text-white/75 text-label-2 font-bold uppercase tracking-[0.4em] mb-12 font-heading md:mb-20">How Clinomic Labs Works</h2>
 
                     <div className="relative max-w-6xl mx-auto">
                         {/* Dashed Line */}
@@ -75,7 +75,7 @@ const DemoPageContent: React.FC = () => {
                                     {/* Arrow for MD screens */}
                                     {i < workflowSteps.length - 1 && (
                                         <div className="absolute top-[22px] md:top-[22px] lg:top-[24px] left-1/2 w-full hidden md:flex items-center justify-center -translate-y-1/2 pointer-events-none">
-                                            <svg className="w-4 h-4 text-blue-400/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="w-4 h-4 text-blue-400/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                                             </svg>
                                         </div>
@@ -88,7 +88,7 @@ const DemoPageContent: React.FC = () => {
                                             </svg>
                                         </div>
                                     )}
-                                    <h4 className="text-label-2 lg:text-body-2 font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase font-heading md:min-h-[2.5rem] flex items-center justify-center px-1 lg:px-4 leading-tight">{step.label}</h4>
+                                    <h3 className="text-label-2 lg:text-body-2 font-bold mb-2 md:mb-3 tracking-wide text-white group-hover:text-blue-300 transition-colors uppercase font-heading md:min-h-[2.5rem] flex items-center justify-center px-1 lg:px-4 leading-tight">{step.label}</h3>
                                     <p className="text-body-2 text-white/80 font-light leading-relaxed font-body max-w-[200px] md:max-w-[160px] lg:max-w-[180px] group-hover:text-white transition-colors">{step.desc}</p>
                                 </div>
                             ))}

@@ -63,12 +63,12 @@ const CompanyBackground: React.FC = () => {
               <div className="text-body-1 md:text-h3 font-bold text-blue-400 font-heading tracking-tight text-center self-end pb-1">B12</div>
               <div className="text-body-1 md:text-h3 font-bold text-white font-heading tracking-tight text-center self-end pb-1">Preventive Health</div>
               {/* Row 2: Labels */}
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PLATFORM</div>
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PRIMARY</div>
-              <div className="text-small-label md:text-label-2 text-white/50 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">(UPCOMING)</div>
+              <div className="text-small-label md:text-label-2 text-white/75 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PLATFORM</div>
+              <div className="text-small-label md:text-label-2 text-white/75 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">PRIMARY</div>
+              <div className="text-small-label md:text-label-2 text-white/75 font-bold uppercase tracking-[0.2em] font-heading text-center pt-1">(UPCOMING)</div>
             </div>
 
-            <p className="italic text-blue-300/60 text-label-2 font-medium text-center font-body mt-4">
+            <p className="italic text-blue-300/80 text-label-2 font-medium text-center font-body mt-4">
               "We design every product as a clinical decision support system, not a diagnostic replacement."
             </p>
           </div>

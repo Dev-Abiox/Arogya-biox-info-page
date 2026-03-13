@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
             </button>
           </div>
 
-          <p className="mt-12 text-small-label text-white/60 uppercase tracking-[0.3em] font-medium hidden md:block font-heading">
+          <p className="mt-12 text-small-label text-white/75 uppercase tracking-[0.3em] font-medium hidden md:block font-heading">
             Built for laboratories. Designed for clinicians.
           </p>
         </div>

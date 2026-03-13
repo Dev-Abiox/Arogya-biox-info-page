@@ -235,7 +235,7 @@ const DemoApp: React.FC = () => {
 
                                 <div className="space-y-3 pt-4">
                                     <label className="text-xs uppercase tracking-widest font-bold text-blue-300 ml-1 block">Select Session (IST)</label>
-                                    <p className="text-body-2 text-white/60 mb-2 ml-1 font-body">Select a time and we'll send you an invite.</p>
+                                    <p className="text-body-2 text-white/75 mb-2 ml-1 font-body">Select a time and we'll send you an invite.</p>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2" role="radiogroup" aria-label="Time slot selection">
                                         {TIME_SLOTS.map((slot) => (
                                             <button
@@ -246,7 +246,7 @@ const DemoApp: React.FC = () => {
                                                 onClick={() => { setSelectedSlot(slot); setFormError(null); }}
                                                 className={`text-xs py-3 px-3 rounded-full border transition-colors duration-300 ${selectedSlot === slot
                                                     ? 'bg-blue-500 text-white border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]'
-                                                    : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/30'
+                                                    : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/30'
                                                     }`}
                                             >
                                                 {slot}
@@ -270,8 +270,8 @@ const DemoApp: React.FC = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
                                 </div>
-                                <h3 className="text-h2 font-bold text-white mb-2 font-heading">Request Received!</h3>
-                                <p className="text-white/60 text-body-2 max-w-xs leading-relaxed mb-8 font-body">
+                                <h2 className="text-h2 font-bold text-white mb-2 font-heading">Request Received!</h2>
+                                <p className="text-white/75 text-body-2 max-w-xs leading-relaxed mb-8 font-body">
                                     We have logged your request for <span className="text-blue-300 font-medium">{selectedSlot}</span>. Our team will contact you at {formData.email} shortly.
                                 </p>
                                 <button
