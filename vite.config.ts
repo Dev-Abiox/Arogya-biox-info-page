@@ -38,6 +38,9 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/scheduler')) {
             return 'react-vendor';
           }
+          if (id.includes('node_modules/three')) {
+            return 'three-vendor';
+          }
         },
       },
     },

@@ -71,6 +71,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white selection:bg-blue-500/30 font-body" style={{ overflowX: 'clip' }}>
+      <a href="#hero" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-500 focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">Skip to content</a>
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: `url("${CARBON_FIBRE_URI}")` }}></div>
 
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">

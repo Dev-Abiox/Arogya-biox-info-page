@@ -34,6 +34,11 @@
 
   <!-- Resource Hints -->
   <link rel="dns-prefetch" href="https://api.resend.com">
+  <link rel="preconnect" href="https://generativelanguage.googleapis.com" crossorigin>
+  <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com">
+
+  <!-- LCP Preloads -->
+  <link rel="preload" as="image" type="image/webp" href="/arogya-logo-full.webp">
 
   <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -50,6 +55,25 @@
       "@type": "ContactPoint",
       "contactType": "Sales",
       "email": "contact@arogyabiox.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Clinomic Labs",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "Laboratory-integrated clinical intelligence platform enabling Vitamin B12 deficiency risk screening using routine CBC data.",
+    "offers": {
+      "@type": "Offer",
+      "category": "BioSaaS",
+      "availability": "https://schema.org/OnlineOnly"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Arogya BioX"
     }
   }
   </script>
