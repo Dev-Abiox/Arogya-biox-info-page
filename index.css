@@ -146,3 +146,23 @@ body {
   position: absolute;
   z-index: 50;
 }
+
+/* CSS containment for layout performance - isolates repaints per section */
+section {
+  contain: layout style;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-dash,
+  .pulse-glow {
+    animation: none;
+  }
+}
