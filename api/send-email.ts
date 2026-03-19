@@ -1,21 +1,112 @@
-import { createEmailHandler } from './_email-handler';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default createEmailHandler({
-  requiredFields: ['name', 'email', 'phone', 'message'],
-  fieldLengthRules: [
-    { field: 'name', maxLength: 200 },
-    { field: 'phone', maxLength: 15 },
-    { field: 'message', maxLength: 5000 },
-  ],
-  buildSubject: (escaped) => `New Inquiry from ${escaped.name}`,
-  buildHtml: (escaped) => `
-    <div>
-      <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${escaped.name}</p>
-      <p><strong>Email:</strong> ${escaped.email}</p>
-      <p><strong>Phone:</strong> ${escaped.phone}</p>
-      <p><strong>Message:</strong></p>
-      <p>${escaped.message}</p>
-    </div>
-  `,
-});
+function validateEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email) && email.length <= 254;
+}
+
+function escapeHtml(str: string): string {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(request: VercelRequest): boolean {
+  const ip =
+    (Array.isArray(request.headers['x-forwarded-for'])
+      ? request.headers['x-forwarded-for'][0]
+      : request.headers['x-forwarded-for']?.split(',')[0]?.trim()) ||
+    request.socket?.remoteAddress ||
+    'unknown';
+
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || entry.resetAt < now) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    return true;
+  }
+
+  entry.count++;
+  return entry.count <= 5;
+}
+
+export default async function handler(request: VercelRequest, response: VercelResponse) {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      return response.status(500).json({ error: 'Server configuration error' });
+    }
+
+    if (request.method !== 'POST') {
+      return response.status(405).json({ error: 'Method not allowed' });
+    }
+
+    if (!checkRateLimit(request)) {
+      return response.status(429).json({ error: 'Too many requests. Please try again later.' });
+    }
+
+    const body = request.body;
+
+    if (!body || typeof body !== 'object') {
+      return response.status(400).json({ error: 'Invalid request body' });
+    }
+
+    const { name, email, phone, message } = body;
+
+    if (!name || !email || !phone || !message) {
+      return response.status(400).json({ error: 'Missing required fields' });
+    }
+
+    if (!validateEmail(email)) {
+      return response.status(400).json({ error: 'Invalid email format' });
+    }
+
+    if (name.length > 200 || phone.length > 15 || message.length > 5000) {
+      return response.status(400).json({ error: 'Field length exceeds limit' });
+    }
+
+    const EMAIL_TO = process.env.EMAIL_TO || 'contact@arogyabiox.com';
+    const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+
+    const { Resend } = await import('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const escaped = {
+      name: escapeHtml(name),
+      email: escapeHtml(email),
+      phone: escapeHtml(phone),
+      message: escapeHtml(message),
+    };
+
+    const { error } = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: EMAIL_TO,
+      replyTo: email,
+      subject: `New Inquiry from ${escaped.name}`,
+      html: `
+        <div>
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${escaped.name}</p>
+          <p><strong>Email:</strong> ${escaped.email}</p>
+          <p><strong>Phone:</strong> ${escaped.phone}</p>
+          <p><strong>Message:</strong></p>
+          <p>${escaped.message}</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('Resend error:', error);
+      return response.status(500).json({ error: 'Failed to send email. Please try again.' });
+    }
+
+    return response.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Server error:', error);
+    return response.status(500).json({ error: 'Internal Server Error' });
+  }
+}
